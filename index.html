@@ -1,18 +1,48 @@
-<html>
 
-    <head>
-	    <title>Home</title>
-    </head>
+   <head>
 
-    <body>
-        <p>Hi.
-    How are you? Do you like handwritten stuff?</p>
+  <title>Home</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+
+<body class="body-page-dropzone">
+
+
+   
+
+  <header>
+
+    <h1 id="h1">Home</h1>
+    </header>
     
+
     <img src = "img/1.jpg" alt = "first letter a" height = "108" width = "192">
-<img src = "img/2.jpg" alt = "first letter a" height = "108" width = "192">
-<img src = "img/3.jpg" alt = "first letter a" height = "108" width = "192">
-<img src = "img/4.jpg" alt = "first letter a" height = "108" width = "192">
+    <img src = "img/2.jpg" alt = "first letter a" height = "108" width = "192">
+    <img src = "img/3.jpg" alt = "first letter a" height = "108" width = "192">
+    <img src = "img/4.jpg" alt = "first letter a" height = "108" width = "192">
+
+	<section class="application">
+	<input>
+		<form class="dropzone" id="compare">
+			<span>
+				
+			</span>
+			<input type="file" name="image" accept="image/*" title="Click to browse">
+		</form>
+	</input>
+	</section>
+	</body>
 
 
-
-</html>
+<!--<?php
+ if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], image1)) {
+        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+?>-->
