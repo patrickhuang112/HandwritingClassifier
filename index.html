@@ -17,19 +17,20 @@
     <h1 id="h1">Home</h1>
 	</header>
 	<input>
-		<form action="image1.png" method="post" enctype="multipart/form-data">
-			<input type="file" name="pic1" accept="image/*">
-			<input type="submit" value="Upload">
-			
+		<form class="dropzone" id="compare">
+			<span>
+				
+			</span>
+			<input type="file" name="image" accept="image/*" title="Click to browse">
 		</form>
 	</input>
 	</body>
 
 
-<?php
+<!--<?php
  if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], image1)) {
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
-?>
+?>-->
