@@ -1,4 +1,26 @@
+<?php
 
+if(isset($_POST['moveFile']))
+{
+	$fileName = $_FILES['fileName']['name'];
+	$tempName = $_FILES['fileName']['tmp_name'];
+
+	if(isset($fileName))
+	{
+		if(!empty($fileName))
+		{
+			$location = "imagetest";
+			if(move_uploaded_file($tempName, $location.$fileName))
+			{
+				echo 'File Uploaded';
+			}
+		}
+	}
+}
+
+?>
+
+<html>
    <head>
 
   <title>Home</title>
@@ -10,39 +32,15 @@
 
 </head>
 
-<body class="body-page-dropzone">
-
-
-   
+<body>
 
   <header>
 
     <h1 id="h1">Home</h1>
-    </header>
-    
-
-    <img src = "img/1.jpg" alt = "first letter a" height = "108" width = "192">
-    <img src = "img/2.jpg" alt = "first letter a" height = "108" width = "192">
-    <img src = "img/3.jpg" alt = "first letter a" height = "108" width = "192">
-    <img src = "img/4.jpg" alt = "first letter a" height = "108" width = "192">
-
-	<section class="application">
-	<input>
-		<form class="dropzone" id="compare">
-			<span>
-				
-			</span>
-			<input type="file" name="image" accept="image/*" title="Click to browse">
+	</header>
+		<form action="php_move_upload_file.php" method="post" enctype="multipart/form-data">
+			<input type="file" name="filename"><br><br>
+			<input type="submit" name="moveFile" value="Upload">
 		</form>
-	</input>
-	</section>
 	</body>
-
-
-<!--<?php
- if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], image1)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }
-?>-->
+</html>
