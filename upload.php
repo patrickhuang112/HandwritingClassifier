@@ -1,7 +1,21 @@
 <?php
- if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], image1)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }
+
+if(isset($_POST['moveFile']))
+{
+	$fileName = $_FILES['fileName']['name'];
+	$tempName = $_FILES['fileName']['tmp_name'];
+
+	if(isset($fileName))
+	{
+		if(!empty($fileName))
+		{
+			$location = "imagetest";
+			if(move_uploaded_file($tempName, $location.$fileName))
+			{
+				echo 'File Uploaded';
+			}
+		}
+	}
+}
+
 ?>
