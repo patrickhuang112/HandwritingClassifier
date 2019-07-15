@@ -52,11 +52,6 @@ mse_img2 = mse(img1, img2)
 ssim_img2 = ssim(img1, img2,
                   data_range=img2.max() - img2.min())
 
-if ssim_img2 >= 0.7:
-    print("They are a match", ssim_img2)
-else:
-    print("Not a match", ssim_img2)
-
 label = 'MSE: {:.2f}, SSIM: {:.2f}'
 
 ax[0].imshow(img1, cmap=plt.cm.gray, vmin=0, vmax=1)
