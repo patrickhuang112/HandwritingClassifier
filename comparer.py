@@ -19,17 +19,17 @@ def rgb2gray(rgb):
 
     return gray
 
-#Resize images to 500 X 500
-img1_name = "photos/1.jpg"
-img1 = Image.open(img1_name)
+#Resize images to 500 X 500 and convert to png
+img1_name = input("What is the first photo?> ")
+img1 = Image.open('photos/' + img1_name)
 img1= img1.resize((500, 500), PIL.Image.ANTIALIAS)
-new_name1 = img1_name[:-4] + 'R' + img1_name[-4:]
+new_name1 = img1_name[:-4] + 'R' + '.png'
 img1.save(new_name1)
 
-img2_name = "photos/2.jpg"
-img2 = Image.open(img2_name)
+img2_name = input("What is the second photo?> ")
+img2 = Image.open('photos/' + img2_name)
 img2= img2.resize((500, 500), PIL.Image.ANTIALIAS)
-new_name2 = img2_name[:-4] + 'R' + img2_name[-4:]
+new_name2 = img2_name[:-4] + 'R' + '.png'
 img2.save(new_name2)
 
 img1 = rgb2gray(mpimg.imread(new_name1))
