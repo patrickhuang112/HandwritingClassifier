@@ -3,8 +3,11 @@
 
 from tkinter import*
 
+import subprocess
+
 def run_comparison():
     print ("Success")
+    subprocess.call(["python", "ButtonTest.py"])
 
 window = Tk()
 
