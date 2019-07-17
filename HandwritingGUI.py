@@ -70,7 +70,7 @@ img2 = ImageTk.PhotoImage(Image.open(path2))
 panel2 = tk.Label(tab2, image = img2)
 panel2.grid(column=2, row=1)
 
-#window.mainloop()
+window.mainloop()
 
 
 
