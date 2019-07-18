@@ -34,7 +34,7 @@ def run():
     os.system("python3 predict.py --image {} --model {} --label-bin {} --width {} --height {} --flatten {}".format(ImagePath, Model, Label, Width, Height, str(Flat)))
     #subprocess.call(["python", "predict.py"])
     print (ImagePath, Model, Label, Width, Height, Flat)
-def preset1():
+def preset(num):
     print ("PReset")
     b2.delete(0,END)
     b1.delete(0,END)
@@ -42,7 +42,21 @@ def preset1():
     b4.delete(0,END)
     b5.delete(0,END)
     #Add text
-    b2.insert(0,"images/1.png") #also 60
+    b2.insert(0,"images/"+num+".png") 
+    b1.insert(0,"output/simple_nn.model")
+    b3.insert(0,"output/simple_nn_lb.pickle")
+    b4.insert(0,"32")
+    b5.insert(0,"32")
+    var1.set(1)
+def preset2():
+    print ("PReset")
+    b2.delete(0,END)
+    b1.delete(0,END)
+    b3.delete(0,END)
+    b4.delete(0,END)
+    b5.delete(0,END)
+    #Add text
+    b2.insert(0,"images/60.png") 
     b1.insert(0,"output/simple_nn.model")
     b3.insert(0,"output/simple_nn_lb.pickle")
     b4.insert(0,"32")
@@ -99,10 +113,12 @@ b5.grid(column=1, row=5)
 
 btnrun=tk.Button(tab0, text='Run Prediction', command=run, padx=9, pady=2)
 btnrun.grid(column=0, row=7, sticky=W)
-ex1=tk.Button(tab0, text='Set Example 1', command=preset1,padx=12, pady=2)
+ex1=tk.Button(tab0, text='Set Example 1', command=lambda:preset("1"),padx=12, pady=2)
 ex1.grid(column=0, row=8, sticky=W)
+ex2=tk.Button(tab0, text='Set Example 2', command=lambda:preset("60"),padx=12, pady=2)
+ex2.grid(column=0, row=9, sticky=W)
 btnc=tk.Button(tab0, text='Clear Entry Boxes', command=clear, padx=3, pady=2)
-btnc.grid(column=0, row=9, sticky=W)
+btnc.grid(column=0, row=10, sticky=W)
 
 
 #Tab 1
