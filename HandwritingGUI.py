@@ -25,11 +25,10 @@ def run_reader():
 def run():
     ImagePath = b2.get()
     Model = b1.get()
-    Label = b3.get()
     Width = b4.get()
     Height = b5.get()
     Flat = var1.get()
-    os.system("python3 predict.py --image {} --model {} --label-bin {} --width {} --height {} --flatten {}".format(ImagePath, Model, Label, Width, Height, str(Flat)))
+    os.system('python3 predict.py --image "{}" --model "{}" --width "{}" --height "{}" --flatten "{}"'.format(ImagePath, Model, Label, Width, Height, str(Flat)))
     #subprocess.call(["python", "predict.py"])
     print (ImagePath, Model, Label, Width, Height, Flat)
 def preset1():
