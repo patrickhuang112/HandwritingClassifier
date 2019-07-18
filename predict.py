@@ -54,7 +54,7 @@ preds = model.predict(image)
 # find the class label index with the largest corresponding
 # probability
 i = preds.argmax(axis=1)[0]
-label = ["true", "false"][i]
+label = ["false", "true"][i]
 
 # draw the class label + probability on the output image
 text = "{}: {:.2f}%".format(label, preds[0][i] * 100)
