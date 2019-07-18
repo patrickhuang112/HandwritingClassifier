@@ -29,7 +29,7 @@ def run():
     Width = b4.get()
     Height = b5.get()
     Flat = var1.get()
-    os.system("python predict.py --image {} --model {} --label-bin {} --width {} --height {} --flatten {}".format(ImagePath, Model, Label, Width, Height, str(Flat)))
+    os.system("python3 predict.py --image {} --model {} --label-bin {} --width {} --height {} --flatten {}".format(ImagePath, Model, Label, Width, Height, str(Flat)))
     #subprocess.call(["python", "predict.py"])
     print (ImagePath, Model, Label, Width, Height, Flat)
 def preset1():
