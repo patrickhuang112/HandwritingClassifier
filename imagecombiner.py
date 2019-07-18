@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image
 import PIL
 
-list_im = ['Test1.jpg', 'Test2.jpg']
+list_im = ['photos/1.jpg', 'photos/2.jpg']
 imgs    = [ PIL.Image.open(i) for i in list_im ]
 # pick the image which is the smallest, and resize the others to match it (can be arbitrary image shape here)
 min_shape = sorted( [(np.sum(i.size), i.size ) for i in imgs])[0][1]
