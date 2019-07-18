@@ -10,7 +10,7 @@ import numpy as np
 import PIL
 import os
 
-program = "what"
+#program = "what"
 
 #Runs programs when buttons are clicked
 def run_comparison():
@@ -21,14 +21,17 @@ def run_profiler():
     #subprocess.call(["python", "profiler program"])
 def run_reader():
     print ("Running Reader")
-    #subprocess.call(["python", "reader program"])
+    subprocess.call(["python", "text_from_image.py"])
+    tab3 = ttk.Frame(tabControl)
+    tabControl.add(tab3, text="Read Results")
 def run():
     ImagePath = b2.get()
     Model = b1.get()
+    Label = b3.get()
     Width = b4.get()
     Height = b5.get()
     Flat = var1.get()
-    os.system('python3 predict.py --image "{}" --model "{}" --width "{}" --height "{}" --flatten "{}"'.format(ImagePath, Model, Label, Width, Height, str(Flat)))
+    os.system("python3 predict.py --image {} --model {} --label-bin {} --width {} --height {} --flatten {}".format(ImagePath, Model, Label, Width, Height, str(Flat)))
     #subprocess.call(["python", "predict.py"])
     print (ImagePath, Model, Label, Width, Height, Flat)
 def preset1():
@@ -39,11 +42,11 @@ def preset1():
     b4.delete(0,END)
     b5.delete(0,END)
     #Add text
-    b2.insert(0,"ImagePath")
-    b1.insert(0,"Model")
-    b3.insert(0,"Label")
-    b4.insert(0,"Width")
-    b5.insert(0,"Flat")
+    b2.insert(0,"images/1.png") #also 60
+    b1.insert(0,"output/simple_nn.model")
+    b3.insert(0,"output/simple_nn_lb.pickle")
+    b4.insert(0,"32")
+    b5.insert(0,"32")
     var1.set(1)
 def clear():
     print ("Clear")
