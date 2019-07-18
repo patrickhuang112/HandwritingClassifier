@@ -14,7 +14,7 @@ ap.add_argument("-i", "--image", required=True,
 	help="path to input image we are going to classify")
 ap.add_argument("-m", "--model", required=True,
 	help="path to trained Keras model")
-ap.add_argument("-l", "--label-bin", required=False,
+ap.add_argument("-l", "--label-bin", required=True,
 	help="path to label binarizer")
 ap.add_argument("-w", "--width", type=int, default=28,
 	help="target spatial dimension width")
