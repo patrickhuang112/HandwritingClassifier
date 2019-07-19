@@ -14,7 +14,7 @@ ap.add_argument("-i", "--image", required=True,
 	help="path to input image we are going to classify")
 ap.add_argument("-m", "--model", required=True,
 	help="path to trained Keras model")
-ap.add_argument("-l", "--label-bin", required=True,
+ap.add_argument("-l", "--label-bin", required=False,
 	help="path to label binarizer")
 ap.add_argument("-w", "--width", type=int, default=28,
 	help="target spatial dimension width")
@@ -54,7 +54,7 @@ preds = model.predict(image)
 # find the class label index with the largest corresponding
 # probability
 i = preds.argmax(axis=1)[0]
-label = ["false", "true"][i]
+label = ["true", "false"][i]
 
 # draw the class label + probability on the output image
 text = "{}: {:.2f}%".format(label, preds[0][i] * 100)
