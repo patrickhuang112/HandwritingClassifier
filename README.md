@@ -1,2 +1,0 @@
-# HandwritingClassifier
-NWAPW Project
