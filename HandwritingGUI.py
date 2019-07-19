@@ -10,63 +10,52 @@ import numpy as np
 import PIL
 import os
 
-#program = "what"
-
 #Runs programs when buttons are clicked
 def run_comparison():
-    print ("Running Comparison")
-    #subprocess.call(["python", "-----.py"])
+    print ("Running Find Word")
+    subprocess.call(["python", "handwriting_word_search.py"])
 def run_profiler():
-    print ("Running Profiler")
-    #subprocess.call(["python", "profiler program"])
+    print ("Running Reader")
+    subprocess.call(["python", "Blah.py"])
 def run_reader():
     print ("Running Reader")
-    subprocess.call(["python", "text_from_image.py"])
-    tab3 = ttk.Frame(tabControl)
-    tabControl.add(tab3, text="Read Results")
+    #subprocess.call(["python", "text_from_image.py"])
+    path = r1.get()
+    os.system("python text_from_image.py --toReader {}".format(path))
+    print (path)
 def run():
     ImagePath = b2.get()
     Model = b1.get()
-    Label = b3.get()
     Width = b4.get()
     Height = b5.get()
     Flat = var1.get()
-    os.system("python3 predict.py --image {} --model {} --label-bin {} --width {} --height {} --flatten {}".format(ImagePath, Model, Label, Width, Height, str(Flat)))
-    #subprocess.call(["python", "predict.py"])
-    print (ImagePath, Model, Label, Width, Height, Flat)
+    os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat)))
+    print (ImagePath, Model, Width, Height, Flat)
+def runWF():
+    ImageWF = e1.get()
+    Target = e2.get()
+    os.system("python handwriting_word_search.py --image {} --target {}".format(ImageWF, Target))
 def preset(num):
     print ("PReset")
     b2.delete(0,END)
     b1.delete(0,END)
-    b3.delete(0,END)
     b4.delete(0,END)
     b5.delete(0,END)
     #Add text
     b2.insert(0,"images/"+num+".png") 
     b1.insert(0,"output/simple_nn.model")
-    b3.insert(0,"output/simple_nn_lb.pickle")
     b4.insert(0,"32")
     b5.insert(0,"32")
     var1.set(1)
-def preset2():
-    print ("PReset")
-    b2.delete(0,END)
-    b1.delete(0,END)
-    b3.delete(0,END)
-    b4.delete(0,END)
-    b5.delete(0,END)
-    #Add text
-    b2.insert(0,"images/60.png") 
-    b1.insert(0,"output/simple_nn.model")
-    b3.insert(0,"output/simple_nn_lb.pickle")
-    b4.insert(0,"32")
-    b5.insert(0,"32")
-    var1.set(1)
+def findEX():
+    print ("findEX")
+def clearWF():
+    e1.delete(0,END)
+    e2.delete(0,END)
 def clear():
     print ("Clear")
     b2.delete(0,END)
     b1.delete(0,END)
-    b3.delete(0,END)
     b4.delete(0,END)
     b5.delete(0,END)
     var1.set(0)
@@ -88,13 +77,14 @@ tab1 = ttk.Frame(tabControl)
 tabControl.add(tab1, text='Programs')
 tab2 = ttk.Frame(tabControl)
 tabControl.add(tab2, text="Results")
+tab3 = ttk.Frame(tabControl)
+tabControl.add(tab3, text="Word Find")
 tabControl.pack(expand=1, fill="both")
 
 #Tab0
 tk.Label(tab0, text="Enter Information to Run Prediction", font=("Arial Bold", 10)).grid(column=0,row=0, sticky=W)
 tk.Label(tab0, text="Image Path").grid(column=0, row=1, sticky=W)
 tk.Label(tab0, text="Model").grid(column=0, row=2,sticky=W)
-tk.Label(tab0, text="Path to Label Binarizar").grid(column=0, row=3, sticky=W)
 tk.Label(tab0, text="Width").grid(column=0, row=4, sticky=W)
 tk.Label(tab0, text="Height").grid(column=0, row=5, sticky=W)
 var1 = IntVar()
@@ -104,8 +94,6 @@ b2 = tk.Entry(tab0)
 b2.grid(column=1, row=1)
 b1 = tk.Entry(tab0)
 b1.grid(column=1, row=2)
-b3 = tk.Entry(tab0)
-b3.grid(column=1, row=3)
 b4 = tk.Entry(tab0)
 b4.grid(column=1, row=4)
 b5 = tk.Entry(tab0)
@@ -113,9 +101,9 @@ b5.grid(column=1, row=5)
 
 btnrun=tk.Button(tab0, text='Run Prediction', command=run, padx=9, pady=2)
 btnrun.grid(column=0, row=7, sticky=W)
-ex1=tk.Button(tab0, text='Set Example 1', command=lambda:preset("trueEX"),padx=12, pady=2)
+ex1=tk.Button(tab0, text='Set Example 1', command=lambda:preset("1"),padx=12, pady=2)
 ex1.grid(column=0, row=8, sticky=W)
-ex2=tk.Button(tab0, text='Set Example 2', command=lambda:preset("falseEX"),padx=12, pady=2)
+ex2=tk.Button(tab0, text='Set Example 2', command=lambda:preset("60"),padx=12, pady=2)
 ex2.grid(column=0, row=9, sticky=W)
 btnc=tk.Button(tab0, text='Clear Entry Boxes', command=clear, padx=3, pady=2)
 btnc.grid(column=0, row=10, sticky=W)
@@ -125,14 +113,19 @@ btnc.grid(column=0, row=10, sticky=W)
 lbl = tk.Label(tab1, text="Handwriting Tools", font=("Arial Bold", 20), padx=25, pady=5)
 lbl.grid(columnspan=3, row=0)
 
-btn1 = tk.Button(tab1, text="Run Comparison", padx=30, pady=5, command=run_comparison)
+btn1 = tk.Button(tab1, text="Run Find Word", padx=30, pady=5, command=run_comparison)
 btn1.grid(column=0, row=1)
 
-btn2 = tk.Button(tab1, text=("Run Profiler"), padx=40, pady=5, command=run_profiler)
+btn2 = tk.Button(tab1, text=("Run Reader(1)"), padx=40, pady=5, command=run_profiler)
 btn2.grid(column=1, row=1)
 
 btn3 = tk.Button(tab1, text=("Run Reader"), padx=38, pady=5, command=run_reader)
 btn3.grid(column=2, row=1)
+
+tk.Label(tab1, text="Image Path").grid(column=2, row=2)
+
+r1 = tk.Entry(tab1)
+r1.grid(column=2, row=3)
 
 #Tab 2
 title = tk.Label(tab2, text="Example Images", font=("Arial Bold", 20), padx=118, pady=5)
@@ -155,6 +148,24 @@ img2 = ImageTk.PhotoImage(Image.open(path2))
 
 panel2 = tk.Label(tab2, image = img2)
 panel2.grid(column=2, row=1)
+
+#Tab3
+tk.Label(tab3, text="Enter Information to Run Prediction", font=("Arial Bold", 10)).grid(column=0,row=0, sticky=W)
+tk.Label(tab3, text="Image Path").grid(column=0, row=1, sticky=W)
+tk.Label(tab3, text="Target Word").grid(column=0, row=2, sticky=W)
+
+e1 = tk.Entry(tab3)
+e1.grid(column=1, row=1)
+e2 = tk.Entry(tab3)
+e2.grid(column=1, row=2)
+
+
+btnrun=tk.Button(tab3, text='Run Word Find', command=runWF, padx=9, pady=2)
+btnrun.grid(column=0, row=3, sticky=W)
+ex1=tk.Button(tab3, text='Set Example 1', command=findEX,padx=12, pady=2)
+ex1.grid(column=0, row=4, sticky=W)
+btnc=tk.Button(tab3, text='Clear Entry Boxes', command=clearWF, padx=3, pady=2)
+btnc.grid(column=0, row=5, sticky=W)
 
 window.mainloop()
 
