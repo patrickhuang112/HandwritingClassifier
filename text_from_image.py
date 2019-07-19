@@ -5,20 +5,18 @@ import pytesseract
 import tkinter as tk
 import argparse
  
-# Include tesseract executable in your path
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-
 #argument parser
 ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--toReader", required=True,
-                help="path to image")
+ap.add_argument("-i", "--toReader", required=True, help="path to image")
 args = vars(ap.parse_args())
+
+# Include tesseract executable in your path
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 # Create an image object of PIL library
 image = Image.open(args["toReader"])
  
 # pass image into pytesseract module
-# pytesseract is trained in many languages
 image_to_text = pytesseract.image_to_string(image, lang='eng')
 
 display = tk.Tk()
