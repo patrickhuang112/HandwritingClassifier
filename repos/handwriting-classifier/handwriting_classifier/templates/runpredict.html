@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>{{ title }}</h2>
+<h3>{{ message }}</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Comparison</h2>
+        <p>
+            Compare two images to determine whether or not they have text written by the same person.
+        </p>
+        <p><a class="btn btn-default" href="/results"> &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Profiler</h2>
+        <p>DESCRIPTION</p>
+        <p><a class="btn btn-default" href="https://pypi.python.org/pypi">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Reader</h2>
+        <p>DESCRIPTION</p>
+        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
+    </div>
+</div>
+
+{% endblock %}
