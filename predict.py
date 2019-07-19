@@ -58,9 +58,12 @@ label = ["false", "true"][i]
 
 # draw the class label + probability on the output image
 text = "{}: {:.2f}%".format(label, preds[0][i] * 100)
-cv2.putText(output, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7,
+if label == "false":
+    cv2.putText(output, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
 	(0, 0, 255), 2)
-
+else:
+    cv2.putText(output, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+        (0, 255, 0), 2)
 # show the output image
 cv2.imshow("Image", output)
 cv2.waitKey(0)
