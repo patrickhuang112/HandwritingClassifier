@@ -52,7 +52,7 @@ for imagePath in imagePaths:
 	# spatial dimensions of SmallVGGNet), and store the image in the
 	# data list
 	image = cv2.imread(imagePath)
-	image = cv2.resize(image, (32, 32))
+	image = cv2.resize(image, (128, 16))
 	data.append(image)
 
 	# extract the class label from the image path and update the
@@ -74,31 +74,28 @@ labels = np.array(labels)
 # instead as the scikit-learn's LabelBinarizer will not return a
 # vector)
 
-
 # lb = LabelBinarizer()
 # trainY = lb.fit_transform(trainY)
 # testY = lb.transform(testY)
 
 le = LabelEncoder()
+ohe = OneHotEncoder(sparse=False)
 integer_encoded = le.fit_transform(trainY)
+integer_encoded = integer_encoded.reshape(len(integer_encoded), 1)
+trainY = ohe.fit_transform(integer_encoded)
 
-trainY = to_categorical(integer_encoded)
+integer_encoded = le.fit_transform(testY)
+integer_encoded = integer_encoded.reshape(len(integer_encoded), 1)
+testY = ohe.fit_transform(integer_encoded)
+#trainY = to_categorical(integer_encoded)
 
-integer_encoded2 = le.fit_transform(testY)
+#integer_encoded2 = le.fit_transform(testY)
 
-testY = to_categorical(integer_encoded2)
+#testY = to_categorical(integer_encoded2)
 
 #integer encode
 
 # binary encode
-# ohe = OneHotEncoder(sparse=False)
-# integer_encoded = integer_encoded.reshape(len(integer_encoded), 1)
-# trainY = ohe.fit_transform(integer_encoded)
-
-# integer_encoded = le.fit_transform(testY)
-# integer_encoded = integer_encoded.reshape(len(integer_encoded), 1)
-# testY = ohe.fit_transform(integer_encoded)
-
 
 # construct the image generator for data augmentation
 aug = ImageDataGenerator(rotation_range=30, width_shift_range=0.1,
@@ -106,13 +103,13 @@ aug = ImageDataGenerator(rotation_range=30, width_shift_range=0.1,
 	horizontal_flip=True, fill_mode="nearest")
 
 # initialize our VGG-like Convolutional Neural Network
-model = SmallVGGNet.build(width=32, height=32, depth=3,
+model = SmallVGGNet.build(width=128, height=16, depth=3,
 	classes=2)
 
 # initialize our initial learning rate, # of epochs to train for,
 # and batch size
 INIT_LR = 0.01
-EPOCHS = 25
+EPOCHS = 50
 BS = 32
 
 # initialize the model and optimizer (you'll want to use
@@ -133,24 +130,23 @@ predictions = model.predict(testX, batch_size=32)
 print(classification_report(testY.argmax(axis=1),
 	predictions.argmax(axis=1), target_names=['true', 'false']))
 
-# plot the training loss and accuracy
-N = np.arange(0, EPOCHS)
-plt.style.use("ggplot")
-plt.figure()
-plt.plot(N, H.history["loss"], label="train_loss")
-plt.plot(N, H.history["val_loss"], label="val_loss")
-plt.plot(N, H.history["acc"], label="train_acc")
-plt.plot(N, H.history["val_acc"], label="val_acc")
-plt.title("Training Loss and Accuracy (SmallVGGNet)")
-plt.xlabel("Epoch #")
-plt.ylabel("Loss/Accuracy")
-plt.legend()
-plt.savefig(args["plot"])
+# # plot the training loss and accuracy
+# N = np.arange(0, EPOCHS)
+# plt.style.use("ggplot")
+# plt.figure()
+# plt.plot(N, H.history["loss"], label="train_loss")
+# plt.plot(N, H.history["val_loss"], label="val_loss")
+# plt.plot(N, H.history["acc"], label="train_acc")
+# plt.plot(N, H.history["val_acc"], label="val_acc")
+# plt.title("Training Loss and Accuracy (SmallVGGNet)")
+# plt.xlabel("Epoch #")
+# plt.ylabel("Loss/Accuracy")
+# plt.legend()
+# plt.savefig(args["plot"])
 
 # save the model and label binarizer to disk
 print("[INFO] serializing network and label binarizer...")
 model.save(args["model"])
-
 
 #f = open(args["label_bin"], "wb")
 #f.write(pickle.dumps(lb))

@@ -65,3 +65,7 @@ cv2.putText(output, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7,
 # show the output image
 cv2.imshow("Image", output)
 cv2.waitKey(0)
+
+
+
+#https://www.pyimagesearch.com/2018/09/10/keras-tutorial-how-to-get-started-with-keras-deep-learning-and-python/
