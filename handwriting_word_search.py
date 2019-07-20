@@ -1,15 +1,23 @@
 #Handwritten Word Search using pytesseract
 
 # Import modules
-from PIL import Image
+from PIL import Image, ImageTk
+import PIL
 import pytesseract
-tkinter
+import tkinter as tk
+import argparse
+
+#Argument Parser
+ap = argparse.ArgumentParser()
+ap.add_argument("-i","--image", required=True, help="path to input image")
+ap.add_argument("-t", "--target", required=True, help="the word the program will search for")
+args = vars(ap.parse_args())
  
 # Include tesseract executable in your path
-pytesseract.pytesseract.tesseract_cmd = r"C:\Users\galbraithja\AppData\Local\Tesseract-OCR\tesseract.exe"
- 
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 # Create an image object of PIL library
-image = Image.open('TESTimage.gif')
+image = Image.open(args["image"])
+target = args["target"]
  
 # pass image into pytesseract module
 # pytesseract is trained in many languages
@@ -23,10 +31,29 @@ count = 0
 for word in words:
    lowerword = word.casefold()
    #print(lowerword) 
-   if lowerword == "and":
+   if lowerword == target:
        count += 1
 if count == 1:
-    print("'and' occurs 1 time.")
+    print(target, "occurs 1 time.")
+    output = "'" + target + "'" + " occurs 1 time."
 else:
-    print("'and' occurs", count, "time(s)!")
+    print(target, "occurs", count, "times.")
+    output = "'" + target + "'" + " occurs " + str(count) + " times."
+
+#Display results in new window
+display = tk.Tk()
+display.title("Find Word")
+
+result = tk.Label(display, text=output, padx=5, pady=5)
+result.grid(column=0, row=0)
+
+#Image 1
+image = image.resize((200, 200), PIL.Image.ANTIALIAS)
+image.save(args["image"])
+image = ImageTk.PhotoImage(Image.open(args["image"]))
+
+panel = tk.Label(display, image = image)
+panel.grid(column=1, row=0)
+
+display.mainloop()
 

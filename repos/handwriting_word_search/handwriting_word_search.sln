@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "handwriting_word_search", "handwriting_word_search\handwriting_word_search.pyproj", "{7C0068EF-FDD4-4D2D-9BCF-30C8FCC62F29}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C0068EF-FDD4-4D2D-9BCF-30C8FCC62F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C0068EF-FDD4-4D2D-9BCF-30C8FCC62F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {343ABE36-59DB-4618-AE85-870BB7FB1792}
+	EndGlobalSection
+EndGlobal
