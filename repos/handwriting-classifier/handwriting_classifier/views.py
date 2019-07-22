@@ -33,7 +33,7 @@ def results():
 @app.route('/runpredict')
 def runpredict():
     """Renders the contact page."""
-    subprocess.call(["python", r"../../predict.py"])
+    subprocess.call(["python3", r"../../predict.py"])
 
     return render_template(
         'runpredict.html',
@@ -46,7 +46,7 @@ def runpredict():
 def run():
     if request.method == "POST":
         if request.form['submit'] == 'run':
-            subprocess.call(["python", "../../HandwritingGUI.py"])
+            subprocess.call(["python3", "../../HandwritingGUI.py"])
         return render_template('runpredict.html')
     else:
         return render_template('results.html')
