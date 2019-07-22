@@ -70,6 +70,15 @@ def clear():
     var1.set(0)
 def clearR():
     r1.delete(0,END)
+def clearC():
+    c1.delete(0,END)
+    c2.delete(0,END)
+    c3.delete(0,END)
+def combine():
+    img1 = c1.get()
+    img2 = c2.get()
+    name = c3.get()
+    os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
 
 #Creates Window
 window = tk.Tk()
@@ -92,6 +101,8 @@ tab3 = ttk.Frame(tabControl)
 tabControl.add(tab3, text="Word Find")
 tab4 = ttk.Frame(tabControl)
 tabControl.add(tab4, text='Reader')
+tab5 = ttk.Frame(tabControl)
+tabControl.add(tab5, text='Combine Images')
 tabControl.pack(expand=1, fill="both")
 
 #Tab0
@@ -188,6 +199,25 @@ tk.Label(tab4, text="Image Path").grid(column=0, row=1, sticky=W)
 
 r1 = tk.Entry(tab4)
 r1.grid(column=1, row=1)
+
+#Tab5
+tk.Label(tab5, text='Enter Image Paths to Run Combiner', font=('Arial Bold', 10)).grid(column=0, row=0, sticky=W)
+runbtn = tk.Button(tab5, text='Combine Images', padx=3, pady=2, command=combine)
+runbtn.grid(column=0, row=4, sticky=W)
+clrbtn = tk.Button(tab5, text='Clear Boxes', padx=18, pady=2, command=clearC)
+clrbtn.grid(column=0, row=5, sticky=W)
+
+tk.Label(tab5, text="First Image Path").grid(column=0, row=1, sticky=W)
+tk.Label(tab5, text="Second Image Path").grid(column=0, row=2, sticky=W)
+tk.Label(tab5, text="Result Name").grid(column=0, row=3, sticky=W)
+
+c1 = tk.Entry(tab5)
+c1.grid(column=1, row=1)
+c2 = tk.Entry(tab5)
+c2.grid(column=1, row=2)
+c3 = tk.Entry(tab5)
+c3.grid(column=1, row=3)
+c3.insert(0,"finalimage")
 
 window.mainloop()
 
