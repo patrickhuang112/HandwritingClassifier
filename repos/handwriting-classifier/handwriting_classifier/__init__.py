@@ -7,3 +7,5 @@ app = Flask(__name__)
 
 import handwriting_classifier.views
 
+
+
