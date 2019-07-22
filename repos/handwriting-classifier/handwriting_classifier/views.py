@@ -53,7 +53,7 @@ def runpredict():
         message='My attempt at running the neural network algorithm. Yeet!'
     )
 	
-	@app.route('/run', methods=['GET', 'POST'])
+@app.route('/run', methods=['GET', 'POST'])
 def run():
     if request.method == "POST":
         if request.form['submit'] == 'run':
