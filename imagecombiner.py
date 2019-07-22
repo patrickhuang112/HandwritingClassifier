@@ -20,3 +20,6 @@ imgs_comb = np.hstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
 # save that beautiful picture
 imgs_comb = PIL.Image.fromarray( imgs_comb)
 imgs_comb.save(args["output_name"] + ".jpg")    
+img = Image.open(args['output_name'] + '.jpg')
+img = img.resize((32, 32))
+img.save(args['output_name'] + '.jpg')
