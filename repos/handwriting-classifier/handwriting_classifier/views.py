@@ -7,6 +7,8 @@ from flask import render_template
 from handwriting_classifier import app
 import subprocess
 import sys
+import os
+from flask import request
 
 @app.route('/')
 @app.route('/programs')
@@ -50,4 +52,13 @@ def runpredict():
         year=datetime.now().year,
         message='My attempt at running the neural network algorithm. Yeet!'
     )
+	
+	@app.route('/run', methods=['GET', 'POST'])
+def run():
+    if request.method == "POST":
+        if request.form['submit'] == 'run':
+            subprocess.call(["python", r"C:\Users\galbraithja\HandwritingClassifier\HandwritingGUI.py"])
+        return render_template('runpredict.html')
+    else:
+        return render_template('results.html')
 
