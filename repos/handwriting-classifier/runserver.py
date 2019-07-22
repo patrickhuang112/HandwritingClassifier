@@ -27,8 +27,5 @@ if __name__ == '__main__':
     else:
         print(sys.platform)
     
-    with open("handwriting_classifier/userid.txt", "w+") as f:
-        f.write(str(args["id"]))
-
     app.run(HOST, PORT)
 
