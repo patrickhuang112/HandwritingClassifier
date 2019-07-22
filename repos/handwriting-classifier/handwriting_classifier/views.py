@@ -11,8 +11,6 @@ import os
 from flask import request
 
 
-user_id = open("handwriting_classifier/userid.txt").read()
-
 @app.route('/')
 @app.route('/programs')
 def programs():
