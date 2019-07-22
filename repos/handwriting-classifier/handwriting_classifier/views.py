@@ -10,6 +10,9 @@ import sys
 import os
 from flask import request
 
+
+user_id = open("handwriting_classifier/userid.txt").read()
+
 @app.route('/')
 @app.route('/programs')
 def programs():
@@ -32,7 +35,6 @@ def results():
 @app.route('/runpredict')
 def runpredict():
     """Renders the contact page."""
-    user_id = open("handwriting_classifier/userid.txt").read()
     if user_id == '1':
         subprocess.call(["python", r"C:\Users\galbraithja\AppData\Local\Programs\Python\Python37-32\predict.py"])
     elif user_id == '2':
@@ -57,7 +59,7 @@ def runpredict():
 def run():
     if request.method == "POST":
         if request.form['submit'] == 'run':
-            subprocess.call(["python", r"C:\Users\galbraithja\HandwritingClassifier\HandwritingGUI.py"])
+            subprocess.call(["python", "../../HandwritingGUI.py"])
         return render_template('runpredict.html')
     else:
         return render_template('results.html')
