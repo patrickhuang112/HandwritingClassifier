@@ -30,7 +30,7 @@ def results():
 @app.route('/runpredict')
 def runpredict():
     """Renders the contact page."""
-    user_id = open("userid.txt").read()
+    user_id = open("handwriting_classifier/userid.txt").read()
     if user_id == '1':
         subprocess.call(["python", r"C:\Users\galbraithja\AppData\Local\Programs\Python\Python37-32\predict.py"])
     elif user_id == '2':

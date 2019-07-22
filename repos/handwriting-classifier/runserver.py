@@ -21,11 +21,11 @@ if __name__ == '__main__':
     except ValueError:
         PORT = 5555
     if sys.platform == "darwin":
-        system("rm userid.txt")
+        system("rm handwriting_classifier/userid.txt")
     elif sys.platform == "win32":
-        system("del userid.txt")
+        system("del handwriting_classifier/userid.txt")
     
-    with open("handwriting_classifier/userid.txt", "wb") as f:
+    with open("handwriting_classifier/userid.txt", "w+") as f:
         f.write(str(args["id"]))
 
     app.run(HOST, PORT)
