@@ -53,11 +53,11 @@ def runpredict():
         message='My attempt at running the neural network algorithm. Yeet!'
     )
 	
-	@app.route('/run', methods=['GET', 'POST'])
+@app.route('/run', methods=['GET', 'POST'])
 def run():
     if request.method == "POST":
         if request.form['submit'] == 'run':
-            subprocess.call(["python", r"C:\Users\galbraithja\HandwritingClassifier\HandwritingGUI.py"])
+            subprocess.call(["python", "\..\..\HandwritingClassifier\HandwritingGUI.py"])
         return render_template('runpredict.html')
     else:
         return render_template('results.html')

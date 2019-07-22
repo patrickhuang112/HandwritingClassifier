@@ -24,6 +24,8 @@ if __name__ == '__main__':
         system("rm handwriting_classifier/userid.txt")
     elif sys.platform == "win32":
         system("del handwriting_classifier/userid.txt")
+    else:
+        print(sys.platform)
     
     with open("handwriting_classifier/userid.txt", "w+") as f:
         f.write(str(args["id"]))
