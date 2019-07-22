@@ -33,7 +33,7 @@ def runpredict():
     if sys.platform == "win32":
         subprocess.call(["python", r"C:\Users\galbraithja\AppData\Local\Programs\Python\Python37-32\predict.py"])
     elif sys.platform == "darwin":
-        subprocess.call(["python", r"/Users/griffinwalraven/programming/NWAPW/handwriting classifier/HandwritingClassifier/predict.py"])
+        subprocess.call(["python3", r"/Users/griffinwalraven/programming/NWAPW/handwriting classifier/HandwritingClassifier/predict.py"])
     return render_template(
         'runpredict.html',
         title='Run Predict.py',
