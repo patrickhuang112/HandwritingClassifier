@@ -3,12 +3,17 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template
+from flask import render_template, redirect
 from handwriting_classifier import app
 import subprocess
 import sys
 import os
 from flask import request
+
+
+win = False
+if sys.platform == "win32":
+    win = True
 
 @app.route('/')
 @app.route('/home')
@@ -33,9 +38,24 @@ def about():
 def predict():
     """Renders the contact page."""
     #user_id = open("handwriting_classifier/userid.txt").read()
-    #if request.method == "POST":
+    if request.method == "POST":
+        if request.form['predictsubmit'] == 'Run':
+            ImagePath = request.form['imagepath']
+            Model = request.form['model']
+            Width = request.form['width']
+            Height = request.form['height']
+            Flat = request.form['flat']
+            os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
+
+        elif request.form['combinersubmit'] == 'Run':
+            img1 = request.form['firstpath']
+            img2 = request.form['secondpath']
+            name = request.form['resultname']
+            os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
+
       #  if request.form['predictsubmit'] == 'run':
        #     os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(imagepath, model, width, height, str(flat)))
+    
     """if sys.platform.startswith('linix'):
         subprocess.call(["python3", "predict.py"])
     elif sys.platform == 'darwin':
@@ -43,12 +63,6 @@ def predict():
     else:
         subprocess.call(["python", "predict.py"])"""
 
-    ImagePath = "images/falseEX.png"
-    Model = "output/simple_nn2.model"
-    Width = "32"
-    Height = "32"
-    Flat = "1"
-    os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
     
     return render_template(
         'predict.html',
@@ -57,7 +71,7 @@ def predict():
         message='This program will compare two handwriting images and output whether or not they were written by the same person.'
     )
 	
-@app.route('/reader')
+@app.route('/reader', methods=['GET', 'POST'])
 def reader():
     """Renders the contact page."""
     return render_template(
@@ -69,24 +83,12 @@ def reader():
 	
 @app.route('/run', methods=['GET', 'POST'])
 def run():
-    if request.method == "POST":
-        if request.form['submit'] == 'run':
-            if sys.platform.startswith('linix'):
-                subprocess.call(["python3", "HandwritingGUI.py"])
-            elif sys.platform == 'darwin':
-                subprocess.call(["python3", "HandwritingGUI.py"])
-            else:
-                subprocess.call(["python", "HandwritingGUI.py"])
-                    
-        return render_template('predict.html')
+    if sys.platform.startswith('linux'):
+        subprocess.call(["python3", "HandwritingGUI.py"])
+    elif sys.platform == 'darwin':
+        subprocess.call(["python3", "HandwritingGUI.py"])
     else:
-        return render_template('reader.html')
+        subprocess.call(["python", "HandwritingGUI.py"])
+                    
+    return redirect('/')
 
-"""SHHHHHHHHHHHHH"""
-@app.route('/game')
-def game():
-        return render_template('game.html')
-
-@app.route('/tetris')
-def tetris():
-        return render_template('tetris.html')
