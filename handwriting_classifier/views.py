@@ -45,7 +45,7 @@ def predict():
             Width = request.form['width']
             Height = request.form['height']
             Flat = request.form['flat']
-            os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat)))
+            os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat)))
 
         elif request.form['combinersubmit'] == 'Run':
             img1 = request.form['firstpath']
