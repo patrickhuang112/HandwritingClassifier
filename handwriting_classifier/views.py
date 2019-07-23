@@ -29,23 +29,33 @@ def about():
         year=datetime.now().year,
         message='Displays results of the calculation.'
     )
-@app.route('/predict')
+@app.route('/predict', methods=['GET', 'POST'])
 def predict():
     """Renders the contact page."""
     #user_id = open("handwriting_classifier/userid.txt").read()
-    if sys.platform.startswith('linux'):
-        print("Your os is linux")
+    #if request.method == "POST":
+      #  if request.form['predictsubmit'] == 'run':
+       #     os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(imagepath, model, width, height, str(flat)))
+        ImagePath = 
+    """if sys.platform.startswith('linix'):
         subprocess.call(["python3", "predict.py"])
     elif sys.platform == 'darwin':
         subprocess.call(["python3", "predict.py"])
     else:
-        subprocess.call(["python", "predict.py"])
-        
+        subprocess.call(["python", "predict.py"])"""
+
+    ImagePath = "images/falseEX.png"
+    Model = "output/simple_nn2.model"
+    Width = "32"
+    Height = "32"
+    Flat = "1"
+    os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
+    
     return render_template(
         'predict.html',
         title='Predict',
         year=datetime.now().year,
-        message='My attempt at running the neural network algorithm. Yeet!'
+        message='This program will compare two handwriting images and output whether or not they were written by the same person.'
     )
 	
 @app.route('/reader')
@@ -62,7 +72,7 @@ def reader():
 def run():
     if request.method == "POST":
         if request.form['submit'] == 'run':
-            if sys.platform.startswith('linux'):
+            if sys.platform.startswith('linix'):
                 subprocess.call(["python3", "HandwritingGUI.py"])
             elif sys.platform == 'darwin':
                 subprocess.call(["python3", "HandwritingGUI.py"])
@@ -73,7 +83,3 @@ def run():
     else:
         return render_template('reader.html')
 
-"""SHHHHHHHHHHHHH"""
-@app.route('/game')
-def game():
-    return render_template('game.html')
