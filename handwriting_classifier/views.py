@@ -36,7 +36,6 @@ def predict():
     #if request.method == "POST":
       #  if request.form['predictsubmit'] == 'run':
        #     os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(imagepath, model, width, height, str(flat)))
-        ImagePath = 
     """if sys.platform.startswith('linix'):
         subprocess.call(["python3", "predict.py"])
     elif sys.platform == 'darwin':
@@ -87,3 +86,7 @@ def run():
 @app.route('/game')
 def game():
         return render_template('game.html')
+
+@app.route('/tetris')
+def tetris():
+        return render_template('tetris.html')
