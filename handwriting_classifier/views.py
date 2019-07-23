@@ -42,7 +42,12 @@ def predict():
             Flat = request.form['flat']
             
             os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
-        
+        elif request.form['combinersubmit'] == 'Run':
+            img1 = request.form['firstpath']
+            img2 = request.form['secondpath']
+            name = request.form['resultname']
+            
+            os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
       #  if request.form['predictsubmit'] == 'run':
        #     os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(imagepath, model, width, height, str(flat)))
     

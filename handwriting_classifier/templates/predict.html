@@ -4,12 +4,13 @@
 
 <h2>{{ title }}</h2>
 <h3>{{ message }}</h3>
-
+<br>
+<br>
 <div class="row">
     <div class="col-md-4">
         <form action="/predict" method="POST">
 			<fieldset>
-				<legend>Necessary Information</legend>
+				<legend>Enter Information to Run Prediction</legend>
 				Image Path:<br>
 				<input type="text" name="imagepath" value="photos/trueEX.png">
 				<br>
@@ -25,6 +26,26 @@
 				<input type="checkbox" name="flat" value="1" checked> Flatten Image<br>
 				<br>
 				<input type="submit" name="predictsubmit" value="Run">
+				
+			</fieldset>
+		</form>
+
+    </div>
+	<div class="col-md-4">
+       <form action="/predict" method="POST">
+			<fieldset>
+				<legend>Enter Information to Run Combiner</legend>
+				First Image Path:<br>
+				<input type="text" name="firstpath">
+				<br>
+				Second Image Path:<br>
+				<input type="text" name="secondpath">
+				<br>
+				Result Name:<br>
+				<input type="text" name="resultname" value="finalimage">
+				<br>
+				<br>
+				<input type="submit" name="combinersubmit" value="Run">
 				
 			</fieldset>
 		</form>
