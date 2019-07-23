@@ -33,20 +33,13 @@ def about():
 def predict():
     """Renders the contact page."""
     #user_id = open("handwriting_classifier/userid.txt").read()
-    subprocess.call(["python", "predict.py"])
-    """if user_id == '1':
-        subprocess.call(["python", r"\..\..\HandwritingClassifier\predict.py"])
-    elif user_id == '2':
-        subprocess.call(["python3", r"/Users/griffinwalraven/programming/NWAPW/handwriting classifier/HandwritingClassifier/predict.py"])
-    elif user_id == '3':
-        # put loc of predict.py here
-        pass
-    elif user_id == '4':
-        # put loc of predict.py here
-        pass
+    if sys.platform.startswith('linix'):
+        subprocess.call(["python3", "predict.py"])
+    elif sys.platform == 'darwin':
+        subprocess.call(["python3", "predict.py"])
     else:
-        print("Invalid user id")
-"""
+        subprocess.call(["python", "predict.py"])
+        
     return render_template(
         'predict.html',
         title='Predict',
@@ -68,7 +61,13 @@ def reader():
 def run():
     if request.method == "POST":
         if request.form['submit'] == 'run':
-            subprocess.call(["python", "HandwritingGUI.py"])
+            if sys.platform.startswith('linix'):
+                subprocess.call(["python3", "HandwritingGUI.py"])
+            elif sys.platform == 'darwin':
+                subprocess.call(["python3", "HandwritingGUI.py"])
+            else:
+                subprocess.call(["python", "HandwritingGUI.py"])
+                    
         return render_template('predict.html')
     else:
         return render_template('reader.html')
