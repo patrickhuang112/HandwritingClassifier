@@ -90,8 +90,8 @@ window.title("Welcome to the Handwriting Classifier")
 window.geometry('459x300')
 window.configure(background = '#778899')
 
-path1 = "1.jpg"
-path2 = "2.jpg"
+#path1 = "1.jpg"
+#path2 = "2.jpg"
 
 #Creates Tabs
 tabControl = ttk.Notebook(window)
@@ -151,26 +151,26 @@ btn = tk.Button(tab1, text="Run Predict", padx=38, pady=5, command=defaultPredic
 btn.grid(column=2, row=1)
 
 #Tab 2
-#title = tk.Label(tab2, text="Example Images", font=("Arial Bold", 20), padx=118, pady=5)
-#title.grid(columnspan=3, row=0)
+"""title = tk.Label(tab2, text="Example Images", font=("Arial Bold", 20), padx=118, pady=5)
+title.grid(columnspan=3, row=0)
 
-#Image 1
-#img1 = Image.open('photos/1.jpg')
-#img1 = img1.resize((200, 200), PIL.Image.ANTIALIAS)
-#img1.save('1.jpg')
-#img1 = ImageTk.PhotoImage(Image.open(path1))
+Image 1
+img1 = Image.open('photos/1.jpg')
+img1 = img1.resize((200, 200), PIL.Image.ANTIALIAS)
+img1.save('1.jpg')
+img1 = ImageTk.PhotoImage(Image.open(path1))
 
-#panel1 = tk.Label(tab2, image = img1)
-#panel1.grid(column=0, row=1)
+panel1 = tk.Label(tab2, image = img1)
+panel1.grid(column=0, row=1)
 
-#Image 2
-#img2 = Image.open('photos/2.jpg')
-#img2 = img2.resize((200, 200), PIL.Image.ANTIALIAS)
-#img2.save('2.jpg')
-#img2 = ImageTk.PhotoImage(Image.open(path2))
+Image 2
+img2 = Image.open('photos/2.jpg')
+img2 = img2.resize((200, 200), PIL.Image.ANTIALIAS)
+img2.save('2.jpg')
+img2 = ImageTk.PhotoImage(Image.open(path2))
 
-#panel2 = tk.Label(tab2, image = img2)
-#panel2.grid(column=2, row=1)
+panel2 = tk.Label(tab2, image = img2)
+panel2.grid(column=2, row=1)"""
 
 #Tab3
 tk.Label(tab3, text="Enter Information to Run Word Finder", font=("Arial Bold", 10)).grid(column=0,row=0, sticky=W)
