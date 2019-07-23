@@ -34,12 +34,13 @@ def predict():
     """Renders the contact page."""
     #user_id = open("handwriting_classifier/userid.txt").read()
     if request.method == "POST":
-        if request.form['predictsubmit'] == 'run':
-            ImagePath = "photos/falseEX.png"
-            Model = "output/simple_nn2.model"
-            Width = "32"
-            Height = "32"
-            Flat = "1"
+        if request.form['predictsubmit'] == 'Run':
+            ImagePath = request.form['imagepath']
+            Model = request.form['model']
+            Width = request.form['width']
+            Height = request.form['height']
+            Flat = request.form['flat']
+            
             os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
         
       #  if request.form['predictsubmit'] == 'run':
