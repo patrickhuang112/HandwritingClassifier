@@ -40,6 +40,10 @@ else:
     print(target, "occurs", count, "times.")
     output = "'" + target + "'" + " occurs " + str(count) + " times."
 
+#Destroy Window
+def close():
+   display.destroy()
+
 #Display results in new window
 display = tk.Tk()
 display.title("Find Word")
@@ -55,5 +59,6 @@ image = ImageTk.PhotoImage(Image.open(args["image"]))
 panel = tk.Label(display, image = image)
 panel.grid(column=1, row=0)
 
+display.protocol("WM_DELETE_WINDOW", close)
 display.mainloop()
 
