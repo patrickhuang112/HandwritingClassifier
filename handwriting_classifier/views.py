@@ -15,6 +15,7 @@ win = False
 if sys.platform == "win32":
     win = True
 
+
 @app.route('/')
 @app.route('/home')
 def home():
@@ -39,6 +40,7 @@ def predict():
     """Renders the contact page."""
     #user_id = open("handwriting_classifier/userid.txt").read()
     if request.method == "POST":
+        count = 1
         if request.form['predictsubmit'] == 'Run':
             ImagePath = request.form['imagepath']
             Model = request.form['model']
@@ -52,6 +54,11 @@ def predict():
             img2 = request.form['secondpath']
             name = request.form['resultname']
             os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
+    else: count = 0
+    if count == 1:
+        count = 1
+        
+        return redirect('/predict')
 
     return render_template(
         'predict.html',
