@@ -2,12 +2,13 @@ import numpy as np
 from PIL import Image
 import PIL
 import argparse
+import cv2
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-i1", "--image1", required=True,
 	help="path to input image we are going to classify")
 ap.add_argument("-i2", "--image2", required=True,
-	help="path to second imagel")
+	help="path to second image")
 ap.add_argument("-o", "--output_name", required=True,
         help="name of final image")
 args = vars(ap.parse_args())
@@ -23,3 +24,8 @@ imgs_comb.save(args["output_name"] + ".jpg")
 img = Image.open(args['output_name'] + '.jpg')
 #img = img.resize((32, 32))
 img.save(args['output_name'] + '.jpg')
+
+#display that beautiful picture
+image = cv2.imread(args['output_name'] + '.jpg')
+cv2.imshow("Combined Image", image)
+cv2.waitKey(0)
