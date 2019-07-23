@@ -10,18 +10,25 @@ import subprocess
 import numpy as np
 import PIL
 import os
+import sys
+
+
+win = False
+if sys.platform == 'win32':
+    win = True
+
 
 #Runs programs when buttons are clicked
 def run_comparison():
     ImageWF = "TestImage.jpg"
     Target = "my"
-    os.system("python handwriting_word_search.py --image {} --target {}".format(ImageWF, Target))
+    os.system("python handwriting_word_search.py --image {} --target {}".format(ImageWF, Target)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImageWF, Target))
 def run_profiler():
     path = "TestImage.jpg"
-    os.system("python text_from_image.py --toReader {}".format(path))
+    os.system("python text_from_image.py --toReader {}".format(path)) if win else os.system("python3 text_from_image.py --toReader {}".format(path))
 def run_reader():
     path = r1.get()
-    os.system("python text_from_image.py --toReader {}".format(path))
+    os.system("python text_from_image.py --toReader {}".format(path)) if win else os.system("python3 text_from_image.py --toReader {}".format(path)) 
 def readEX():
     r1.delete(0,END)
     r1.insert(0,"TestImage.jpg")
@@ -31,18 +38,18 @@ def run():
     Width = b4.get()
     Height = b5.get()
     Flat = var1.get()
-    os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat)))
+    os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
 def defaultPredict():
     ImagePath = "photos/falseEX.png"
     Model = "output/simple_nn2.model"
     Width = "32"
     Height = "32"
     Flat = "1"
-    os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat)))   
+    os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
 def runWF():
     ImageWF = e1.get()
     Target = e2.get()
-    os.system("python handwriting_word_search.py --image {} --target {}".format(ImageWF, Target))
+    os.system("python handwriting_word_search.py --image {} --target {}".format(ImageWF, Target)) if win else os.system("python handwriting_word_search.py --image {} --target {}".format(ImageWF, Target))
 def preset(num):
     #Delete text in boxes
     b2.delete(0,END)
@@ -79,7 +86,7 @@ def combine():
     img1 = c1.get()
     img2 = c2.get()
     name = c3.get()
-    os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
+    os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
 def close():
     if messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
         window.destroy()

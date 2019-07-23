@@ -33,7 +33,8 @@ def about():
 def predict():
     """Renders the contact page."""
     #user_id = open("handwriting_classifier/userid.txt").read()
-    if sys.platform.startswith('linix'):
+    if sys.platform.startswith('linux'):
+        print("Your os is linux")
         subprocess.call(["python3", "predict.py"])
     elif sys.platform == 'darwin':
         subprocess.call(["python3", "predict.py"])
@@ -61,7 +62,7 @@ def reader():
 def run():
     if request.method == "POST":
         if request.form['submit'] == 'run':
-            if sys.platform.startswith('linix'):
+            if sys.platform.startswith('linux'):
                 subprocess.call(["python3", "HandwritingGUI.py"])
             elif sys.platform == 'darwin':
                 subprocess.call(["python3", "HandwritingGUI.py"])
