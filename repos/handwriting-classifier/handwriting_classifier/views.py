@@ -67,7 +67,7 @@ def reader():
 def run():
     if request.method == "POST":
         if request.form['submit'] == 'run':
-            subprocess.call(["python", "\..\..\HandwritingClassifier\HandwritingGUI.py"])
+            subprocess.call(["python", "\..\..\HandwritingGUI.py"])
         return render_template('predict.html')
     else:
         return render_template('reader.html')
