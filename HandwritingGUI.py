@@ -17,7 +17,6 @@ win = False
 if sys.platform == 'win32':
     win = True
 
-
 #Runs programs when buttons are clicked
 def run_comparison():
     ImageWF = "TestImage.jpg"
