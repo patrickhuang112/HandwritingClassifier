@@ -73,3 +73,7 @@ def run():
     else:
         return render_template('reader.html')
 
+"""SHHHHHHHHHHHHH"""
+@app.route('/game')
+def game():
+    return render_template('game.html')
