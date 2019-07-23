@@ -66,7 +66,7 @@ def predict():
         message='This program will compare two handwriting images and output whether or not they were written by the same person.'
     )
 	
-@app.route('/reader')
+@app.route('/reader', methods=['GET', 'POST')
 def reader():
     """Renders the contact page."""
     return render_template(
