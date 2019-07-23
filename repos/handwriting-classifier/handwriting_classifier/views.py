@@ -32,19 +32,7 @@ def about():
 @app.route('/predict')
 def predict():
     """Renders the contact page."""
-    user_id = open("handwriting_classifier/userid.txt").read()
-    if user_id == '1':
-        subprocess.call(["python", r"C:\Users\galbraithja\AppData\Local\Programs\Python\Python37-32\predict.py"])
-    elif user_id == '2':
-        subprocess.call(["python3", r"/Users/griffinwalraven/programming/NWAPW/handwriting classifier/HandwritingClassifier/predict.py"])
-    elif user_id == '3':
-        # put loc of predict.py here
-        pass
-    elif user_id == '4':
-        # put loc of predict.py here
-        pass
-    else:
-        print("Invalid user id")
+    subprocess.call(["python3", "../../predict.py"])
 
     return render_template(
         'predict.html',
