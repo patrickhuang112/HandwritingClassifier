@@ -66,8 +66,12 @@ def predict():
         message='This program will compare two handwriting images and output whether or not they were written by the same person.'
     )
 	
-@app.route('/reader', methods=['GET', 'POST')
+@app.route('/reader', methods=['GET', 'POST'])
 def reader():
+    if request.method == "POST":
+        if request.form['predictsubmit'] == 'Run':
+            ImagePath = request.form['imagepath']
+            os.system("python text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python text_from_image.py --toReader {}".format(ImagePath)) 
     """Renders the contact page."""
     return render_template(
         'reader.html',
