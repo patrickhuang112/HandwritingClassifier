@@ -33,7 +33,15 @@ def about():
 def predict():
     """Renders the contact page."""
     #user_id = open("handwriting_classifier/userid.txt").read()
-    #if request.method == "POST":
+    if request.method == "POST":
+        if request.form['predictsubmit'] == 'run':
+            ImagePath = "photos/falseEX.png"
+            Model = "output/simple_nn2.model"
+            Width = "32"
+            Height = "32"
+            Flat = "1"
+            os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
+        
       #  if request.form['predictsubmit'] == 'run':
        #     os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(imagepath, model, width, height, str(flat)))
     
@@ -44,12 +52,6 @@ def predict():
     else:
         subprocess.call(["python", "predict.py"])"""
 
-    ImagePath = "photos/falseEX.png"
-    Model = "output/simple_nn2.model"
-    Width = "32"
-    Height = "32"
-    Flat = "1"
-    os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
     
     return render_template(
         'predict.html',
