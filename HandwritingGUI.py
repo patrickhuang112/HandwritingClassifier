@@ -11,10 +11,6 @@ import numpy as np
 import PIL
 import os
 
-#Get directory of script being run
-mypath = os.path.dirname(os.path.abspath('__file__'))
-print (mypath)
-
 #Runs programs when buttons are clicked
 def run_comparison():
     ImageWF = "TestImage.jpg"
@@ -37,7 +33,7 @@ def run():
     Flat = var1.get()
     os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat)))
 def defaultPredict():
-    ImagePath = "images/falseEX.png"
+    ImagePath = "photos/falseEX.png"
     Model = "output/simple_nn2.model"
     Width = "32"
     Height = "32"
@@ -54,7 +50,7 @@ def preset(num):
     b4.delete(0,END)
     b5.delete(0,END)
     #Add text
-    b2.insert(0,"images/"+num+".png") 
+    b2.insert(0,"photos/"+num+".png") 
     b1.insert(0,"output/simple_nn2.model")
     b4.insert(0,"32")
     b5.insert(0,"32")
@@ -85,9 +81,8 @@ def combine():
     name = c3.get()
     os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
 def close():
-    #if messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
-        #window.destroy()
-    window.destroy()
+    if messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
+        window.destroy()
 
 #Creates Window
 window = tk.Tk()
