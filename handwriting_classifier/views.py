@@ -10,6 +10,11 @@ import sys
 import os
 from flask import request
 
+
+win = False
+if sys.platform == "win32":
+    win = True
+
 @app.route('/')
 @app.route('/home')
 def home():
@@ -41,7 +46,7 @@ def predict():
             Height = request.form['height']
             Flat = request.form['flat']
             
-            os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
+            os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
         
       #  if request.form['predictsubmit'] == 'run':
        #     os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(imagepath, model, width, height, str(flat)))
