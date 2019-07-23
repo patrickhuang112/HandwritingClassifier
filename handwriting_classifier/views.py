@@ -3,7 +3,7 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template
+from flask import render_template, redirect
 from handwriting_classifier import app
 import subprocess
 import sys
@@ -78,16 +78,12 @@ def reader():
 	
 @app.route('/run', methods=['GET', 'POST'])
 def run():
-    if request.method == "POST":
-        if request.form['submit'] == 'run':
-            if sys.platform.startswith('linix'):
-                subprocess.call(["python3", "HandwritingGUI.py"])
-            elif sys.platform == 'darwin':
-                subprocess.call(["python3", "HandwritingGUI.py"])
-            else:
-                subprocess.call(["python", "HandwritingGUI.py"])
-                    
-        return render_template('predict.html')
+    if sys.platform.startswith('linux'):
+        subprocess.call(["python3", "HandwritingGUI.py"])
+    elif sys.platform == 'darwin':
+        subprocess.call(["python3", "HandwritingGUI.py"])
     else:
-        return render_template('reader.html')
+        subprocess.call(["python", "HandwritingGUI.py"])
+                    
+    return redirect('/')
 
