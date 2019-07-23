@@ -62,6 +62,10 @@ def predict():
 	
 @app.route('/reader', methods=['GET', 'POST'])
 def reader():
+    if request.method == "POST":
+        if request.form['predictsubmit'] == 'Run':
+            ImagePath = request.form['imagepath']
+            os.system("python text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python text_from_image.py --toReader {}".format(ImagePath)) 
     """Renders the contact page."""
     return render_template(
         'reader.html',
