@@ -94,7 +94,6 @@ def close():
 window = tk.Tk()
 window.title("Welcome to the Handwriting Classifier")
 window.geometry('459x300')
-window.configure(background = '#778899')
 
 #path1 = "1.jpg"
 #path2 = "2.jpg"
