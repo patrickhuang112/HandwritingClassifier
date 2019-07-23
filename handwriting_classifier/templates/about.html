@@ -33,4 +33,33 @@ Software, put simply, <b><i>DOES NOT EXIST</i></b>. Think about it for a second.
 	</ul>
 </p>
 
+
+<p>
+	We utilize two sorts of neural networks for the handwriting classification task. Neural networks are algorithms that recognize patterns within
+	vast amounts of data inputs. Data inputed into the network is converted into numbers that the network is able to scan. The neural network looks
+	for patterns in the numbers. The neural network matches these patters with predefined labels that correspond with each data point. Thus, the network
+	begins "learning" about certain characteristics that each label have. At the end, the numerical patterns are translated into real-world data, such as
+	images. "Neurons" in each layer are responsible for analyzing the data. To better understand how a neural network works, watch this <a href = "https://www.youtube.com/watch?v=aircAruvnKk">video</a> by 3Blue1Brown.
+</p>
+
+<p>
+	The first neural network used in this project is a simple feedfoward deep neural network. Images of handwriting sized 256 pixels wide
+	and 32 pixels high are flattened into a single flat line of pixels 8192 pixels long and 1 pixel high for the initial layer.
+	The data is then passed through two hidden layers before sorting into a final layer. The neurons in each layer are connected to each neuron
+	in every other layer.
+</p>
+<p>
+	The second neural network is a convolutional neural network. A convolutional neural network is different because of
+	its ability to interpret local information in an image. Neurons in a layer also do not connect with every other neuron in a different
+	layer. Instead, neurons correspond with specific parts/section of images. The key advantages of a convolutional neural network
+	to a simple feedforward neural network are:
+<ul style="list-style-type:disc;">
+	<li>A reductiion in the number of parameters and neurons necessary</li>
+	<li>Consideration of an area instead of single input, allowing for better analysis of text, video, audio etc.</li>
+</ul>
+</p>
+
+<!--https://www.freecodecamp.org/news/an-intuitive-guide-to-convolutional-neural-networks-260c2de0a050/-->
+
+
 {% endblock %}
