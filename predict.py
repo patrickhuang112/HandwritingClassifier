@@ -54,16 +54,17 @@ preds = model.predict(image)
 # find the class label index with the largest corresponding
 # probability
 i = preds.argmax(axis=1)[0]
-label = ["false", "true"][i]
+label = ["False", "True"][i]
 
 # draw the class label + probability on the output image
 text = "{}: {:.2f}%".format(label, preds[0][i] * 100)
-if label == "false":
+if label == "False":
     cv2.putText(output, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
 	(0, 0, 255), 2)
 else:
     cv2.putText(output, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
         (0, 255, 0), 2)
 # show the output image
+cv2.imwrite("handwriting_classifier/static/outputImage.png", output)
 cv2.imshow("Image", output)
-cv2.waitKey(0)
+

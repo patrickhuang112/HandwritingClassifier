@@ -9,15 +9,27 @@
 	<div class="col-md-4">
         <form action="/reader" method="POST">
 			<fieldset>
-				<legend>Necessary Information</legend>
+				<legend>Reader Information</legend>
 				Image Path:<br>
-				<input type="text" name="imagepath" value="photos/trueEX.png">
+				<input type="text" name="image" value="TestImage.jpg">
 				<br>
-				<input type="submit" name="predictsubmit" value="Run" CLICK ME>
+				<input type="submit" name="readersubmit" value="Run">
 			</fieldset>
 		</form>
-
     </div>
+	<div class="col-md-4">
+		<form action="/reader" method="POST">
+			<fieldset>
+				<legend>Word Finder Information</legend>
+				Image Path:<br>
+				<input type="text" name="path" value="TestImage.jpg">
+				<br>
+				<input type="text" name="targetword" value="my">
+				<br>
+				<input type="submit" name="findsubmit" value="Run">
+			</fieldset>
+		</form>
+	</div>
 </div>
 
 {% endblock %}
