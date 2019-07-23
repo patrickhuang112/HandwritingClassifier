@@ -7,21 +7,24 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Comparison</h2>
-        <p>
-            Compare two images to determine whether or not they have text written by the same person.
-        </p>
-        <p><a class="btn btn-default" href="/results"> &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Profiler</h2>
-        <p>DESCRIPTION</p>
-        <p><a class="btn btn-default" href="https://pypi.python.org/pypi">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Reader</h2>
-        <p>DESCRIPTION</p>
-        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
+        <form action="/action_page.php" target="_blank" method="POST">
+			Image Path:<br>
+			<input type="text" name="imagepath" value="images/trueEX.png">
+			<br>
+			Model:<br>
+			<input type="text" name="model" value="output/simple_nn2.model">
+			<br>
+			Width:<br>
+			<input type="text" name="width" value="32">
+			<br>
+			Height:<br>
+			<input type="text" name="height" value="32">
+			<br>
+			<input type="checkbox" name="flat" value="1"> Flatten Image<br>
+			<br>
+			<input type="submit" value="Submit">
+		</form>
+
     </div>
 </div>
 
