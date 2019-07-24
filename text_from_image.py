@@ -25,7 +25,6 @@ except:
 win = False
 if sys.platform == "win32":
     win = True
-
 if win:
     pytesseract.pytesseract.tesseract_cmd = r"C:/Program Files/Tesseract-OCR/tesseract.exe"
 elif sys.platform == "linux":
@@ -52,10 +51,20 @@ result.grid(column=0, row=0)
 #Image 1
 image = image.resize((200, 200), PIL.Image.ANTIALIAS)
 image.save(args["toReader"])
-image = ImageTk.PhotoImage(Image.open(args["toReader"]))
 
-panel = tk.Label(display, image = image)
-panel.grid(column=1, row=0)
+copy = image.copy()
+copy.save("handwriting_classifier/static/ReadImage.png")
+#write file
+file = open("handwriting_classifier/static/ReadResults.txt", "w")
+file.write(image_to_text)
+file.close()
 
-display.protocol("WM_DELETE_WINDOW", close)
-display.mainloop()
+if launched == '1':
+    image = ImageTk.PhotoImage(Image.open(args["toReader"]))
+
+    panel = tk.Label(display, image = image)
+    panel.grid(column=1, row=0)
+
+    display.protocol("WM_DELETE_WINDOW", close)
+    display.mainloop()
+

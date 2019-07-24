@@ -65,11 +65,20 @@ result.grid(column=0, row=0)
 #Image 1
 image = image.resize((200, 200), PIL.Image.ANTIALIAS)
 image.save(args["image"])
-image = ImageTk.PhotoImage(Image.open(args["image"]))
 
-panel = tk.Label(display, image = image)
-panel.grid(column=1, row=0)
+copy = image.copy()
+copy.save("handwriting_classifier/static/SearchedImage.png")
+#write file
+file = open("handwriting_classifier/static/SearchResults.txt", "w")
+file.write("'" + target + "'" + " occurs " + str(count) + " times.")
+file.close()
 
-display.protocol("WM_DELETE_WINDOW", close)
-display.mainloop()
+if launched == '1':
+   image = ImageTk.PhotoImage(Image.open(args["image"]))
+
+   panel = tk.Label(display, image = image)
+   panel.grid(column=1, row=0)
+
+   display.protocol("WM_DELETE_WINDOW", close)
+   display.mainloop()
 
