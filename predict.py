@@ -78,4 +78,5 @@ else:
 # show the output image
 cv2.imwrite("handwriting_classifier/static/outputImage.png", output)
 cv2.imshow("Image", output)
-
+if args['launcher'] == '1':
+    input("When you are done hit enter")
