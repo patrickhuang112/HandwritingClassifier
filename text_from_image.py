@@ -4,14 +4,24 @@ import PIL
 import pytesseract
 import tkinter as tk
 import argparse
- 
+import sys
+
+win = False
+if sys.platform == 'win32':
+    win = True
+
 #argument parser
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--toReader", required=True, help="path to image")
 args = vars(ap.parse_args())
 
 # Include tesseract executable in your path
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+if win:
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+elif sys.platform == "linux":
+    pytesseract.pytesseract.tesseract_cmd = r"/usr/bin/tesseract"
+elif sys.platform == "darwin":
+    pytesseract.pytesseract.tesseract_cmd = r""
 
 # Create an image object of PIL library
 image = Image.open(args["toReader"])
