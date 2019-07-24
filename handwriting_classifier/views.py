@@ -71,12 +71,12 @@ def predict():
             img2 = request.form['secondpath']
             name = request.form['resultname']
             if sys.platform.startswith('linux'):
-                os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
+                os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image3 {} --output_name {}".format(img1, img2, name))
        
             elif sys.platform == 'darwin':
-                os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
+                os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image3 {} --output_name {}".format(img1, img2, name))
             else:
-                os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
+                os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image3 {} --output_name {}".format(img1, img2, name))
     
     return render_template(
         'predict.html',
