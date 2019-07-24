@@ -65,11 +65,10 @@ def predict():
 @app.route('/reader', methods=['GET', 'POST'])
 def reader():
     if request.method == "POST":
-        if request.form['readersubmit'] == 'Run':
+        if request.form['readersubmit'] == 'Read':
             ImagePath = request.form['image']
             os.system("python text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python text_from_image.py --toReader {}".format(ImagePath)) 
-        elif request.form['findsubmit'] == 'Run':
-            print ("WHY")
+        elif request.form['readersubmit'] == 'Find':
             ImagePathF = request.form['path']
             TargetWord = request.form['targetword']
             os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
@@ -80,8 +79,6 @@ def reader():
         year=datetime.now().year,
         message='Displays results of the calculation.'
     )
-
-        
 
 	
 @app.route('/run', methods=['GET', 'POST'])
