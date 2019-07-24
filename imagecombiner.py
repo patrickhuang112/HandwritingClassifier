@@ -38,5 +38,8 @@ img.save(args['output_name'] + '.jpg')
 
 #display that beautiful picture
 image = cv2.imread(args['output_name'] + '.jpg')
+cv2.imwrite("handwriting_classifier/static/combinedImage.png", image)
 cv2.imshow("Combined Image", image)
-cv2.waitKey(0)
+if launched == '1':
+    cv2.waitKey(0)
+input()
