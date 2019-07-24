@@ -64,7 +64,7 @@ def predict():
             img1 = request.form['firstpath']
             img2 = request.form['secondpath']
             name = request.form['resultname']
-            if sys.platform.startswith('linux'):
+            if sys.platform == 'linux':
                 os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
        
             elif sys.platform == 'darwin':
@@ -85,7 +85,7 @@ def reader():
         if request.form['readersubmit'] == 'Read':
             ImagePath = request.form['image']
 
-            if sys.platform.startswith('linux'):
+            if sys.platform == 'linux':
                  os.system("python3 text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python text_from_image.py --toReader {}".format(ImagePath)) 
    
             elif sys.platform == 'darwin':
@@ -97,7 +97,7 @@ def reader():
             print ("WHY")
             ImagePathF = request.form['path']
             TargetWord = request.form['targetword']
-            if sys.platform.startswith('linux'):
+            if sys.platform == 'linux':
                  os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
 
             elif sys.platform == 'darwin':
@@ -118,7 +118,7 @@ def reader():
 def run():
     if request.method == "POST":
         if request.form['submit'] == 'run':
-            if sys.platform.startswith('linux'):
+            if sys.platform == 'linux':
                 subprocess.call(["python3", "HandwritingGUI.py"])
             elif sys.platform == 'darwin':
                 subprocess.call(["python3", "HandwritingGUI.py"])
