@@ -49,17 +49,6 @@ def predict():
             Flat = request.form['flat']
    
             os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
-        
-      #  if request.form['predictsubmit'] == 'run':
-       #     os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(imagepath, model, width, height, str(flat)))
-    
-    """if sys.platform.startswith('linix'):
-        subprocess.call(["python3", "predict.py"])
-    elif sys.platform == 'darwin':
-        subprocess.call(["python3", "predict.py"])
-    else:
-        subprocess.call(["python", "predict.py"])"""
-
         elif request.form['combinersubmit'] == 'Run':
             img1 = request.form['firstpath']
             img2 = request.form['secondpath']
