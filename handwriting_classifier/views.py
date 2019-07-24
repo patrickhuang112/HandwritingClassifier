@@ -15,7 +15,6 @@ win = False
 if sys.platform == "win32":
     win = True
 
-
 @app.route('/')
 @app.route('/home')
 def home():
@@ -49,6 +48,7 @@ def predict():
             Flat = request.form['flat']
    
             os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
+        
         elif request.form['combinersubmit'] == 'Run':
             img1 = request.form['firstpath']
             img2 = request.form['secondpath']
@@ -67,11 +67,11 @@ def reader():
     if request.method == "POST":
         if request.form['readersubmit'] == 'Read':
             ImagePath = request.form['image']
-            os.system("python text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python text_from_image.py --toReader {}".format(ImagePath)) 
+            os.system("python text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python3 text_from_image.py --toReader {}".format(ImagePath))
         elif request.form['readersubmit'] == 'Find':
             ImagePathF = request.form['path']
             TargetWord = request.form['targetword']
-            os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
+            os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
     """Renders the contact page."""
     return render_template(
         'reader.html',
