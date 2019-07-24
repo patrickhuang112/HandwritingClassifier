@@ -41,5 +41,6 @@ image = cv2.imread(args['output_name'] + '.jpg')
 cv2.imwrite("handwriting_classifier/static/combinedImage.png", image)
 cv2.imshow("Combined Image", image)
 if launched == '1':
-    cv2.waitKey(0)
-input()
+    while 1:
+        if cv2.waitKey(0) & 0xFF == ord('q'):
+            break

@@ -64,7 +64,7 @@ def predict():
             img1 = request.form['firstpath']
             img2 = request.form['secondpath']
             name = request.form['resultname']
-            os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
+            os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
        
     return render_template(
         'predict.html',
@@ -82,7 +82,6 @@ def reader():
             os.system("python text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python3 text_from_image.py --toReader {}".format(ImagePath)) 
    
         elif request.form['readersubmit'] == 'Run':
-            print ("WHY")
             ImagePathF = request.form['path']
             TargetWord = request.form['targetword']
             os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
