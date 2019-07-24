@@ -4,16 +4,22 @@ import PIL
 import pytesseract
 import tkinter as tk
 import argparse
+import os
 import sys
-
-win = False
-if sys.platform == 'win32':
-    win = True
-
+ 
 #argument parser
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--toReader", required=True, help="path to image")
+ap.add_argument("-l", "--launcher", required=False)
 args = vars(ap.parse_args())
+
+#Launched by GUI?
+launched = "0"
+try:
+    if args["launcher"] == '1':
+        launched = '1'
+except:
+    pass
 
 # Include tesseract executable in your path
 if win:

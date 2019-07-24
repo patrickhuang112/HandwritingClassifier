@@ -6,13 +6,24 @@ import PIL
 import pytesseract
 import tkinter as tk
 import argparse
+import os
+import sys
 
 #Argument Parser
 ap = argparse.ArgumentParser()
 ap.add_argument("-i","--image", required=True, help="path to input image")
 ap.add_argument("-t", "--target", required=True, help="the word the program will search for")
+ap.add_argument("-l", "--launcher", required=False)
 args = vars(ap.parse_args())
- 
+
+#Launched by GUI
+launched = "0"
+try:
+    if args["launcher"] == '1':
+        launched = '1'
+except:
+    pass
+
 # Include tesseract executable in your path
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 # Create an image object of PIL library
