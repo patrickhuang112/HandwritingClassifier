@@ -25,12 +25,13 @@
 				<br>
 				<input type="checkbox" name="flat" value="1" checked> Flatten Image<br>
 				<br>
-				<input type="submit" name="predictsubmit" value="Run">
-				
+				<input class="btn btn-default" type="submit" name="predictsubmit" value="Run">
+				<br>
 			</fieldset>
 		</form>
-
+		<br> <br>
     </div>
+	
 	<div class="col-md-4">
        <form action="/predict" method="POST">
 			<fieldset>
@@ -45,13 +46,13 @@
 				<input type="text" name="resultname" value="finalimage">
 				<br>
 				<br>
-				<input type="submit" name="combinersubmit" value="Run">
-				
+				<input class="btn btn-default" type="submit" name="combinersubmit" value="Run">
+				<br>
 			</fieldset>
 		</form>
 
     </div>
-    <img src="/static/outputImage.png"></img>
+    <img src="static/outputImage.png"></img>
 </div>
 
 {% endblock %}

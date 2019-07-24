@@ -65,6 +65,6 @@ else:
     cv2.putText(output, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
         (0, 255, 0), 2)
 # show the output image
-cv2.imwrite("handwriting-classifier/static/outputImage.png", output)
+cv2.imwrite("handwriting_classifier/static/outputImage.png", output)
 cv2.imshow("Image", output)
 
