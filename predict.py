@@ -79,5 +79,6 @@ else:
 cv2.imwrite("handwriting_classifier/static/outputImage.png", output)
 cv2.imshow("Image", output)
 if launched == '1':
-    cv2.waitKey(0)
-input()
+    while 1:
+        if cv2.waitKey(0) & 0xFF == ord('q'):
+            break

@@ -27,5 +27,5 @@ if __name__ == '__main__':
     else:
         print(sys.platform)
     
-    app.run(HOST, PORT)
+    app.run(HOST, PORT, threaded=True)
 
