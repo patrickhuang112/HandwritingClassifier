@@ -9,6 +9,11 @@ import argparse
 import os
 import sys
 
+
+win = False
+if sys.platform == 'win32':
+    win = True
+
 #Argument Parser
 ap = argparse.ArgumentParser()
 ap.add_argument("-i","--image", required=True, help="path to input image")
@@ -25,7 +30,10 @@ except:
     pass
 
 # Include tesseract executable in your path
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+if win:
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+else:
+    pytesseract.pytesseract.tesseract_cmd = r"/usr/bin/tesseract"
 # Create an image object of PIL library
 image = Image.open(args["image"])
 target = args["target"]
