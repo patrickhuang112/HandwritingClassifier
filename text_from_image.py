@@ -54,6 +54,10 @@ image.save(args["toReader"])
 
 copy = image.copy()
 copy.save("handwriting_classifier/static/ReadImage.png")
+#write file
+file = open("handwriting_classifier/static/ReadResults.txt", "w")
+file.write(image_to_text)
+file.close()
 
 if launched == '1':
     image = ImageTk.PhotoImage(Image.open(args["toReader"]))

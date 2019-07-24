@@ -68,6 +68,10 @@ image.save(args["image"])
 
 copy = image.copy()
 copy.save("handwriting_classifier/static/SearchedImage.png")
+#write file
+file = open("handwriting_classifier/static/SearchResults.txt", "w")
+file.write("'" + target + "'" + " occurs " + str(count) + " times.")
+file.close()
 
 if launched == '1':
    image = ImageTk.PhotoImage(Image.open(args["image"]))
