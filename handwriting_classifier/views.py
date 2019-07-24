@@ -79,13 +79,13 @@ def reader():
         if request.form['readersubmit'] == 'Read':
             ImagePath = request.form['image']
 
-            os.system("python3 text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python text_from_image.py --toReader {}".format(ImagePath)) 
+            os.system("python text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python3 text_from_image.py --toReader {}".format(ImagePath)) 
    
         elif request.form['readersubmit'] == 'Run':
             print ("WHY")
             ImagePathF = request.form['path']
             TargetWord = request.form['targetword']
-            os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
+            os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
 
     """Renders the contact page."""
     return render_template(
