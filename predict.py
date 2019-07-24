@@ -7,6 +7,8 @@ from keras.models import load_model
 import argparse
 import pickle
 import cv2
+import os
+import sys
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -22,7 +24,16 @@ ap.add_argument("-e", "--height", type=int, default=28,
 	help="target spatial dimension height")
 ap.add_argument("-f", "--flatten", type=int, default=-1,
 	help="whether or not we should flatten the image")
+ap.add_argument("-a", "--launcher", required=False)
 args = vars(ap.parse_args())
+
+#Launched by GUI?
+launched = "0"
+try:
+    if args["launcher"] == '1':
+        launched = '1'
+except:
+    pass
 
 # load the input image and resize it to the target spatial dimensions
 image = cv2.imread(args["image"])
@@ -67,4 +78,5 @@ else:
 # show the output image
 cv2.imwrite("handwriting_classifier/static/outputImage.png", output)
 cv2.imshow("Image", output)
-
+if args['launcher'] == '1':
+    input("When you are done hit enter")

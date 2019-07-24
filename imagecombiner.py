@@ -3,6 +3,8 @@ from PIL import Image
 import PIL
 import argparse
 import cv2
+import os
+import sys
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-i1", "--image1", required=True,
@@ -11,7 +13,16 @@ ap.add_argument("-i2", "--image2", required=True,
 	help="path to second image")
 ap.add_argument("-o", "--output_name", required=True,
         help="name of final image")
+ap.add_argument("-l", "--launcher", required=False)
 args = vars(ap.parse_args())
+
+#Launched by GUI?
+launched = "0"
+try:
+    if args["launcher"] == '1':
+        launched = '1'
+except:
+    pass
 
 list_im = [args["image1"], args["image2"]]
 imgs    = [ PIL.Image.open(i) for i in list_im ]
