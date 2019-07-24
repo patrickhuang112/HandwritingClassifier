@@ -15,6 +15,18 @@ win = False
 if sys.platform == "win32":
     win = True
 
+@app.after_request
+def add_header(r):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
+
 @app.route('/')
 @app.route('/home')
 def home():
@@ -39,21 +51,32 @@ def predict():
     """Renders the contact page."""
     #user_id = open("handwriting_classifier/userid.txt").read()
     if request.method == "POST":
-        count = 1
-        if request.form['predictsubmit'] == 'Run':
+        if request.form['predictsubmit'] == 'Predict':
             ImagePath = request.form['imagepath']
             Model = request.form['model']
             Width = request.form['width']
             Height = request.form['height']
             Flat = request.form['flat']
-   
-            os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
-        
-        elif request.form['combinersubmit'] == 'Run':
+
+            if sys.platform.startswith('linux'):
+                os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
+         
+            elif sys.platform == 'darwin':
+                os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
+            else:
+                os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
+               
+        elif request.form['predictsubmit'] == 'Combine':
             img1 = request.form['firstpath']
             img2 = request.form['secondpath']
             name = request.form['resultname']
-            os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
+            if sys.platform.startswith('linux'):
+                os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
+       
+            elif sys.platform == 'darwin':
+                os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
+            else:
+                os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
     
     return render_template(
         'predict.html',
@@ -67,11 +90,34 @@ def reader():
     if request.method == "POST":
         if request.form['readersubmit'] == 'Read':
             ImagePath = request.form['image']
+<<<<<<< HEAD
+            if sys.platform.startswith('linux'):
+                 os.system("python3 text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python text_from_image.py --toReader {}".format(ImagePath)) 
+   
+            elif sys.platform == 'darwin':
+                 os.system("python3 text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python text_from_image.py --toReader {}".format(ImagePath))  
+            else:
+                 os.system("python text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python text_from_image.py --toReader {}".format(ImagePath))        
+  
+        elif request.form['findsubmit'] == 'Run':
+            print ("WHY")
+            ImagePathF = request.form['path']
+            TargetWord = request.form['targetword']
+            if sys.platform.startswith('linux'):
+                 os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
+
+            elif sys.platform == 'darwin':
+                 os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
+            else:
+                 os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
+
+=======
             os.system("python text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python3 text_from_image.py --toReader {}".format(ImagePath))
         elif request.form['readersubmit'] == 'Find':
             ImagePathF = request.form['path']
             TargetWord = request.form['targetword']
-            os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
+            os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord))
+>>>>>>> 0a50ab4f2af91b607ed6fcfb860549dbd433f117
     """Renders the contact page."""
     return render_template(
         'reader.html',
@@ -85,14 +131,19 @@ def reader():
 def run():
     if request.method == "POST":
         if request.form['submit'] == 'run':
-            if sys.platform.startswith('linix'):
+            if sys.platform.startswith('linux'):
                 subprocess.call(["python3", "HandwritingGUI.py"])
             elif sys.platform == 'darwin':
                 subprocess.call(["python3", "HandwritingGUI.py"])
             else:
-                subprocess.call(["python", "HandwritingGUI.py"])
-                    
-        return render_template('predict.html')
-    else:
-        return render_template('reader.html')
+                subprocess.call(["python", "HandwritingGUI.py"])        
+    return render_template('home.html')           
+
+
+
+
+@app.route('/game')
+def game():
+    return render_template('game.html')
+
 

@@ -22,7 +22,12 @@ except:
     pass
 
 # Include tesseract executable in your path
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+if win:
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+elif sys.platform == "linux":
+    pytesseract.pytesseract.tesseract_cmd = r"/usr/bin/tesseract"
+elif sys.platform == "darwin":
+    pytesseract.pytesseract.tesseract_cmd = r"" # <-- loc on macos goes here
 
 # Create an image object of PIL library
 image = Image.open(args["toReader"])
