@@ -52,7 +52,7 @@ for imagePath in imagePaths:
 	# spatial dimensions of SmallVGGNet), and store the image in the
 	# data list
 	image = cv2.imread(imagePath)
-	image = cv2.resize(image, (128, 16))
+	image = cv2.resize(image, (256, 32))
 	data.append(image)
 
 	# extract the class label from the image path and update the
@@ -87,15 +87,6 @@ trainY = ohe.fit_transform(integer_encoded)
 integer_encoded = le.fit_transform(testY)
 integer_encoded = integer_encoded.reshape(len(integer_encoded), 1)
 testY = ohe.fit_transform(integer_encoded)
-#trainY = to_categorical(integer_encoded)
-
-#integer_encoded2 = le.fit_transform(testY)
-
-#testY = to_categorical(integer_encoded2)
-
-#integer encode
-
-# binary encode
 
 # construct the image generator for data augmentation
 aug = ImageDataGenerator(rotation_range=30, width_shift_range=0.1,
@@ -103,12 +94,12 @@ aug = ImageDataGenerator(rotation_range=30, width_shift_range=0.1,
 	horizontal_flip=True, fill_mode="nearest")
 
 # initialize our VGG-like Convolutional Neural Network
-model = SmallVGGNet.build(width=128, height=16, depth=3,
+model = SmallVGGNet.build(width=256, height=32, depth=3,
 	classes=2)
 
 # initialize our initial learning rate, # of epochs to train for,
 # and batch size
-INIT_LR = 0.01
+INIT_LR = 0.02
 EPOCHS = 50
 BS = 32
 

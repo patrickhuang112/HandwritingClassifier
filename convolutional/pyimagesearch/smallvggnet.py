@@ -25,42 +25,42 @@ class SmallVGGNet:
 			chanDim = 1
 
 		# CONV => RELU => POOL layer set
-		model.add(Conv2D(32, (3, 3), padding="same",
+		model.add(Conv2D(32, (6, 6), padding="same",
 			input_shape=inputShape))
 		model.add(Activation("relu"))
 		model.add(BatchNormalization(axis=chanDim))
 		model.add(MaxPooling2D(pool_size=(2, 2)))
-		model.add(Dropout(0.25))
+		model.add(Dropout(0.2))
 
 		# (CONV => RELU) * 2 => POOL layer set
-		model.add(Conv2D(64, (3, 3), padding="same"))
+		model.add(Conv2D(64, (6, 6), padding="same"))
 		model.add(Activation("relu"))
 		model.add(BatchNormalization(axis=chanDim))
-		model.add(Conv2D(64, (3, 3), padding="same"))
+		model.add(Conv2D(64, (6, 6), padding="same"))
 		model.add(Activation("relu"))
 		model.add(BatchNormalization(axis=chanDim))
 		model.add(MaxPooling2D(pool_size=(2, 2)))
-		model.add(Dropout(0.25))
+		model.add(Dropout(0.20))
 
 		# (CONV => RELU) * 3 => POOL layer set
-		model.add(Conv2D(128, (3, 3), padding="same"))
+		model.add(Conv2D(128, (6, 6), padding="same"))
 		model.add(Activation("relu"))
 		model.add(BatchNormalization(axis=chanDim))
-		model.add(Conv2D(128, (3, 3), padding="same"))
+		model.add(Conv2D(128, (6, 6), padding="same"))
 		model.add(Activation("relu"))
 		model.add(BatchNormalization(axis=chanDim))
-		model.add(Conv2D(128, (3, 3), padding="same"))
+		model.add(Conv2D(128, (6, 6), padding="same"))
 		model.add(Activation("relu"))
 		model.add(BatchNormalization(axis=chanDim))
 		model.add(MaxPooling2D(pool_size=(2, 2)))
-		model.add(Dropout(0.25))
+		model.add(Dropout(0.20))
 
 		# first (and only) set of FC => RELU layers
 		model.add(Flatten())
 		model.add(Dense(512))
 		model.add(Activation("relu"))
 		model.add(BatchNormalization())
-		model.add(Dropout(0.5))
+		model.add(Dropout(0.35))
 
 		# softmax classifier
 		model.add(Dense(classes))
