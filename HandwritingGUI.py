@@ -97,6 +97,8 @@ def close():
     if messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
         window.destroy()
 
+
+
 #Creates Window
 window = tk.Tk()
 window.title("Welcome to the Handwriting Classifier")
@@ -108,7 +110,7 @@ window.geometry('459x300')
 #Creates Tabs
 tabControl = ttk.Notebook(window)
 tab1 = ttk.Frame(tabControl)
-tabControl.add(tab1, text='Example Programs')
+tabControl.add(tab1, text='Home')
 #tab2 = ttk.Frame(tabControl)
 #tabControl.add(tab2, text="Results")
 tab0 = ttk.Frame(tabControl)
@@ -150,17 +152,26 @@ btnc.grid(column=0, row=10, sticky=W)
 
 
 #Tab 1
-lbl = tk.Label(tab1, text="Handwriting Tools", font=("Arial Bold", 20), padx=25, pady=5)
-lbl.grid(columnspan=3, row=0)
 
-btn1 = tk.Button(tab1, text="Run Find Word", padx=35, pady=5, command=run_comparison)
-btn1.grid(column=0, row=1)
+image = Image.open('logo.png')
+image = image.resize((400, 250), Image.ANTIALIAS)
+img = ImageTk.PhotoImage(image)
 
-btn2 = tk.Button(tab1, text=("Run Reader"), padx=40, pady=5, command=run_profiler)
-btn2.grid(column=1, row=1)
+logo = tk.Label(tab1, image = img)
+logo.pack()
 
-btn = tk.Button(tab1, text="Run Predict", padx=38, pady=5, command=defaultPredict)
-btn.grid(column=2, row=1)
+
+# lbl = tk.Label(tab1, text="Handwriting Tools", font=("Arial Bold", 20), padx=25, pady=5)
+# lbl.grid(columnspan=3, row=0)
+
+# btn1 = tk.Button(tab1, text="Run Find Word", padx=35, pady=5, command=run_comparison)
+# btn1.grid(column=0, row=1)
+
+# btn2 = tk.Button(tab1, text=("Run Reader"), padx=40, pady=5, command=run_profiler)
+# btn2.grid(column=1, row=1)
+
+# btn = tk.Button(tab1, text="Run Predict", padx=38, pady=5, command=defaultPredict)
+# btn.grid(column=2, row=1)
 
 #Tab 2
 """title = tk.Label(tab2, text="Example Images", font=("Arial Bold", 20), padx=118, pady=5)
