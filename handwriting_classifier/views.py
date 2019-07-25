@@ -98,7 +98,8 @@ def reader():
 @app.route('/run', methods=['GET', 'POST'])
 def run():
     if request.method == "POST":
-        if request.form['submit'] == 'run':
+        if request.form['gui_button'] == "Run here >>":
+            print("yeet")
             if sys.platform == 'linux':
                 subprocess.call(["python3", "HandwritingGUI.py"])
             elif sys.platform == 'darwin':
