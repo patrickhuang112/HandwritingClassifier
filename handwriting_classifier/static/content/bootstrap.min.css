@@ -105,7 +105,36 @@ table{border-collapse:collapse;border-spacing:0}
 #aboutimg p{
     text-align:center;
 }
+#aboutguitop{
 
+    display: flex;
+}
+#aboutguibottom {
+    display: flex;
+
+}
+
+#aboutguicolumn
+{
+    flex: 33.33%;
+}
+
+#aboutguicolumn2
+{
+    flex: 50%;
+}
+#aboutguitop img
+{
+    width: 90%;
+}
+
+#aboutguibottom img
+{
+    width: 65%;
+    display:block;
+    margin:auto;
+
+}
 
 @media print{*{color:#000!important;text-shadow:none!important;background:transparent!important;box-shadow:none!important}
     a,a:visited{text-decoration:underline}
