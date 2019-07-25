@@ -130,7 +130,7 @@ tk.Label(tab0, text="Model").grid(column=0, row=2,sticky=W)
 tk.Label(tab0, text="Width").grid(column=0, row=4, sticky=W)
 tk.Label(tab0, text="Height").grid(column=0, row=5, sticky=W)
 var1 = IntVar()
-Checkbutton(tab0, text="Flatten Image", variable=var1).grid(column=1, row=6, sticky=W)
+Checkbutton(tab0, text="Flatten Image (for simple neural network models)", variable=var1).grid(column=0, row=6, sticky=W)
 
 b2 = tk.Entry(tab0)
 b2.grid(column=1, row=1)
