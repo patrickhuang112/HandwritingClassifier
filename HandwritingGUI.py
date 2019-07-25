@@ -49,12 +49,12 @@ def defaultPredict():
     Height = "32"
     Flat = "1"
     launch = '1'
-    os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {} --launcher {}".format(ImagePath, Model, Width, Height, str(Flat), launch)) if win else os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {} --launcher {}".format(ImagePath, Model, Width, Height, str(Flat), launch)) 
+    os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {} --launcher {}".format(ImagePath, Model, Width, Height, str(Flat), launch)) if win else os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {} --launcher {}".format(ImagePath, Model, Width, Height, str(Flat), launch)) 
 def runWF():
     ImageWF = e1.get()
     Target = e2.get()
     launch = '1'
-    os.system("python handwriting_word_search.py --image {} --target {} --launcher {}".format(ImageWF, Target, launch)) if win else os.system("python handwriting_word_search.py --image {} --target {} --launcher {}".format(ImageWF, Target, launch))
+    os.system("python handwriting_word_search.py --image {} --target {} --launcher {}".format(ImageWF, Target, launch)) if win else os.system("python3 handwriting_word_search.py --image {} --target {} --launcher {}".format(ImageWF, Target, launch))
 def preset(num):
     #Delete text in boxes
     b2.delete(0,END)
@@ -92,7 +92,7 @@ def combine():
     img2 = c2.get()
     name = c3.get()
     launch = '1'
-    os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {} --launcher {}".format(img1, img2, name, launch)) if win else os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {} --launcher {}".format(img1, img2, name, launch))
+    os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {} --launcher {}".format(img1, img2, name, launch)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {} --launcher {}".format(img1, img2, name, launch))
 def close():
     if messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
         window.destroy()
