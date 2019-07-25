@@ -1,59 +1,60 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<br />
-<h2>{{ title }}</h2>
-<h3>{{ message }}</h3>
-<br>
-<br>
-<div class="row">
-    <div class="col-md-4">
-        <form action="/predict" method="POST">
-			<fieldset>
-				<legend>Enter Information to Run Prediction</legend>
-				Image Path:<br>
-				<input type="text" name="imagepath" value="photos/trueEX.png">
-				<br><br>
-				Model:<br>
-				<input type="text" name="model" value="output/simple_nn2.model">
-				<br><br>
-				Width:<br>
-				<input type="text" name="width" value="32">
-				<br><br>
-				Height:<br>
-				<input type="text" name="height" value="32">
-				<br>
-				<input type="checkbox" name="flat" value="1" checked> Flatten Image<br>
-				<br>
-				<input class="btn btn-default" type="submit" name="predictsubmit" value="Predict">
-				<br>
+<div class=darkerBackground>
+	<br />
+	<h2>{{ title }}</h2>
+	<h3>{{ message }}</h3>
+	<br>
+	<br>
+	<div class="row">
+		<div class="col-md-4">
+			<form action="/predict" method="POST">
+				<fieldset>
+					<legend>Enter Information to Run Prediction</legend>
+					Image Path:<br>
+					<input type="text" name="imagepath" value="photos/trueEX.png">
+					<br><br>
+					Model:<br>
+					<input type="text" name="model" value="output/simple_nn2.model">
+					<br><br>
+					Width:<br>
+					<input type="text" name="width" value="32">
+					<br><br>
+					Height:<br>
+					<input type="text" name="height" value="32">
+					<br>
+					<input type="checkbox" name="flat" value="1" checked> Flatten Image<br>
+					<br>
+					<input class="btn btn-default" type="submit" name="predictsubmit" value="Predict">
+					<br>
 
-			</fieldset>
-		</form>
-		<br> <br>
-    	<img src="static/outputImage.png"></img>
-    </div>
-	
-    <div class="col-md-4">
-		<form action="/predict" method="POST">
-			<fieldset>
-				<legend>Enter Information to Run Combiner</legend>
-				First Image Path:<br>
-				<input type="text" name="firstpath">
-				<br><br>
-				Second Image Path:<br>
-				<input type="text" name="secondpath">
-				<br><br>
-				Result Name:<br>
-				<input type="text" name="resultname" value="finalimage">
-				<br>
-				<br>
-				<input class="btn btn-default" type="submit" name="predictsubmit" value="Combine">
-				<br>
-			</fieldset>
-		</form><br>
-    	<img src="static/combinedImage.png"></img>
-    </div>
+				</fieldset>
+			</form>
+			<br> <br>
+			<img src="static/outputImage.png"></img>
+		</div>
+		
+		<div class="col-md-4">
+			<form action="/predict" method="POST">
+				<fieldset>
+					<legend>Enter Information to Run Combiner</legend>
+					First Image Path:<br>
+					<input type="text" name="firstpath">
+					<br><br>
+					Second Image Path:<br>
+					<input type="text" name="secondpath">
+					<br><br>
+					Result Name:<br>
+					<input type="text" name="resultname" value="finalimage">
+					<br>
+					<br>
+					<input class="btn btn-default" type="submit" name="predictsubmit" value="Combine">
+					<br>
+				</fieldset>
+			</form><br>
+			<img src="static/combinedImage.png"></img>
+		</div>
+	</div>
 </div>
-
 {% endblock %}
