@@ -23,7 +23,7 @@ ap.add_argument("-d", "--dataset", required=True,
 	help="path to input dataset of images")
 ap.add_argument("-m", "--model", required=True,
 	help="path to output trained model")
-ap.add_argument("-p", "--plot", required=True,
+ap.add_argument("-p", "--plot", required=False,
 	help="path to output accuracy/loss plot")
 args = vars(ap.parse_args())
 
