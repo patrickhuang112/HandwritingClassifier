@@ -93,7 +93,8 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             extension = filename[filename.index('.'):]
-            file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier\\photos','imageOne.png')) if win else file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','imageOne.png'))
+            print(extension)
+            file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier\\photos','imageOne.png'))
             #img = Image.open(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne'+extension)
             #img.save(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne' + ".png")
         if file2.filename == '':
@@ -103,13 +104,18 @@ def upload_file():
             filename = secure_filename(file2.filename)
             extension = filename[filename.index('.'):]
             print(extension)
-            file2.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier\\photos','imageTwo.png')) if win else file2.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','imageTwo.png'))
+            file2.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier\\photos','imageTwo.png'))
             
             flash('File successfully uploaded')
-            return redirect('/predict')
+            #return redirect('/predict')
         else:
             flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
             return redirect(request.url)
+        img1 = os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne.png'
+        img2 = os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageTwo.png'
+        name = 'combinedImage'
+        os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
+        return redirect('/predict')
 	
 @app.route('/reader', methods=['GET', 'POST'])
 def reader():
