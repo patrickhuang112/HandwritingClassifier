@@ -3,14 +3,23 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template
+from flask import Flask, render_template, request, flash, redirect
 from handwriting_classifier import app
 import subprocess
 import sys
 import os
-from flask import request
+from werkzeug.utils import secure_filename
+import urllib.request
+from os import path
+import shutil
+from PIL import Image
 
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+    
 win = False
 if sys.platform == "win32":
     win = True
@@ -72,6 +81,36 @@ def predict():
         year=datetime.now().year,
         message='This program will compare two handwriting images and output whether or not they were written by the same person.'
     )
+
+@app.route('/uploader', methods=['GET', 'POST'])
+def upload_file():
+    if request.method =='POST':
+        file = request.files['file']
+        file2 = request.files['file2']
+        if file.filename == '':
+            flash('No first file selected for uploading')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            extension = filename[filename.index('.'):]
+            print(extension)
+            file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier\\photos','imageOne.png'))
+            #img = Image.open(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne'+extension)
+            #img.save(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne' + ".png")
+        if file2.filename == '':
+            flash('No second file selected for uploading')
+            return redirect(request.url)
+        if file2 and allowed_file(file2.filename):
+            filename = secure_filename(file2.filename)
+            extension = filename[filename.index('.'):]
+            print(extension)
+            file2.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier\\photos','imageTwo.png'))
+            
+            flash('File successfully uploaded')
+            return redirect('/predict')
+        else:
+            flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
+            return redirect(request.url)
 	
 @app.route('/reader', methods=['GET', 'POST'])
 def reader():
