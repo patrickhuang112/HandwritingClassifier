@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class=darkerBackground>
-	<br />
+<div>
+	<br/>
 	<h2>{{ title }}</h2>
 	<h3>{{ message }}</h3>
 	<br>
@@ -53,7 +53,7 @@
 
 
 		<div class="col-md-4">
-			<form action="/predict" method="POST">
+			<!--<form action="/predict" method="POST">
 				<fieldset>
 					<legend>Enter Information to Run Combiner</legend>
 					First Image Path:<br>
@@ -69,8 +69,8 @@
 					<input class="btn btn-default" type="submit" name="predictsubmit" value="Combine">
 					<br>
 				</fieldset>
-			</form><br>
-			<img src="static/combinedImage.png"></img>
+			</form><br>-->
+			<img src="static/combinedImage.png" width="256" height="128></img>
 		</div>
 	</div>
 </div>
