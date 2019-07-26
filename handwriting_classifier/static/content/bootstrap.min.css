@@ -136,6 +136,11 @@ table{border-collapse:collapse;border-spacing:0}
 
 }
 
+#fancyBackground
+{
+    background-image: url(../test.jpg)
+}
+
 
 @media print{*{color:#000!important;text-shadow:none!important;background:transparent!important;box-shadow:none!important}
     a,a:visited{text-decoration:underline}
