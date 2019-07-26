@@ -1,1 +1,1 @@
-'the' occurs 1 times.
+'team' occurs 0 times.

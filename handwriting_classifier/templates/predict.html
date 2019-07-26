@@ -7,17 +7,25 @@
 	<h3>{{ message }}</h3>
 	<br>
 	<br>
-	 <form action = "/uploader" method = "POST" 
-         enctype = "multipart/form-data">
-         <input type = "file" name = "file"/>
-         <input type = "file" name = "file2"/>
-         <input type = "submit"/>
-     </form> 
+
+
 	<div class="row">
+
+
+
 		<div class="col-md-4">
+			<legend>Enter Information to Run Prediction</legend>
+			<form action = "/uploader" method = "POST"
+				  enctype = "multipart/form-data">
+				<input type = "file" name = "file" />
+				<input type = "file" name = "file2"/>
+				<input type = "submit"/>
+			</form>
+
+			<!--
 			<form action="/predict" method="POST">
 				<fieldset>
-					<legend>Enter Information to Run Prediction</legend>
+
 					Image Path:<br>
 					<input type="text" name="imagepath" value="photos/trueEX.png">
 					<br><br>
@@ -37,10 +45,12 @@
 
 				</fieldset>
 			</form>
+			-->
 			<br> <br>
 			<img src="static/outputImage.png"></img>
 		</div>
-		
+
+
 		<div class="col-md-4">
 			<form action="/predict" method="POST">
 				<fieldset>
