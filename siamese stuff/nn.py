@@ -1,13 +1,14 @@
 from keras.layers.normalization import BatchNormalization
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.layers.core import Dropout, Activation, Dense
-from keras.layers import Add, Flatten
+from keras.layers import Add, Flatten, Reshape
 from keras.models import Sequential, Model
 from keras import backend as K
 from keras.optimizers import SGD
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder,OneHotEncoder
+from sklearn.metrics import classification_report
 
 from imutils import paths
 
@@ -37,7 +38,7 @@ def create_model(width, height, depth, classes):
         # input layers and convolutional layers
         Conv2D(32, (3, 3), padding='same', input_shape=input_shape),
         Activation('relu'),
-        BatchNormalization(axis=1),
+        BatchNormalization(axis=-1),
         MaxPooling2D(pool_size=(2, 2)),
         Dropout(0.2),
     ])
@@ -46,7 +47,7 @@ def create_model(width, height, depth, classes):
         # input layers and convolutional layers
         Conv2D(32, (3, 3), padding='same', input_shape=input_shape),
         Activation('relu'),
-        BatchNormalization(axis=1),
+        BatchNormalization(axis=-1),
         MaxPooling2D(pool_size=(2, 2)),
         Dropout(0.2),
     ])
@@ -55,14 +56,15 @@ def create_model(width, height, depth, classes):
     mergedOut = Add()([model1.output, model2.output])
     mergedOut = Flatten()(mergedOut)
     mergedOut = Dense(256, activation='relu')(mergedOut)
-    mergedOut = Dropout(.5)(mergedOut)
+    mergedOut = Dropout(0.5)(mergedOut)
     mergedOut = Dense(128, activation='relu')(mergedOut)
-    mergedOut = Dropout(.35)(mergedOut)
+    mergedOut = Dropout(0.35)(mergedOut)
 
     # output layer
-    Dense(2, activation='softmax')(mergedOut)
+    mergedOut = Dense(2, activation='sigmoid')(mergedOut)
 
     model = Model([model1.input, model2.input], mergedOut)
+    print(model.summary())
     return model 
 
 ###########################################################################
@@ -90,7 +92,7 @@ amount = 0
 # loop over the input images
 for imagePath in imagePaths:
     amount += 1
-    if amount > 1000:
+    if amount > 10000:
         break
     # load the image, resize it to 64x64 pixels (the required input
     # spatial dimensions of SmallVGGNet), and store the image in the
@@ -145,9 +147,7 @@ ohe = OneHotEncoder(sparse=False)
 integer_encoded = le.fit_transform(trainY)
 integer_encoded = integer_encoded.reshape(len(integer_encoded), 1)
 trainY = ohe.fit_transform(integer_encoded)
-print()
-print(trainY.shape)
-print()
+
 integer_encoded = le.fit_transform(testY)
 integer_encoded = integer_encoded.reshape(len(integer_encoded), 1)
 testY = ohe.fit_transform(integer_encoded)
@@ -165,5 +165,14 @@ model.compile(loss="binary_crossentropy", optimizer=opt , metrics=["accuracy"])
 print("Succesfully compiled model")
 
 print("Fitting model")
-model.fit([trainX_1, trainX_2], trainY, batch_size=32, epochs=5)
+model.fit(x=[trainX_1, trainX_2], y=trainY, batch_size=32, epochs=10)
 print("Succesfully fitted model")
+
+# evaluate the network
+print("[INFO] evaluating network...")
+predictions = model.predict([testX_1, testX_2], batch_size=32)
+print(classification_report(testY.argmax(axis=1),
+	predictions.argmax(axis=1), target_names=['true', 'false']))
+
+print("[INFO] serializing network and label binarizer...")
+model.save(args["model"])
