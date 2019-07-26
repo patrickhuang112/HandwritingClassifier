@@ -4,6 +4,7 @@ from keras.layers.core import Dropout, Activation, Dense
 from keras.layers import Add, Flatten
 from keras.models import Sequential, Model
 from keras import backend as K
+from keras.optimizers import SGD
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder,OneHotEncoder
@@ -30,7 +31,7 @@ args = vars(ap.parse_args())
 
 def create_model(width, height, depth, classes):
 
-    input_shape = (width, height, depth)
+    input_shape = (height, width, depth)
 
     model1 = Sequential(layers=[
         # input layers and convolutional layers
@@ -59,7 +60,7 @@ def create_model(width, height, depth, classes):
     mergedOut = Dropout(.35)(mergedOut)
 
     # output layer
-    Dense(len(classes), activation='softmax')
+    Dense(2, activation='softmax')(mergedOut)
 
     model = Model([model1.input, model2.input], mergedOut)
     return model 
@@ -83,8 +84,14 @@ imagePaths = sorted(list(paths.list_images(args["dataset"])))
 random.seed(42)
 random.shuffle(imagePaths)
 
+#control how many images get loaded
+amount = 0
+
 # loop over the input images
 for imagePath in imagePaths:
+    amount += 1
+    if amount > 1000:
+        break
     # load the image, resize it to 64x64 pixels (the required input
     # spatial dimensions of SmallVGGNet), and store the image in the
     # data list
@@ -121,7 +128,6 @@ for img in testX:
     testX_1.append(i1)
     testX_2.append(i2)
 
-
 trainX_1 = np.array(trainX_1)
 trainX_2 = np.array(trainX_2)
 
@@ -139,8 +145,9 @@ ohe = OneHotEncoder(sparse=False)
 integer_encoded = le.fit_transform(trainY)
 integer_encoded = integer_encoded.reshape(len(integer_encoded), 1)
 trainY = ohe.fit_transform(integer_encoded)
-
-
+print()
+print(trainY.shape)
+print()
 integer_encoded = le.fit_transform(testY)
 integer_encoded = integer_encoded.reshape(len(integer_encoded), 1)
 testY = ohe.fit_transform(integer_encoded)
@@ -153,9 +160,10 @@ model = create_model(32, 32, 3, classes)
 print("Succesfully created model")
 
 print("Compiling model")
-model.compile(loss="binary_crossentropy", optimizer="SGD", metrics=["accuracy"])
+opt = SGD(lr=0.01)
+model.compile(loss="binary_crossentropy", optimizer=opt , metrics=["accuracy"])
 print("Succesfully compiled model")
 
 print("Fitting model")
-model.fit([trainX_1, trainX_2], trainY)
+model.fit([trainX_1, trainX_2], trainY, batch_size=32, epochs=5)
 print("Succesfully fitted model")
