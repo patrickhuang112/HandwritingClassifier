@@ -28,7 +28,7 @@ args = vars(ap.parse_args())
 
 ###########################################################################
 
-def create_nn(width, height, depth, classes):
+def create_model(width, height, depth, classes):
 
     input_shape = (width, height, depth)
 
@@ -67,10 +67,7 @@ def create_nn(width, height, depth, classes):
 ###########################################################################
 
 def slice_image(image):
-    bbox_1 = (9, 0, 32, 32)
-    bbox_2 = (32, 0, 64, 32)
-    slice_1 = image.crop(bbox_2)
-    slice_2 = image.crop(bbox_2)
+    slice_1, slice_2 = np.split((np.array(image)), 2, axis=1)
     return slice_1, slice_2
 
 ###########################################################################
@@ -108,7 +105,28 @@ labels = np.array(labels)
 # the data for training and the remaining 25% for testing
 (trainX, testX, trainY, testY) = train_test_split(data,
 	labels, test_size=0.25, random_state=42)
-print(trainX.shape)
+
+trainX_1 = []
+trainX_2 = []
+testX_1 = []
+testX_2 = []
+
+for img in trainX:
+    i1, i2 = slice_image(img)
+    trainX_1.append(i1)
+    trainX_2.append(i2)
+
+for img in testX:
+    i1, i2 = slice_image(img)
+    testX_1.append(i1)
+    testX_2.append(i2)
+
+
+trainX_1 = np.array(trainX_1)
+trainX_2 = np.array(trainX_2)
+
+testX_1 = np.array(testX_1)
+testX_2 = np.array(testX_2)
 
 
 # convert the labels from integers to vectors (for 2-class, binary
@@ -131,7 +149,13 @@ classes = ["true", "false"]
 
 # Create the neural network (width, height, deph, classes)
 print("Creating neural network")
-create_nn(32, 32, 3, classes)
-print("Succesfully created neural network")
+model = create_model(32, 32, 3, classes)
+print("Succesfully created model")
 
+print("Compiling model")
+model.compile(loss="binary_crossentropy", optimizer="SGD", metrics=["accuracy"])
+print("Succesfully compiled model")
 
+print("Fitting model")
+model.fit([trainX_1, trainX_2], trainY)
+print("Succesfully fitted model")
