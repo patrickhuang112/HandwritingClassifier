@@ -85,9 +85,9 @@ def clearC():
     c3.delete(0,END)
 def combine(outputname):
     output = outputname
-    path1 = 'photos/' + imgpath1.split('/')[-1]
+    path1 = imgpath1
     print(path1)
-    path2 = 'photos/' + imgpath2.split('/')[-1]
+    path2 = imgpath2
     print(path2)
     launch = '1'
     os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {} --launcher {}".format(path1, path2, output, launch)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {} --launcher {}".format(path1, path2, output, launch))
@@ -98,7 +98,7 @@ def run():
     Model = "output/simple_nn2.model"
     Width = "32"
     Height = "32"
-    Flat = "1"
+    Flat = "1" 
     launch = '1'
     os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {} --launcher {}".format('photos/testcombined.jpg', Model, Width, Height, str(Flat), launch)) if win else os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {} --launcher {}".format('/combined.jpg', Model, Width, Height, str(Flat), launch)) 
     
