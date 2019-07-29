@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-'team' occurs 0 times.
-=======
-'my' occurs 1 times.
->>>>>>> 9b63ed2832430ee7257f7cce1ef7737c52fff86a
+'my' occurs 1time.
