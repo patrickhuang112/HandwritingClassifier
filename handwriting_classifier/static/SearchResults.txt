@@ -1,5 +1,1 @@
-<<<<<<< Updated upstream
-'my' occurs 1time.
-=======
-'takeoff' occurs 1 times.
->>>>>>> Stashed changes
+'grotesk' occurs 1 time.
