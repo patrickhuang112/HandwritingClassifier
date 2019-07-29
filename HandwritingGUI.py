@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from PIL import ImageTk, Image
+from tkinter import filedialog
 import subprocess
 import numpy as np
 import PIL
@@ -96,6 +97,17 @@ def combine():
 def close():
     if messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
         window.destroy()
+def openFile():
+    file = filedialog.askopenfile(parent = window, mode = 'rb', title = 'Choose a file')
+    if file != None:
+        data = file.read()
+        file.close()
+        if sys.platform == 'win32':
+            print('Loaded {}'.format(file.name.split('/')[-1]))
+        else:
+            print('Loaded {}'.format(file.name))
+
+        
 
 
 
@@ -104,7 +116,7 @@ window = tk.Tk()
 window.title("Welcome to the Handwriting Classifier")
 window.geometry('459x300')
 
-#path1 = "1.jpg"
+#path1 = "1.jpgs"
 #path2 = "2.jpg"
 
 #Creates Tabs
@@ -123,9 +135,16 @@ tab5 = ttk.Frame(tabControl)
 tabControl.add(tab5, text='Combine Images')
 tabControl.pack(expand=1, fill="both")
 
-#Tab0
+#Tab0 (Predict Tab)
+
+
+
+btntest = tk.Button(tab0, text = 'Select a file', command = openFile)
+btntest.grid(column = 0, row = 1, sticky = W) 
+
+
 tk.Label(tab0, text="Enter Information to Run Prediction", font=("Arial Bold", 10)).grid(column=0,row=0, sticky=W)
-tk.Label(tab0, text="Image Path").grid(column=0, row=1, sticky=W)
+# tk.Label(tab0, text="Image Path").grid(column=0, row=1, sticky=W)
 tk.Label(tab0, text="Model").grid(column=0, row=2,sticky=W)
 tk.Label(tab0, text="Width").grid(column=0, row=4, sticky=W)
 tk.Label(tab0, text="Height").grid(column=0, row=5, sticky=W)
