@@ -129,6 +129,47 @@ def upload_file():
             pass
          
         return redirect('/predict')
+
+@app.route('/uploadreader', methods=['GET', 'POST'])
+def upload_text():
+    if request.method == "POST":
+        text = request.files['text']
+        if text.filename == '':
+            flash('No first file selected for uploading')
+            return redirect(request.url)
+        if text and allowed_file(text.filename):
+            filename = secure_filename(text.filename)
+            extension = filename[filename.index('.'):]
+            print(extension)
+            text.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier\\photos','read_text.png'))
+        else:
+            flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
+            return redirect(request.url)
+        ImagePath = 'photos/read_text.png'
+
+        os.system("python text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python3 text_from_image.py --toReader {}".format(ImagePath)) 
+        return redirect('/reader')
+
+@app.route('/uploadfinder', methods=['GET', 'POST'])
+def upload_find():
+    if request.method == "POST":
+        text = request.files['text']
+        if text.filename == '':
+            flash('No first file selected for uploading')
+            return redirect(request.url)
+        if text and allowed_file(text.filename):
+            filename = secure_filename(text.filename)
+            extension = filename[filename.index('.'):]
+            print(extension)
+            text.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier\\photos','find_text.png'))
+        else:
+            flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
+            return redirect(request.url)
+        ImagePathF = 'photos/find_text.png'
+        TargetWord = request.form['targetword']
+        os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
+    
+        return redirect('/reader')
 	
 @app.route('/reader', methods=['GET', 'POST'])
 def reader():
