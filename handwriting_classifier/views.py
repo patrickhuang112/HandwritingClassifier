@@ -115,6 +115,17 @@ def upload_file():
         img2 = 'photos{}imageTwo.png'.format(os.path.sep)
         name = 'combinedImage'
         os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
+
+        ImagePath = 'handwriting_classifier/static/combinedImage.png'
+        Model = 'output/simple_nn2.model'
+        Width = '32'
+        Height = '32'
+        Flat = '1'
+
+        os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
+         
+
+
         return redirect('/predict')
 	
 @app.route('/reader', methods=['GET', 'POST'])
