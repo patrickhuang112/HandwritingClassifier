@@ -78,9 +78,13 @@ copy = image.copy()
 copy.save("handwriting_classifier/static/SearchedImage.png")
 #write file
 file = open("handwriting_classifier/static/SearchResults.txt", "w")
-file.write("'" + target + "'" + " occurs " + str(count) + " times.")
+if count == 1:
+    file.write("'" + target + "'" + " occurs " + str(count) + " time.")
+    print("file wrote")
+else:
+    file.write("'" + target + "'" + " occurs " + str(count) + " times.")
+    print("file wrote")
 file.close()
-print("file wrote")
 
 if launched == '1':
    image = ImageTk.PhotoImage(Image.open(args["image"]))
