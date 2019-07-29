@@ -24,6 +24,7 @@ try:
 except:
     pass
 
+print (args["image1"])
 list_im = [args["image1"], args["image2"]]
 imgs    = [ PIL.Image.open(i) for i in list_im ]
 min_shape = sorted( [(np.sum(i.size), i.size ) for i in imgs])[0][1]
