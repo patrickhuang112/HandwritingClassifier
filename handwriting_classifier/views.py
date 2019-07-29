@@ -111,8 +111,8 @@ def upload_file():
         else:
             flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
             return redirect(request.url)
-        img1 = os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne.png'
-        img2 = os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageTwo.png'
+        img1 = os.path.expanduser('~')+'{}'.format(os.path.sep)+'{}HandwritingClassifier{}photos{}imageOne.png'.format(os.path.sep)
+        img2 = os.path.expanduser('~')+'{}'.format(os.path.sep)+'{}HandwritingClassifier{}photos{}imageTwo.png'.format(os.path.sep)
         name = 'combinedImage'
         os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
         return redirect('/predict')
