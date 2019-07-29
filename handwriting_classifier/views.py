@@ -53,9 +53,9 @@ def about():
         'about.html',
         title='About',
         year=datetime.now().year,
-        message='Displays results of the calculation.'
+        message='These programs take an image and either output the text or find the number of occurances for a specific word.'
     )
-@app.route('/predict', methods=['GET', 'POST'])
+@app.route('/compare', methods=['GET', 'POST'])
 def predict():
     """Renders the contact page."""
     #user_id = open("handwriting_classifier/userid.txt").read()
@@ -77,9 +77,9 @@ def predict():
        
     return render_template(
         'predict.html',
-        title='Predict',
+        title='Compare',
         year=datetime.now().year,
-        message='This program will compare two handwriting images and output whether or not they were written by the same person.'
+        message='This program will combine then compare two handwriting images and output whether or not they were written by the same person.'
     )
 
 @app.route('/uploader', methods=['GET', 'POST'])
@@ -128,48 +128,7 @@ def upload_file():
         except:
             pass
          
-        return redirect('/predict')
-
-@app.route('/uploadreader', methods=['GET', 'POST'])
-def upload_text():
-    if request.method == "POST":
-        text = request.files['text']
-        if text.filename == '':
-            flash('No first file selected for uploading')
-            return redirect(request.url)
-        if text and allowed_file(text.filename):
-            filename = secure_filename(text.filename)
-            extension = filename[filename.index('.'):]
-            print(extension)
-            text.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier\\photos','read_text.png'))
-        else:
-            flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
-            return redirect(request.url)
-        ImagePath = 'photos/read_text.png'
-
-        os.system("python text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python3 text_from_image.py --toReader {}".format(ImagePath)) 
-        return redirect('/reader')
-
-@app.route('/uploadfinder', methods=['GET', 'POST'])
-def upload_find():
-    if request.method == "POST":
-        text = request.files['text']
-        if text.filename == '':
-            flash('No first file selected for uploading')
-            return redirect(request.url)
-        if text and allowed_file(text.filename):
-            filename = secure_filename(text.filename)
-            extension = filename[filename.index('.'):]
-            print(extension)
-            text.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier\\photos','find_text.png'))
-        else:
-            flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
-            return redirect(request.url)
-        ImagePathF = 'photos/find_text.png'
-        TargetWord = request.form['targetword']
-        os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
-    
-        return redirect('/reader')
+        return redirect('/compare')
 	
 @app.route('/reader', methods=['GET', 'POST'])
 def reader():
@@ -187,9 +146,9 @@ def reader():
     """Renders the contact page."""
     return render_template(
         'reader.html',
-        title='Reader',
+        title='Read',
         year=datetime.now().year,
-        message='Displays results of the calculation.'
+        message='These programs take an image and either output the text or find the number of occurances for a specific word.'
     )
 
 	
