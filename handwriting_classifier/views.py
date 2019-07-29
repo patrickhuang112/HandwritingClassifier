@@ -53,9 +53,9 @@ def about():
         'about.html',
         title='About',
         year=datetime.now().year,
-        message='Displays results of the calculation.'
+        message='These programs take an image and either output the text or find the number of occurances for a specific word.'
     )
-@app.route('/predict', methods=['GET', 'POST'])
+@app.route('/compare', methods=['GET', 'POST'])
 def predict():
     """Renders the contact page."""
     #user_id = open("handwriting_classifier/userid.txt").read()
@@ -77,9 +77,9 @@ def predict():
        
     return render_template(
         'predict.html',
-        title='Predict',
+        title='Compare',
         year=datetime.now().year,
-        message='This program will compare two handwriting images and output whether or not they were written by the same person.'
+        message='This program will combine then compare two handwriting images and output whether or not they were written by the same person.'
     )
 
 @app.route('/uploader', methods=['GET', 'POST'])
@@ -128,7 +128,7 @@ def upload_file():
         except:
             pass
          
-        return redirect('/predict')
+        return redirect('/compare')
 	
 @app.route('/reader', methods=['GET', 'POST'])
 def reader():
@@ -146,9 +146,9 @@ def reader():
     """Renders the contact page."""
     return render_template(
         'reader.html',
-        title='Reader',
+        title='Read',
         year=datetime.now().year,
-        message='Displays results of the calculation.'
+        message='These programs take an image and either output the text or find the number of occurances for a specific word.'
     )
 
 	

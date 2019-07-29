@@ -1,6 +1,11 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<head>
+	<script src="static/scripts/pace.js"></script>
+	<link href="static/content/pace-theme-loading-bar.css" rel="stylesheet"/>
+</head>
+
 
 <br />
 <h2>{{ title }}</h2>
@@ -9,20 +14,30 @@
 <br>
 <div class="row">
 	<div class="col-md-4">
-        <form action="/reader" method="POST">
-			<fieldset>
-				<legend>Reader Information</legend>
-				Image Path:<br>
-				<input type="text" name="image" value="TestImage.jpg">
-				<br><br>
-				<input class="btn btn-default" type="submit" name="readersubmit" value="Read">
-			</fieldset>
-		</form>
+		<legend>Reader Information</legend>
+
+			<form action = "/uploadreader" method = "POST"
+				  enctype = "multipart/form-data">
+				<input type = "file" name = "text" />
+				<br>
+				<input type = "submit" value= "Read" class="btn btn-default"/>
+			</form>
 		<br>
-		<img src="static/ReadImage.png"><embed src="static/ReadResults.txt">
+		<img src="static/ReadImage.png" style="max-height:128px"><embed src="static/ReadResults.txt">
     </div>
 	<div class="col-md-4">
-		<form action="/reader" method="POST">
+		<legend>Finder Information</legend>
+
+			<form action = "/uploadfinder" method = "POST"
+				  enctype = "multipart/form-data">
+				<input type = "file" name = "text" />
+				<br>
+				<input type="text" placeholder= "Enter target word" name="targetword">
+				<br><br>
+				<input type = "submit" value= "Find" class="btn btn-default"/>
+			</form>
+		
+		<!--<form action="/reader" method="POST">
 			<fieldset>
 				<legend>Word Finder Information</legend>
 				Image Path:<br>
@@ -34,9 +49,9 @@
 				<input class="btn btn-default" type="submit" name="readersubmit" value="Find">
 			</fieldset>
 		</form>
-		<br>
-		<img src="static/SearchedImage.png"><embed src="static/SearchResults.txt">
-	</div>
+		<br>-->
+		<img src="static/SearchedImage.png" style="max-height:128px"><embed src="static/SearchResults.txt">
+	</div> 
 </div>
 
 {% endblock %}

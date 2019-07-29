@@ -36,7 +36,8 @@ else:
     pytesseract.pytesseract.tesseract_cmd = r"/usr/bin/tesseract"
 # Create an image object of PIL library
 image = Image.open(args["image"])
-target = args["target"]
+toLower = args["target"]
+target = args["target"].casefold()
  
 # pass image into pytesseract module
 # pytesseract is trained in many languages

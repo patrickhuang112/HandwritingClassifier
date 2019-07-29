@@ -1,6 +1,11 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<head>
+	<script src="static/scripts/pace.js"></script>
+	<link href="static/content/pace-theme-loading-bar.css" rel="stylesheet"/>
+</head>
+
 <div>
 	<br/>
 	<h2>{{ title }}</h2>
@@ -14,16 +19,16 @@
 
 
 		<div class="col-md-4">
-			<legend>Enter Information to Run Prediction</legend>
+			<legend>Comparer Information</legend>
 			<form action = "/uploader" method = "POST"
 				  enctype = "multipart/form-data">
 				<input type = "file" name = "file" />
 				<br />
 				<input type = "file" name = "file2"/>
 				<br>
-				<input type="checkbox" name="predict" value="1" checked> Run Predict<br>
+				<input type="checkbox" name="predict" value="1" checked> Run Compare<br>
 				<br>
-				<input type = "submit" value= "Combine"/>
+				<input type = "submit" value= "Combine Images" class="btn btn-default"/>
 			</form>
 
 			<!--
@@ -51,7 +56,7 @@
 			</form>
 			-->
 			<br> <br>
-			<img src="static/outputImage.png"></img>
+			<img src="static/outputImage.png" width="256" height="128"></img>
 		</div>
 
 
@@ -73,7 +78,7 @@
 					<br>
 				</fieldset>
 			</form><br>-->
-			<img src="static/combinedImage.png" width="256" height="128></img>
+			<img src="static/combinedImage.png" width="256" height="128"></img>
 		</div>
 	</div>
 </div>
