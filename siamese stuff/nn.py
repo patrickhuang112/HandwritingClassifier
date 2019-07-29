@@ -43,7 +43,7 @@ def create_model(width, height, depth, classes):
         Activation('relu'),
         BatchNormalization(axis=-1),
         MaxPooling2D(pool_size=(2, 2)),
-        Dropout(0.2),
+        Dropout(0.3),
         
         Conv2D(64, (6, 6), padding="same"),
 	Activation("relu"),
@@ -52,7 +52,7 @@ def create_model(width, height, depth, classes):
 	Activation("relu"),
 	BatchNormalization(axis=-1),
 	MaxPooling2D(pool_size=(2, 2)),
-	Dropout(0.20),
+	Dropout(0.4),
 
     ])
     
@@ -62,7 +62,7 @@ def create_model(width, height, depth, classes):
         Activation('relu'),
         BatchNormalization(axis=-1),
         MaxPooling2D(pool_size=(2, 2)),
-        Dropout(0.2),
+        Dropout(0.3),
         
         Conv2D(64, (6, 6), padding="same"),
 	Activation("relu"),
@@ -71,7 +71,7 @@ def create_model(width, height, depth, classes):
 	Activation("relu"),
 	BatchNormalization(axis=-1),
 	MaxPooling2D(pool_size=(2, 2)),
-	Dropout(0.20),
+	Dropout(0.4),
 
 
     ])
@@ -183,17 +183,17 @@ print("Creating neural network")
 model = create_model(32, 32, 3, classes)
 print("Succesfully created model")
 
-EPOCHS = 15
+EPOCHS = 30
 BATCH_SIZE = 64
 LEARNING_RATE = 0.01
 
 print("Compiling model")
 opt = SGD(lr=LEARNING_RATE)
-model.compile(loss="binary_crossentropy", optimizer=opt , metrics=["accuracy"])
+model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
 print("Succesfully compiled model")
 
 print("Fitting model")
-model.fit(x=[trainX_1, trainX_2], y=trainY, batch_size=BATCH_SIZE, epochs=EPOCHS, validation_data=([testX_1, testX_2], testY)
+H = model.fit(x=[trainX_1, trainX_2], y=trainY, batch_size=BATCH_SIZE, epochs=EPOCHS, validation_data=([testX_1, testX_2], testY))
 print("Succesfully fitted model")
 
 # evaluate the network
