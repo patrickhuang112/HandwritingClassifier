@@ -12,11 +12,14 @@ from sklearn.metrics import classification_report
 
 from imutils import paths
 
+from matplotlib import pyplot as plt
+
 import numpy as np
 import argparse
 import random
 import cv2
 import os
+
 
 #construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -41,6 +44,16 @@ def create_model(width, height, depth, classes):
         BatchNormalization(axis=-1),
         MaxPooling2D(pool_size=(2, 2)),
         Dropout(0.2),
+        
+        Conv2D(64, (6, 6), padding="same"),
+	Activation("relu"),
+	BatchNormalization(axis=-1),
+	Conv2D(64, (6, 6), padding="same"),
+	Activation("relu"),
+	BatchNormalization(axis=-1),
+	MaxPooling2D(pool_size=(2, 2)),
+	Dropout(0.20),
+
     ])
     
     model2 = Sequential(layers=[
@@ -50,14 +63,25 @@ def create_model(width, height, depth, classes):
         BatchNormalization(axis=-1),
         MaxPooling2D(pool_size=(2, 2)),
         Dropout(0.2),
+        
+        Conv2D(64, (6, 6), padding="same"),
+	Activation("relu"),
+	BatchNormalization(axis=-1),
+	Conv2D(64, (6, 6), padding="same"),
+	Activation("relu"),
+	BatchNormalization(axis=-1),
+	MaxPooling2D(pool_size=(2, 2)),
+	Dropout(0.20),
+
+
     ])
 
 
     mergedOut = Add()([model1.output, model2.output])
     mergedOut = Flatten()(mergedOut)
-    mergedOut = Dense(256, activation='relu')(mergedOut)
-    mergedOut = Dropout(0.5)(mergedOut)
     mergedOut = Dense(128, activation='relu')(mergedOut)
+    mergedOut = Dropout(0.5)(mergedOut)
+    mergedOut = Dense(64, activation='relu')(mergedOut)
     mergedOut = Dropout(0.35)(mergedOut)
 
     # output layer
@@ -92,7 +116,7 @@ amount = 0
 # loop over the input images
 for imagePath in imagePaths:
     amount += 1
-    if amount > 10000:
+    if amount > 100000:
         break
     # load the image, resize it to 64x64 pixels (the required input
     # spatial dimensions of SmallVGGNet), and store the image in the
@@ -159,18 +183,22 @@ print("Creating neural network")
 model = create_model(32, 32, 3, classes)
 print("Succesfully created model")
 
+EPOCHS = 15
+BATCH_SIZE = 64
+LEARNING_RATE = 0.01
+
 print("Compiling model")
-opt = SGD(lr=0.01)
+opt = SGD(lr=LEARNING_RATE)
 model.compile(loss="binary_crossentropy", optimizer=opt , metrics=["accuracy"])
 print("Succesfully compiled model")
 
 print("Fitting model")
-model.fit(x=[trainX_1, trainX_2], y=trainY, batch_size=32, epochs=10)
+model.fit(x=[trainX_1, trainX_2], y=trainY, batch_size=BATCH_SIZE, epochs=EPOCHS, validation_data=([testX_1, testX_2], testY)
 print("Succesfully fitted model")
 
 # evaluate the network
 print("[INFO] evaluating network...")
-predictions = model.predict([testX_1, testX_2], batch_size=32)
+predictions = model.predict([testX_1, testX_2], batch_size=BATCH_SIZE)
 print(classification_report(testY.argmax(axis=1),
 	predictions.argmax(axis=1), target_names=['true', 'false']))
 

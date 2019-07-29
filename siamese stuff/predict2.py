@@ -64,6 +64,7 @@ preds = model.predict([image1, image2])
 # probability
 i = preds.argmax(axis=1)[0]
 label = ['False', 'True'][i]
+print("got {}".format(label))
 
 # draw the class label + probability on the output image
 text = "{}: {:.2f}%".format(label, preds[0][i] * 100)
@@ -72,8 +73,5 @@ cv2.putText(output1, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7,
 
 # show the output image
 cv2.imshow("Image", output1)
-cv2.waitKey(0)
+cv2.imwrite("Output1.png", output1)
 
-
-
-#https://www.pyimagesearch.com/2018/09/10/keras-tutorial-how-to-get-started-with-keras-deep-learning-and-python/
