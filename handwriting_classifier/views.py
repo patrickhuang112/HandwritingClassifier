@@ -122,10 +122,12 @@ def upload_file():
         Height = '32'
         Flat = '1'
 
-        os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
+        try:
+            if request.form['predict'] == '1':
+                os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
+        except:
+            pass
          
-
-
         return redirect('/predict')
 	
 @app.route('/reader', methods=['GET', 'POST'])
