@@ -9,19 +9,29 @@
 <br>
 <div class="row">
 	<div class="col-md-4">
-        <form action="/reader" method="POST">
-			<fieldset>
-				<legend>Reader Information</legend>
-				Image Path:<br>
-				<input type="text" name="image" value="TestImage.jpg">
-				<br><br>
-				<input class="btn btn-default" type="submit" name="readersubmit" value="Read">
-			</fieldset>
-		</form>
+		<legend>Reader Information</legend>
+
+			<form action = "/uploadreader" method = "POST"
+				  enctype = "multipart/form-data">
+				<input type = "file" name = "text" />
+				<br>
+				<input type = "submit" value= "Read"/>
+			</form>
 		<br>
 		<img src="static/ReadImage.png"><embed src="static/ReadResults.txt">
     </div>
 	<div class="col-md-4">
+		<legend>Reader Information</legend>
+
+			<form action = "/uploadfinder" method = "POST"
+				  enctype = "multipart/form-data">
+				<input type = "file" name = "text" />
+				<br>
+				<input type="text" name="targetword">
+				<br>
+				<input type = "submit" value= "Find"/>
+			</form>
+		
 		<form action="/reader" method="POST">
 			<fieldset>
 				<legend>Word Finder Information</legend>
