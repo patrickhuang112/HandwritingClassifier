@@ -111,6 +111,7 @@ def upload_file():
         else:
             flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
             return redirect(request.url)
+        print("YEEET")
         img1 = 'photos{}imageOne.png'.format(os.path.sep)
         img2 = 'photos{}imageTwo.png'.format(os.path.sep)
         name = 'combinedImage'
@@ -148,7 +149,7 @@ def text_reader():
         else:
             flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
             return redirect(request.url)
-        ImagePath = 'photos{}text_read.png'.format(os.path.sep)
+        ImagePath = 'photos/text_read.png'
 
         os.system("python text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python3 text_from_image.py --toReader {}".format(ImagePath)) 
    
