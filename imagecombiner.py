@@ -35,13 +35,13 @@ imgs_comb = PIL.Image.fromarray( imgs_comb)
 imgs_comb.save(args["output_name"] + ".jpg")    
 img = Image.open(args['output_name'] + '.jpg')
 #img = img.resize((32, 32))
-img.save(args['output_name'] + '.jpg')
+img.save('photos/' + args['output_name'] + '.jpg')
 
 #display that beautiful picture
-image = cv2.imread(args['output_name'] + '.jpg')
-cv2.imwrite("handwriting_classifier/static/combinedImage.png", image)
-cv2.imshow("Combined Image", image)
-if launched == '1':
-    while 1:
-        if cv2.waitKey(0) & 0xFF == ord('q'):
-            break
+# image = cv2.imread(args['output_name'] + '.jpg')
+# cv2.imwrite("handwriting_classifier/photos/combinedImage.jpg", image)
+# cv2.imshow("Combined Image", image)
+# if launched == '1':
+#     while 1:
+#         if cv2.waitKey(0) & 0xFF == ord('q'):
+#             break

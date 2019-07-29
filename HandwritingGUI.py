@@ -13,7 +13,8 @@ import PIL
 import os
 import sys
 
-
+imgpath1 = ''
+imgpath2 = ''
 win = False
 if sys.platform == 'win32':
     win = True
@@ -35,39 +36,33 @@ def run_reader():
 def readEX():
     r1.delete(0,END)
     r1.insert(0,"TestImage.jpg")
-def run():
-    ImagePath = b2.get()
-    Model = b1.get()
-    Width = b4.get()
-    Height = b5.get()
-    Flat = var1.get()
-    launch = '1'
-    os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {} --launcher {}".format(ImagePath, Model, Width, Height, str(Flat), launch)) if win else os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {} --launcher {}".format(ImagePath, Model, Width, Height, str(Flat), launch)) 
-def defaultPredict():
-    ImagePath = "photos/falseEX.png"
-    Model = "output/simple_nn2.model"
-    Width = "32"
-    Height = "32"
-    Flat = "1"
-    launch = '1'
-    os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {} --launcher {}".format(ImagePath, Model, Width, Height, str(Flat), launch)) if win else os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {} --launcher {}".format(ImagePath, Model, Width, Height, str(Flat), launch)) 
+
+# def defaultPredict():
+#     ImagePath = "photos/falseEX.png"
+#     Model = "output/simple_nn2.model"
+#     Width = "32"
+#     Height = "32"
+#     Flat = "1"
+#     launch = '1'
+#     os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {} --launcher {}".format(ImagePath, Model, Width, Height, str(Flat), launch)) if win else os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {} --launcher {}".format(ImagePath, Model, Width, Height, str(Flat), launch)) 
+
 def runWF():
     ImageWF = e1.get()
     Target = e2.get()
     launch = '1'
     os.system("python handwriting_word_search.py --image {} --target {} --launcher {}".format(ImageWF, Target, launch)) if win else os.system("python3 handwriting_word_search.py --image {} --target {} --launcher {}".format(ImageWF, Target, launch))
-def preset(num):
-    #Delete text in boxes
-    b2.delete(0,END)
-    b1.delete(0,END)
-    b4.delete(0,END)
-    b5.delete(0,END)
-    #Add text
-    b2.insert(0,"photos/"+num+".png") 
-    b1.insert(0,"output/simple_nn2.model")
-    b4.insert(0,"32")
-    b5.insert(0,"32")
-    var1.set(1)
+# def preset(num):
+#     #Delete text in boxes
+#     b2.delete(0,END)
+#     b1.delete(0,END)
+#     b4.delete(0,END)
+#     b5.delete(0,END)
+#     #Add text
+#     b2.insert(0,"photos/"+num+".png") 
+#     b1.insert(0,"output/simple_nn2.model")
+#     b4.insert(0,"32")
+#     b5.insert(0,"32")
+#     var1.set(1)
 def findEX():
     e1.delete(0,END)
     e2.delete(0,END)
@@ -88,20 +83,44 @@ def clearC():
     c1.delete(0,END)
     c2.delete(0,END)
     c3.delete(0,END)
-def combine():
-    img1 = c1.get()
-    img2 = c2.get()
-    name = c3.get()
+def combine(outputname):
+    output = outputname
+    path1 = 'photos/' + imgpath1.split('/')[-1]
+    print(path1)
+    path2 = 'photos/' + imgpath2.split('/')[-1]
+    print(path2)
     launch = '1'
-    os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {} --launcher {}".format(img1, img2, name, launch)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {} --launcher {}".format(img1, img2, name, launch))
+    os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {} --launcher {}".format(path1, path2, output, launch)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {} --launcher {}".format(path1, path2, output, launch))
+    
+
+def run():
+    combine('testcombined')
+    Model = "output/simple_nn2.model"
+    Width = "32"
+    Height = "32"
+    Flat = "1"
+    launch = '1'
+    os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {} --launcher {}".format('photos/testcombined.jpg', Model, Width, Height, str(Flat), launch)) if win else os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {} --launcher {}".format('/combined.jpg', Model, Width, Height, str(Flat), launch)) 
+    
+
 def close():
     if messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
-        window.destroy()
-def openFile():
-    file = filedialog.askopenfile(parent = window, mode = 'rb', title = 'Choose a file')
+        window.destroy() 
+
+def openFile(btnnum):
+    file = filedialog.askopenfile(parent = tab0, mode = 'rb', title = 'Choose a file')
     if file != None:
         data = file.read()
         file.close()
+        if btnnum == 1:
+            global imgpath1
+            imgpath1 = file.name
+            print(imgpath1)
+        elif btnnum == 2:
+            global imgpath2
+            imgpath2 = file.name
+            print(imgpath2)
+
         if sys.platform == 'win32':
             print('Loaded {}'.format(file.name.split('/')[-1]))
         else:
@@ -135,39 +154,47 @@ tab5 = ttk.Frame(tabControl)
 tabControl.add(tab5, text='Combine Images')
 tabControl.pack(expand=1, fill="both")
 
+btnimg1 = tk.Button(tab0, text = 'Select first image', command = lambda: openFile(1), padx=10, pady=5)
+btnimg1.grid(column = 0, row = 1, sticky = W, padx=10, pady=5) 
+
+
+btnimg2 = tk.Button(tab0, text = 'Select second image', command = lambda: openFile(2), padx=10, pady=5)
+btnimg2.grid(column = 0, row = 2, sticky = W, padx=10, pady=5)
+
+
+btnrun=tk.Button(tab0, text='Run Prediction', command=run, padx=10, pady=5)
+btnrun.grid(column=0, row=3, sticky=W, padx=10, pady=5)
+
+
 #Tab0 (Predict Tab)
 
-
-
-btntest = tk.Button(tab0, text = 'Select a file', command = openFile)
-btntest.grid(column = 0, row = 1, sticky = W) 
-
-
-tk.Label(tab0, text="Enter Information to Run Prediction", font=("Arial Bold", 10)).grid(column=0,row=0, sticky=W)
+# tk.Label(tab0, text="Enter Information to Run Prediction", font=("Arial Bold", 10)).grid(column=0,row=0, sticky=W)
 # tk.Label(tab0, text="Image Path").grid(column=0, row=1, sticky=W)
-tk.Label(tab0, text="Model").grid(column=0, row=2,sticky=W)
-tk.Label(tab0, text="Width").grid(column=0, row=4, sticky=W)
-tk.Label(tab0, text="Height").grid(column=0, row=5, sticky=W)
-var1 = IntVar()
-Checkbutton(tab0, text="Flatten Image (for simple neural network models)", variable=var1).grid(column=0, row=6, sticky=W)
+# tk.Label(tab0, text="Model").grid(column=0, row=2,sticky=W)
+# tk.Label(tab0, text="Width").grid(column=0, row=4, sticky=W)
+# tk.Label(tab0, text="Height").grid(column=0, row=5, sticky=W)
+# var1 = IntVar()
+# Checkbutton(tab0, text="Flatten Image (for simple neural network models)", variable=var1).grid(column=0, row=6, sticky=W)
 
-b2 = tk.Entry(tab0)
-b2.grid(column=1, row=1)
-b1 = tk.Entry(tab0)
-b1.grid(column=1, row=2)
-b4 = tk.Entry(tab0)
-b4.grid(column=1, row=4)
-b5 = tk.Entry(tab0)
-b5.grid(column=1, row=5)
+# b2 = tk.Entry(tab0)
+# b2.grid(column=1, row=1)
+# b1 = tk.Entry(tab0)
+# b1.grid(column=1, row=2)
+# b4 = tk.Entry(tab0)
+# b4.grid(column=1, row=4)
+# b5 = tk.Entry(tab0)
+# b5.grid(column=1, row=5)
 
-btnrun=tk.Button(tab0, text='Run Prediction', command=run, padx=9, pady=2)
-btnrun.grid(column=0, row=7, sticky=W)
-ex1=tk.Button(tab0, text='Set Example 1', command=lambda:preset("trueEX"),padx=12, pady=2)
-ex1.grid(column=0, row=8, sticky=W)
-ex2=tk.Button(tab0, text='Set Example 2', command=lambda:preset("falseEX"),padx=12, pady=2)
-ex2.grid(column=0, row=9, sticky=W)
-btnc=tk.Button(tab0, text='Clear Entry Boxes', command=clear, padx=3, pady=2)
-btnc.grid(column=0, row=10, sticky=W)
+
+
+# ex1=tk.Button(tab0, text='Set Example 1', command=lambda:preset("trueEX"),padx=12, pady=2)
+# ex1.grid(column=0, row=8, sticky=W)
+# ex2=tk.Button(tab0, text='Set Example 2', command=lambda:preset("falseEX"),padx=12, pady=2)
+# ex2.grid(column=0, row=9, sticky=W)
+
+
+# btnc=tk.Button(tab0, text='Clear Entry Boxes', command=clear, padx=3, pady=2)
+# btnc.grid(column=0, row=10, sticky=W)
 
 
 #Tab 1
