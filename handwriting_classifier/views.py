@@ -192,10 +192,15 @@ def reader():
             ImagePathF = request.form['path']
             TargetWord = request.form['targetword']
             os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
-    
+    with open(os.path.expanduser('~')+"\\"+"HandwritingClassifier\\handwriting_classifier\\static\\ReadResults.txt", "r") as f:
+        content = f.read()
+    with open(os.path.expanduser('~')+"\\"+"HandwritingClassifier\\handwriting_classifier\\static\\SearchResults.txt", "r") as g:
+        content2 = g.read()
     """Renders the contact page."""
     return render_template(
         'reader.html',
+        content=content,
+        content2=content2,
         title='Read',
         year=datetime.now().year,
         message='These programs take an image and either output the text or find the number of occurances for a specific word.'

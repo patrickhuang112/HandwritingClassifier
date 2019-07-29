@@ -140,6 +140,10 @@ table{border-collapse:collapse;border-spacing:0}
 {
     background-image: url(../test.jpg)
 }
+.fancy_text 
+{
+    width=1px;
+}
 
 
 @media print{*{color:#000!important;text-shadow:none!important;background:transparent!important;box-shadow:none!important}
