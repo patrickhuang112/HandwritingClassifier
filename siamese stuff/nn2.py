@@ -127,7 +127,7 @@ y = 0
 # loop over the input images
 for imagePath in imagePaths[0]:
     amount += 1
-    if amount > 5000:
+    if amount > 500:
         break
 
     n = np.random.randint(2)
@@ -135,6 +135,8 @@ for imagePath in imagePaths[0]:
         if n == 1:
             imagePath1 = args["dataset"] + '/true/' + imagePaths[0][x] + '/' + (os.listdir(args["dataset"] + '/true/' + imagePaths[0][x]))[-1]
             imagePath2 = args["dataset"] + '/true/' + imagePaths[0][x] + '/' + (os.listdir(args["dataset"] + '/true/' + imagePaths[0][x]))[-2]
+            imagePath3 = args["dataset"] + '/true/' + imagePaths[0][x] + '/' + (os.listdir(args["dataset"] + '/true/' + imagePaths[0][x]))[-3]
+            imagePath4 = args["dataset"] + '/true/' + imagePaths[0][x] + '/' + (os.listdir(args["dataset"] + '/true/' + imagePaths[0][x]))[-4]
             x += 1
         else:
             imagePath1 = args["dataset"] + '/false/' + imagePaths[1][y*2]
@@ -154,12 +156,14 @@ for imagePath in imagePaths[0]:
     image2 = cv2.resize(image2, (256, 64))
     data[1].append(image2)
 
-    cv2.resize
-
     # extract the class label from the 
     # image path and update the labels list
     label = "true" if n == 1 else "false"
-    labels.append(label)
+    if label == "true":
+        labels.append(label)
+        labels.append(label)
+    else:
+        labels.append(label)
 
 data = np.array(data)
 labels = np.array(labels)
@@ -205,7 +209,7 @@ print("Creating neural network")
 model = create_model(256, 64, 3, classes)
 print("Succesfully created model")
 
-EPOCHS = 30
+EPOCHS = 50
 BATCH_SIZE = 16
 LEARNING_RATE = 0.01
 
