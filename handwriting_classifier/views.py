@@ -112,8 +112,8 @@ def upload_file():
             flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
             return redirect(request.url)
         print("YEEET")
-        img1 = 'photos{}imageOne.png'.format(os.path.sep)
-        img2 = 'photos{}imageTwo.png'.format(os.path.sep)
+        img1 = 'photos/imageOne.png'
+        img2 = 'photos/imageTwo.png'
         name = 'combinedImage'
         os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
 
@@ -135,7 +135,6 @@ def upload_file():
 @app.route('/uploadreader', methods=['GET', 'POST'])
 def text_reader():
     if request.method =='POST':
-        print(request.url)
         file = request.files['text']
         if file.filename == '':
             flash('No first file selected for uploading')
@@ -174,7 +173,7 @@ def text_finder():
         else:
             flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
             return redirect(request.url)
-        ImagePathF = 'photos{}text_find.png'.format(os.path.sep)
+        ImagePathF = 'photos/text_find.png'
         TargetWord = request.form['targetword']
         os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
 
