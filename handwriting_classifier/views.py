@@ -148,15 +148,17 @@ def text_reader():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            extension = filename[filename.index('.'):]
-            print(extension)
-            file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','text_read.png'))
+            global extension_reader
+            extension_reader = filename[filename.index('.'):]
+            print(extension_reader)
+            #file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','text_read.png'))
+            file.save('photos/text_read' + extension_reader)
             #img = Image.open(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne'+extension)
             #img.save(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne' + ".png")
         else:
             flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
             return redirect(request.url)
-        ImagePath = 'photos/text_read.png'
+        ImagePath = 'photos/text_read' + extension_reader
 
         os.system("python text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python3 text_from_image.py --toReader {}".format(ImagePath)) 
    
@@ -172,15 +174,17 @@ def text_finder():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            extension = filename[filename.index('.'):]
-            print(extension)
-            file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','text_find.png'))
+            global extension_finder
+            extension_finder = filename[filename.index('.'):]
+            print(extension_finder)
+            #file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','text_find.png'))
+            file.save('photos/text_find' + extension_finder)
             #img = Image.open(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne'+extension)
             #img.save(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne' + ".png")
         else:
             flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
             return redirect(request.url)
-        ImagePathF = 'photos/text_find.png'
+        ImagePathF = 'photos/text_find' + extension_finder
         TargetWord = request.form['targetword']
         os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
 
