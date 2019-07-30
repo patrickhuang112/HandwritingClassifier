@@ -2,4 +2,11 @@
 
 data/
 
+#Ignore all text files
+*.txt
 
+#Ignore all jpg
+*.jpg
+
+#Ignore all png
+*.png
