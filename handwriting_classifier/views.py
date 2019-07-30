@@ -75,9 +75,11 @@ def predict():
             img2 = request.form['secondpath']
             name = request.form['resultname']
             os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
-       
+    with open('handwriting_classifier/static/truefalse.txt', 'r') as g:
+        truefalse = g.read()
     return render_template(
         'predict.html',
+        truefalse=truefalse,
         title='Compare',
         year=datetime.now().year,
         message='This program will combine then compare two handwriting images and output whether or not they were written by the same person.'
