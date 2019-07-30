@@ -66,6 +66,9 @@ preds = model.predict(image)
 # probability
 i = preds.argmax(axis=1)[0]
 label = ["False", "True"][i]
+with open("handwriting_classifier/static/truefalse.txt", "w+") as f:
+    f.write(label)
+
 
 # draw the class label + probability on the output image
 text = "{}: {:.2f}%".format(label, preds[0][i] * 100)
