@@ -145,6 +145,12 @@ table{border-collapse:collapse;border-spacing:0}
     width=1px;
 }
 
+.responsive 
+{
+	width: 100%;
+	height: auto;
+	max-width: 350px;
+}
 
 @media print{*{color:#000!important;text-shadow:none!important;background:transparent!important;box-shadow:none!important}
     a,a:visited{text-decoration:underline}
