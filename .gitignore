@@ -10,3 +10,6 @@ data/
 
 #Ignore all png
 *.png
+
+#Ignore all pycache
+*.pyc
