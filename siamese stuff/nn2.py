@@ -121,78 +121,70 @@ for i in imagePaths:
 
 #control how many images get loaded
 amount = 0
+x = 0
+y = 0
 
 # loop over the input images
-for imagePath in imagePaths:
+for imagePath in imagePaths[0]:
     amount += 1
     if amount > 100:
         break
 
     n = np.random.randint(2)
-
     if n == 1:
-        imagePath1 = imagePaths[0][amount][-1]
-        imagePath2 = imagePaths[0][amount][-2]
+        imagePath1 = args["dataset"] + '/true/' + imagePaths[0][x] + '/' + (os.listdir(args["dataset"] + '/true/' + imagePaths[0][x]))[-1]
+        imagePath2 = args["dataset"] + '/true/' + imagePaths[0][x] + '/' + (os.listdir(args["dataset"] + '/true/' + imagePaths[0][x]))[-2]
+        x += 1
     else:
-        imagePath1 = imagePaths[1][amount*2]
-        imagePath2 = imagePaths[1][amount*2+1]
+        imagePath1 = args["dataset"] + '/false/' + imagePaths[1][y*2]
+        imagePath2 = args["dataset"] + '/false/' + imagePaths[1][y*2+1]
+        y += 1
     
-    print(imagePath1, imagePath2, n)
-    sys.exit()
-
-    # load the image, resize it to 64x64 pixels (the required input
-    # spatial dimensions of SmallVGGNet), and store the image in the
+    # load the image, resize it to the required input
+    # spatial dimensions of the network, and store the image in the
     # data list
     image1 = cv2.imread(imagePath1)
-    image1 = cv2.resize(image, (512, 64))
+    image1 = cv2.resize(image1, (512, 64))
     data[0].append(image1)
     
     image2 = cv2.imread(imagePath2)
-    image2 = cv2.resize(image, (512, 64))
+    image2 = cv2.resize(image2, (512, 64))
     data[1].append(image2)
 
+    cv2.resize
 
     # extract the class label from the 
     # image path and update the labels list
     label = "true" if n == 1 else "false"
     labels.append(label)
 
+data = np.array(data)
+labels = np.array(labels)
+
+x1 = np.array(data[0])
+x2 = np.array(data[1])
+
 # scale the raw pixel intensities to the range [0, 1]
-data = np.array(data, dtype="float") / 255.0
+x1 = np.array(x1, dtype="float") / 255.0
+x2 = np.array(x2, dtype="float") / 255.0
 labels = np.array(labels)
 
 # partition the data into training and testing splits using 75% of
 # the data for training and the remaining 25% for testing
-(trainX, testX, trainY, testY) = train_test_split(data,
+(trainx1, testx1, trainY, testY) = train_test_split(x1,
+	labels, test_size=0.25, random_state=42)
+(trainx2, testx2, trainY, testY) = train_test_split(x2,
 	labels, test_size=0.25, random_state=42)
 
-trainX_1 = []
-trainX_2 = []
-testX_1 = []
-testX_2 = []
-
-for img in trainX:
-    i1, i2 = slice_image(img)
-    trainX_1.append(i1)
-    trainX_2.append(i2)
-
-for img in testX:
-    i1, i2 = slice_image(img)
-    testX_1.append(i1)
-    testX_2.append(i2)
-
-trainX_1 = np.array(trainX_1)
-trainX_2 = np.array(trainX_2)
-
-testX_1 = np.array(testX_1)
-testX_2 = np.array(testX_2)
-
+print(trainx1, testx1)
+print(trainx2, testx2)
+print()
+print(trainY, testY)
 
 # convert the labels from integers to vectors (for 2-class, binary
 # classification you should use Keras' to_categorical function
 # instead as the scikit-learn's LabelBinarizer will not return a
 # vector)
-
 le = LabelEncoder()
 ohe = OneHotEncoder(sparse=False)
 integer_encoded = le.fit_transform(trainY)
@@ -202,16 +194,16 @@ trainY = ohe.fit_transform(integer_encoded)
 integer_encoded = le.fit_transform(testY)
 integer_encoded = integer_encoded.reshape(len(integer_encoded), 1)
 testY = ohe.fit_transform(integer_encoded)
-classes = ["true", "false"]
 
+classes = ["true", "false"]
 
 # Create the neural network (width, height, deph, classes)
 print("Creating neural network")
-model = create_model(32, 32, 3, classes)
+model = create_model(512, 64, 3, classes)
 print("Succesfully created model")
 
 EPOCHS = 30
-BATCH_SIZE = 64
+BATCH_SIZE = 2
 LEARNING_RATE = 0.01
 
 print("Compiling model")
@@ -220,12 +212,12 @@ model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
 print("Succesfully compiled model")
 
 print("Fitting model")
-H = model.fit(x=[trainX_1, trainX_2], y=trainY, batch_size=BATCH_SIZE, epochs=EPOCHS, validation_data=([testX_1, testX_2], testY))
+H = model.fit(x=[trainx1, trainx2], y=trainY, batch_size=BATCH_SIZE, epochs=EPOCHS, validation_data=([testx1, testx2], testY))
 print("Succesfully fitted model")
 
 # evaluate the network
 print("[INFO] evaluating network...")
-predictions = model.predict([testX_1, testX_2], batch_size=BATCH_SIZE)
+predictions = model.predict([testx1, testx2], batch_size=BATCH_SIZE)
 print(classification_report(testY.argmax(axis=1),
 	predictions.argmax(axis=1), target_names=['true', 'false']))
 
