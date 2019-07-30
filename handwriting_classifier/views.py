@@ -13,6 +13,7 @@ import urllib.request
 from os import path
 import shutil
 from PIL import Image
+import cv2
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
@@ -92,9 +93,11 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            extension = filename[filename.index('.'):]
-            print(extension)
-            file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','imageOne.png'))
+            global extension1
+            extension1 = filename[filename.index('.'):]
+            print(extension1)
+            #file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','imageOne.png'))
+            file.save('photos/imageOne' + extension1)
             #img = Image.open(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne'+extension)
             #img.save(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne' + ".png")
         if file2.filename == '':
@@ -102,20 +105,24 @@ def upload_file():
             return redirect(request.url)
         if file2 and allowed_file(file2.filename):
             filename = secure_filename(file2.filename)
-            extension = filename[filename.index('.'):]
-            print(extension)
-            file2.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','imageTwo.png'))
-            
+            global extension2
+            extension2 = filename[filename.index('.'):]
+            print(extension2)
+            #file2.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','imageTwo.png'))
+            file2.save('photos/imageTwo' + extension2)
             flash('File successfully uploaded')
             #return redirect('/predict')
         else:
             flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
             return redirect(request.url)
         print("YEEET")
-        img1 = 'photos/imageOne.png'
-        img2 = 'photos/imageTwo.png'
+        img1 = 'photos/imageOne' + extension1
+        img2 = 'photos/imageTwo' + extension2
         name = 'combinedImage'
         os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
+
+        print('succesful')
+
 
         ImagePath = 'handwriting_classifier/static/combinedImage.png'
         Model = 'output/simple_nn2.model'
