@@ -43,8 +43,8 @@ def create_model(width, height, depth, classes):
         Conv2D(32, (3, 3), padding='same', input_shape=input_shape),
         Activation('relu'),
         BatchNormalization(axis=-1),
-        MaxPooling2D(pool_size=(2, 2)),
-        Dropout(0.3),
+        MaxPooling2D(pool_size=(3, 3)),
+        Dropout(0.2),
         
         Conv2D(64, (6, 6), padding="same"),
 	Activation("relu"),
@@ -52,8 +52,8 @@ def create_model(width, height, depth, classes):
 	Conv2D(64, (6, 6), padding="same"),
 	Activation("relu"),
 	BatchNormalization(axis=-1),
-	MaxPooling2D(pool_size=(2, 2)),
-	Dropout(0.4),
+	MaxPooling2D(pool_size=(3, 3)),
+	Dropout(0.2),
 
     ])
     
@@ -62,8 +62,8 @@ def create_model(width, height, depth, classes):
         Conv2D(32, (3, 3), padding='same', input_shape=input_shape),
         Activation('relu'),
         BatchNormalization(axis=-1),
-        MaxPooling2D(pool_size=(2, 2)),
-        Dropout(0.3),
+        MaxPooling2D(pool_size=(3, 3)),
+        Dropout(0.2),
         
         Conv2D(64, (6, 6), padding="same"),
 	Activation("relu"),
@@ -71,8 +71,8 @@ def create_model(width, height, depth, classes):
 	Conv2D(64, (6, 6), padding="same"),
 	Activation("relu"),
 	BatchNormalization(axis=-1),
-	MaxPooling2D(pool_size=(2, 2)),
-	Dropout(0.4),
+	MaxPooling2D(pool_size=(3, 3)),
+	Dropout(0.2),
 
 
     ])
@@ -81,9 +81,9 @@ def create_model(width, height, depth, classes):
     mergedOut = Add()([model1.output, model2.output])
     mergedOut = Flatten()(mergedOut)
     mergedOut = Dense(128, activation='relu')(mergedOut)
-    mergedOut = Dropout(0.5)(mergedOut)
-    mergedOut = Dense(64, activation='relu')(mergedOut)
     mergedOut = Dropout(0.35)(mergedOut)
+    mergedOut = Dense(64, activation='relu')(mergedOut)
+    mergedOut = Dropout(0.2)(mergedOut)
 
     # output layer
     mergedOut = Dense(2, activation='sigmoid')(mergedOut)
@@ -127,28 +127,31 @@ y = 0
 # loop over the input images
 for imagePath in imagePaths[0]:
     amount += 1
-    if amount > 100:
+    if amount > 5000:
         break
 
     n = np.random.randint(2)
-    if n == 1:
-        imagePath1 = args["dataset"] + '/true/' + imagePaths[0][x] + '/' + (os.listdir(args["dataset"] + '/true/' + imagePaths[0][x]))[-1]
-        imagePath2 = args["dataset"] + '/true/' + imagePaths[0][x] + '/' + (os.listdir(args["dataset"] + '/true/' + imagePaths[0][x]))[-2]
-        x += 1
-    else:
-        imagePath1 = args["dataset"] + '/false/' + imagePaths[1][y*2]
-        imagePath2 = args["dataset"] + '/false/' + imagePaths[1][y*2+1]
-        y += 1
+    try:
+        if n == 1:
+            imagePath1 = args["dataset"] + '/true/' + imagePaths[0][x] + '/' + (os.listdir(args["dataset"] + '/true/' + imagePaths[0][x]))[-1]
+            imagePath2 = args["dataset"] + '/true/' + imagePaths[0][x] + '/' + (os.listdir(args["dataset"] + '/true/' + imagePaths[0][x]))[-2]
+            x += 1
+        else:
+            imagePath1 = args["dataset"] + '/false/' + imagePaths[1][y*2]
+            imagePath2 = args["dataset"] + '/false/' + imagePaths[1][y*2+1]
+            y += 1
+    except IndexError:
+        break
     
     # load the image, resize it to the required input
     # spatial dimensions of the network, and store the image in the
     # data list
     image1 = cv2.imread(imagePath1)
-    image1 = cv2.resize(image1, (512, 64))
+    image1 = cv2.resize(image1, (256, 64))
     data[0].append(image1)
     
     image2 = cv2.imread(imagePath2)
-    image2 = cv2.resize(image2, (512, 64))
+    image2 = cv2.resize(image2, (256, 64))
     data[1].append(image2)
 
     cv2.resize
@@ -199,11 +202,11 @@ classes = ["true", "false"]
 
 # Create the neural network (width, height, deph, classes)
 print("Creating neural network")
-model = create_model(512, 64, 3, classes)
+model = create_model(256, 64, 3, classes)
 print("Succesfully created model")
 
 EPOCHS = 30
-BATCH_SIZE = 2
+BATCH_SIZE = 16
 LEARNING_RATE = 0.01
 
 print("Compiling model")
