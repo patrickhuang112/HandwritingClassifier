@@ -152,6 +152,13 @@ table{border-collapse:collapse;border-spacing:0}
 	max-width: 400px;
 }
 
+.responsive1
+{
+	width: 100%;
+	height: auto;
+	max-width: 700px;
+}
+
 #ape:hover 
 {
 	animation: shake 0.5s;
