@@ -1,4 +1,5 @@
 # HandwritingClassifier
+
 The Graphology A.P.E was a project by Allie Surprise, Emily Becher, Griffin Walraven and Patrick Huang for the Northwest Advanced Programming Workshop from July 15th to August 2nd. The project was focused on creating and training a neural network that could analyze two different handwriting samples and predict whether the two samples were written by the same person. 
 
 # Neural Network timeline
@@ -16,3 +17,26 @@ The team created a website and a graphical user interface (GUI) to allow users t
 
 The team also implemented the pytesseract library which allows analysis of words within images. Within the website and GUI, a user is able to upload an image with handwritten or typed words and the Graphology APE will analyze the image and return with the words it reads in the image. There is also a word find feature where instead of returning all words found within an image, GAPE will return the number of instances of a specific user-defined word. 
 
+
+#Packages Needed to Run
+
+Python 3 (recommend python 3.6)
+
+Download pytesseract to path
+	Windows: C:/Program Files/Tesseract-OCR/tesseract
+	Linux: /usr/bin/tesseract
+	Darwin/MacOS: /usr/local/bin/tesseract
+
+Pip Installs (run website)
+	flask
+	pillow
+	
+Pip Installs (run compare/combine)
+	numpy
+	tensorflow
+	keras
+	opencv-python
+	
+Pip Installs (run read/find)
+	pytesseract
+	
