@@ -94,7 +94,7 @@ def upload_file():
             filename = secure_filename(file.filename)
             extension = filename[filename.index('.'):]
             print(extension)
-            file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier\\photos','imageOne.png'))
+            file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','imageOne.png'))
             #img = Image.open(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne'+extension)
             #img.save(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne' + ".png")
         if file2.filename == '':
@@ -104,7 +104,7 @@ def upload_file():
             filename = secure_filename(file2.filename)
             extension = filename[filename.index('.'):]
             print(extension)
-            file2.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier\\photos','imageTwo.png'))
+            file2.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','imageTwo.png'))
             
             flash('File successfully uploaded')
             #return redirect('/predict')
@@ -135,6 +135,7 @@ def upload_file():
 @app.route('/uploadreader', methods=['GET', 'POST'])
 def text_reader():
     if request.method =='POST':
+        print(request.url)
         file = request.files['text']
         if file.filename == '':
             flash('No first file selected for uploading')
@@ -143,7 +144,7 @@ def text_reader():
             filename = secure_filename(file.filename)
             extension = filename[filename.index('.'):]
             print(extension)
-            file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier\\photos','text_read.png'))
+            file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','text_read.png'))
             #img = Image.open(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne'+extension)
             #img.save(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne' + ".png")
         else:
@@ -167,7 +168,7 @@ def text_finder():
             filename = secure_filename(file.filename)
             extension = filename[filename.index('.'):]
             print(extension)
-            file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier\\photos','text_find.png'))
+            file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','text_find.png'))
             #img = Image.open(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne'+extension)
             #img.save(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne' + ".png")
         else:
@@ -192,9 +193,9 @@ def reader():
             ImagePathF = request.form['path']
             TargetWord = request.form['targetword']
             os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
-    with open(os.path.expanduser('~')+"\\"+"HandwritingClassifier\\handwriting_classifier\\static\\ReadResults.txt", "r") as f:
+    with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/ReadResults.txt", "r") as f:
         content = f.read()
-    with open(os.path.expanduser('~')+"\\"+"HandwritingClassifier\\handwriting_classifier\\static\\SearchResults.txt", "r") as g:
+    with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/SearchResults.txt", "r") as g:
         content2 = g.read()
     """Renders the contact page."""
     return render_template(

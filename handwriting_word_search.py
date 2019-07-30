@@ -32,8 +32,11 @@ except:
 # Include tesseract executable in your path
 if win:
     pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-else:
+else if sys.platform == "linux":
     pytesseract.pytesseract.tesseract_cmd = r"/usr/bin/tesseract"
+else:
+    pytesseract.pytesseract.tesseract_cmd = r"/usr/local/bin/tesseract"
+
 # Create an image object of PIL library
 image = Image.open(args["image"])
 toLower = args["target"]

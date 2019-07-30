@@ -30,7 +30,7 @@ if win:
 elif sys.platform == "linux":
     pytesseract.pytesseract.tesseract_cmd = r"/usr/bin/tesseract"
 elif sys.platform == "darwin":
-    pytesseract.pytesseract.tesseract_cmd = r"" # <-- loc on macos goes here
+    pytesseract.pytesseract.tesseract_cmd = r"/usr/local/bin/tesseract" # <-- loc on macos goes here
 
 # Create an image object of PIL library
 image = Image.open(args["toReader"])
