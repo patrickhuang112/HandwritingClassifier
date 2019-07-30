@@ -32,7 +32,7 @@ except:
 # Include tesseract executable in your path
 if win:
     pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-else if sys.platform == "linux":
+elif sys.platform == "linux":
     pytesseract.pytesseract.tesseract_cmd = r"/usr/bin/tesseract"
 else:
     pytesseract.pytesseract.tesseract_cmd = r"/usr/local/bin/tesseract"
