@@ -15,7 +15,8 @@ import shutil
 from PIL import Image
 import cv2
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -61,7 +62,7 @@ def predict():
     """Renders the contact page."""
     #user_id = open("handwriting_classifier/userid.txt").read()
     if request.method == "POST":
-        if request.form['predictsubmit'] == 'Predict':
+        """if request.form['predictsubmit'] == 'Predict':
             ImagePath = request.form['imagepath']
             Model = request.form['model']
             Width = request.form['width']
@@ -75,6 +76,7 @@ def predict():
             img2 = request.form['secondpath']
             name = request.form['resultname']
             os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
+"""
     with open('handwriting_classifier/static/truefalse.txt', 'r') as g:
         truefalse = g.read()
     return render_template(
@@ -91,39 +93,32 @@ def upload_file():
         file = request.files['file']
         file2 = request.files['file2']
         if file.filename == '':
-            flash('No first file selected for uploading')
-            return redirect(request.url)
+            
+            return 'No first file selected for uploading'
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             global extension1
             extension1 = filename[filename.index('.'):]
-            print(extension1)
             #file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','imageOne.png'))
             file.save('photos/imageOne' + extension1)
             #img = Image.open(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne'+extension)
             #img.save(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne' + ".png")
         if file2.filename == '':
-            flash('No second file selected for uploading')
-            return redirect(request.url)
+            return 'No second file selected for uploading'
         if file2 and allowed_file(file2.filename):
             filename = secure_filename(file2.filename)
             global extension2
             extension2 = filename[filename.index('.'):]
-            print(extension2)
             #file2.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','imageTwo.png'))
             file2.save('photos/imageTwo' + extension2)
-            flash('File successfully uploaded')
             #return redirect('/predict')
         else:
-            flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
-            return redirect(request.url)
-        print("YEEET")
+            return 'Allowed file types are png, jpg, jpeg, gif'
         img1 = 'photos/imageOne' + extension1
         img2 = 'photos/imageTwo' + extension2
         name = 'combinedImage'
         os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
 
-        print('succesful')
 
 
         ImagePath = 'handwriting_classifier/static/combinedImage.png'
@@ -146,20 +141,17 @@ def text_reader():
     if request.method =='POST':
         file = request.files['text']
         if file.filename == '':
-            flash('No first file selected for uploading')
-            return redirect(request.url)
+            return "No file selected for uploading"
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             global extension_reader
             extension_reader = filename[filename.index('.'):]
-            print(extension_reader)
             #file.save(os.path.join(os.path.expanduser('~'),'HandwritingClassifier/photos','text_read.png'))
             file.save('photos/text_read' + extension_reader)
             #img = Image.open(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne'+extension)
             #img.save(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne' + ".png")
         else:
-            flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
-            return redirect(request.url)
+            return 'Allowed file types are png, jpg, jpeg, gif'
         ImagePath = 'photos/text_read' + extension_reader
 
         os.system("python text_from_image.py --toReader {}".format(ImagePath)) if win else os.system("python3 text_from_image.py --toReader {}".format(ImagePath)) 
@@ -172,8 +164,7 @@ def text_finder():
     if request.method =='POST':
         file = request.files['text']
         if file.filename == '':
-            flash('No first file selected for uploading')
-            return redirect(request.url)
+            return "No file selected for uploading"
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             global extension_finder
@@ -184,8 +175,7 @@ def text_finder():
             #img = Image.open(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne'+extension)
             #img.save(os.path.expanduser('~')+'\\'+'\\HandwritingClassifier\\photos\\imageOne' + ".png")
         else:
-            flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
-            return redirect(request.url)
+            return 'Allowed file types are png, jpg, jpeg, gif'
         ImagePathF = 'photos/text_find' + extension_finder
         TargetWord = request.form['targetword']
         os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
@@ -195,7 +185,7 @@ def text_finder():
 	
 @app.route('/reader', methods=['GET', 'POST'])
 def reader():
-    if request.method == "POST":
+    """if request.method == "POST":
         if request.form['readersubmit'] == 'Read':
             ImagePath = request.form['image']
 
@@ -205,6 +195,7 @@ def reader():
             ImagePathF = request.form['path']
             TargetWord = request.form['targetword']
             os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
+"""
     #with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/ReadResults.txt", "r") as f:
     with open('handwriting_classifier/static/ReadResults.txt', 'r') as f:
         content = f.read()
@@ -226,7 +217,6 @@ def reader():
 def run():
     if request.method == "POST":
         if request.form['gui_button'] == "Run here >>":
-            print("yeet")
             if sys.platform == 'linux':
                 subprocess.call(["python3", "HandwritingGUI.py"])
             elif sys.platform == 'darwin':
