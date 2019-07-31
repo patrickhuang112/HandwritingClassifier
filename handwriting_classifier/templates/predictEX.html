@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<head>
+	<script src="static/scripts/pace.js"></script>
+	<link href="static/content/pace-theme-loading-bar.css" rel="stylesheet"/>
+</head>
+
+<div>
+	<br/>
+	<h2>{{ title }}</h2>
+	<details>
+		<summary>{{ message }}</summary>
+		<p>Add description of combiner and comparer</p>
+	</details>
+	<br>
+	<br>
+
+
+	<div class="row">
+
+
+
+		<div class="col-md-4">
+			<legend>Comparer Information</legend>
+			<p>Images must be both in landscape or portrait orientation</p>
+			<form action = "/uploader" method = "POST"
+				  enctype = "multipart/form-data">
+				<input type = "file" name = "file" />
+				<br />
+				<input type = "file" name = "file2"/>
+				<br>
+				<input type="checkbox" name="predict" value="1" checked> Run Compare<br>
+				<br>
+				<input type = "submit" value= "Combine Images" class="btn btn-default"/>
+			</form>
+		    <br>
+			
+		</div>
+
+
+		<div class="col-md-4">
+			
+			
+			<legend>Combined Image Example</legend>
+
+			<img src="static/combinedImageEX.png" width="256" height="128"></img>
+			<br><br>
+			<legend>Compare Result Example</legend>
+			<img src="static/outputImageEX.png" width="256" height="128"></img>
+	
+		</div>
+	</div>
+</div>
+{% endblock %}
