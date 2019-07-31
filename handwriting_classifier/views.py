@@ -16,7 +16,8 @@ from PIL import Image
 import cv2
 global predictcount
 global readcount
-
+predictcount = 0
+readcount = 0
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
@@ -148,7 +149,7 @@ def upload_file():
         try:
             if request.form['predict'] == '1':
                 if request.form['network'] == "Select Neural Network:":
-                    print ("You fail")
+                    return "You fail (Please select a neural network)"
                 elif request.form['network'] == "Simple":
                     print ("Simple")
                     ImagePath = 'handwriting_classifier/static/combinedImage.png'
@@ -169,7 +170,7 @@ def upload_file():
                     print ("Siamese")
                     Image1 = 'photos/imageOne' + extension1
                     Image2 = 'photos/imageTwo' + extension2
-                    Model = 'siamese stuff/m1.model'
+                    Model = 'siamese stuff/84s.model'
                     Width = '256'
                     Height = '64'
                     os.system("python predict2.py -i1 {} -i2 {} -m {} -w {} -h {}".format(Image1, Image2, Model, Width, Height)) if win else os.system("python3 predict2.py -i1 {} -i2 {} -m {} -w {} -h {}".format(Image1, Image2, Model, Width, Height)) 
