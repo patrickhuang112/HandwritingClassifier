@@ -16,7 +16,8 @@ from PIL import Image
 import cv2
 global predictcount
 global readcount
-
+predictcount = 0
+readcount = 0
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
