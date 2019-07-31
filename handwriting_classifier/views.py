@@ -93,7 +93,6 @@ def predict():
     networks = ['Select Neural Network:', 'Simple', 'Convolutional', 'Siamese']
     global predictcount
     if predictcount == 0:
-        print ("Hello")
         return render_template(
             'predictEX.html',
             networks=networks,
@@ -150,7 +149,7 @@ def upload_file():
         try:
             if request.form['predict'] == '1':
                 if request.form['network'] == "Select Neural Network:":
-                    print ("You fail")
+                    return "You fail (Please select a neural network)"
                 elif request.form['network'] == "Simple":
                     print ("Simple")
                     ImagePath = 'handwriting_classifier/static/combinedImage.png'
