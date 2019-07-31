@@ -14,6 +14,8 @@ from os import path
 import shutil
 from PIL import Image
 import cv2
+global predictcount
+global readcount
 
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
@@ -40,8 +42,8 @@ def add_header(r):
 
 @app.route('/')
 def counter():
-    global count
-    count = 0
+    global predictcount
+    predictcount = 0
     global readcount
     readcount = 0
     return render_template(
@@ -87,19 +89,9 @@ def predict():
             name = request.form['resultname']
             os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
 """
-    global count
     networks = ['Select Neural Network:', 'Simple', 'Convolutional', 'Siamese']
-<<<<<<< HEAD
-    return render_template(
-        'predict.html',
-        truefalse=truefalse,
-        networks=networks,
-        title='Compare',
-        year=datetime.now().year,
-        message='This program will combine then compare two handwriting images and output whether or not they were written by the same person. Click for more information'
-    )
-=======
-    if count == 0:
+    global predictcount
+    if predictcount == 0:
         return render_template(
             'predictEX.html',
             networks=networks,
@@ -118,12 +110,11 @@ def predict():
             year=datetime.now().year,
             message='This program will combine then compare two handwriting images and output whether or not they were written by the same person.'
         )
->>>>>>> c48baec402820ae976338e1d97da63e4100bd5b1
 
 @app.route('/uploader', methods=['GET', 'POST'])
 def upload_file():
-    global count
-    count = count + 1
+    global predictcount
+    predictcount = predictcount + 1
     if request.method =='POST':
         file = request.files['file']
         file2 = request.files['file2']
