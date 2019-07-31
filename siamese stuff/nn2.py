@@ -228,7 +228,7 @@ print("Creating neural network")
 model = create_model(256, 64, 3, classes)
 print("Succesfully created model")
 
-EPOCHS = 50
+EPOCHS = 75
 BATCH_SIZE = 32
 LEARNING_RATE = 0.01
 
