@@ -216,6 +216,7 @@ def reader():
             os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
 """
     #with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/ReadResults.txt", "r") as f:
+    #with open("C:/Users/galbraithja/HandwritingClassifier/handwriting_classifier/static/ReadResults.txt", "r") as f:
     with open('handwriting_classifier/static/ReadResults.txt', 'r') as f:
         content = f.read()
     #with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/SearchResults.txt", "r") as g:
