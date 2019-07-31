@@ -65,7 +65,7 @@ def about():
         'about.html',
         title='About',
         year=datetime.now().year,
-        message='These programs take an image and either output the text or find the number of occurances for a specific word.'
+        message='These programs take an image and either output the text or find the number of occurances for a specific word. Click for more information'
     )
 @app.route('/compare', methods=['GET', 'POST'])
 def predict():
