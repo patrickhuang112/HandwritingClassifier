@@ -11,7 +11,13 @@
 	<h2>{{ title }}</h2>
 	<details>
 		<summary>{{ message }}</summary>
-		<p>Add description of combiner and comparer</p>
+		<ul><li>Select two similar sized images to compare. Both pictures must be in the same orientation. A combined version
+			of the two images chosen will appear to the right under "Combined images".</li>
+			<li>If "Run Compare" is checked, the images will first combine and then a comparison will run with the result
+				being highlighted in orange below. If running a comparison, please select a model to use for the neural
+				network from the dropdown list below. </li>
+			<li>Click "Combine Images" to begin both options</li>
+		</ul>
 	</details>
 	<br>
 	<br>
@@ -29,6 +35,14 @@
 				<input type = "file" name = "file" />
 				<br />
 				<input type = "file" name = "file2"/>
+				<br>
+				<select name="network" method="POST" action="/compare">
+					<option value="{{networks[0]}}" selected>{{networks[0]}}</option>
+					{% for network in networks[1:] %}
+					<option value="{{network}}">{{network}}</option>
+					{% endfor %}
+				</select>
+				<br>
 				<br>
 				<input type="checkbox" name="predict" value="1" checked> Run Compare<br>
 				<br>

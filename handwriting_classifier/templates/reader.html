@@ -11,14 +11,25 @@
 <h2>{{ title }}</h2>
 <details>
 	<summary>{{ message }}</summary>
-	<p>The text reader uses a deep neural network trained to read text. The word finder goes through the same process of reading the 
-	text then compares the target word to each word in the text. Each time the words match it adds one to its occurance count.</p>
+	<p>The text reader uses a deep neural network trained to read text. The word finder goes through the same process of reading the
+		text then compares the target word to each word in the text. Each time the words match it adds one to its occurance count.</p>
+	<p>Reader</p>
+	<ul>
+		<li>For the reader, choose an image file with handwritten words</li>
+		<li>Click "Read" and the predicted text will display under the highlighted output label below</li>
+	</ul>
+	<p>Word finder</p>
+	<ul>
+		<li>For the word finder, choose an image file with handwritten words</li>
+		<li>Enter a word that you want to find in the image</li>
+		<li>Click "Find" and the number of times the word appears in the image will display below</li>
+	</ul>
 </details>
 <br>
 
 <div class="row">
 	<div class="col-md-4">
-		<legend>Reader Information</legend>
+		<legend>Read text from an image</legend>
 
 			<form action = "/uploadreader" method = "POST"
 				  enctype = "multipart/form-data">
@@ -37,7 +48,7 @@
 		<br>
     </div>
 	<div class="col-md-4">
-		<legend>Finder Information</legend>
+		<legend>Find a word in an image</legend>
 
 			<form action = "/uploadfinder" method = "POST"
 				  enctype = "multipart/form-data">
