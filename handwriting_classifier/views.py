@@ -92,6 +92,7 @@ def predict():
     networks = ['Select Neural Network:', 'Simple', 'Convolutional', 'Siamese']
     global predictcount
     if predictcount == 0:
+        print ("Hello")
         return render_template(
             'predictEX.html',
             networks=networks,
@@ -169,7 +170,7 @@ def upload_file():
                     print ("Siamese")
                     Image1 = 'photos/imageOne' + extension1
                     Image2 = 'photos/imageTwo' + extension2
-                    Model = 'siamese stuff/m1.model'
+                    Model = 'siamese stuff/84s.model'
                     Width = '256'
                     Height = '64'
                     os.system("python predict2.py -i1 {} -i2 {} -m {} -w {} -h {}".format(Image1, Image2, Model, Width, Height)) if win else os.system("python3 predict2.py -i1 {} -i2 {} -m {} -w {} -h {}".format(Image1, Image2, Model, Width, Height)) 
