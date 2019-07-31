@@ -39,6 +39,16 @@ def add_header(r):
     return r
 
 @app.route('/')
+def counter():
+    global count
+    count = 0
+    global readcount
+    readcount = 0
+    return render_template(
+        'home.html',
+        title='Home',
+        year=datetime.now().year,
+    )
 @app.route('/home')
 def home():
     """Renders the home page."""
@@ -77,20 +87,32 @@ def predict():
             name = request.form['resultname']
             os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
 """
-    with open('handwriting_classifier/static/truefalse.txt', 'r') as g:
-        truefalse = g.read()
+    global count
     networks = ['Select Neural Network:', 'Simple', 'Convolutional', 'Siamese']
-    return render_template(
-        'predict.html',
-        truefalse=truefalse,
-        networks=networks,
-        title='Compare',
-        year=datetime.now().year,
-        message='This program will combine then compare two handwriting images and output whether or not they were written by the same person.'
-    )
+    if count == 0:
+        return render_template(
+            'predictEX.html',
+            networks=networks,
+            title='Compare',
+            year=datetime.now().year,
+            message='This program will combine then compare two handwriting images and output whether or not they were written by the same person.'
+        )
+    else:
+        with open('handwriting_classifier/static/truefalse.txt', 'r') as g:
+            truefalse = g.read()
+        return render_template(
+            'predict.html',
+            truefalse=truefalse,
+            networks=networks,
+            title='Compare',
+            year=datetime.now().year,
+            message='This program will combine then compare two handwriting images and output whether or not they were written by the same person.'
+        )
 
 @app.route('/uploader', methods=['GET', 'POST'])
 def upload_file():
+    global count
+    count = count + 1
     if request.method =='POST':
         file = request.files['file']
         file2 = request.files['file2']
@@ -159,6 +181,8 @@ def upload_file():
     
 @app.route('/uploadreader', methods=['GET', 'POST'])
 def text_reader():
+    global readcount
+    readcount = readcount + 1
     if request.method =='POST':
         file = request.files['text']
         if file.filename == '':
@@ -182,6 +206,8 @@ def text_reader():
     
 @app.route('/uploadfinder', methods=['GET', 'POST'])
 def text_finder():
+    global readcount
+    readcount = readcount + 1
     if request.method =='POST':
         file = request.files['text']
         if file.filename == '':
@@ -217,21 +243,30 @@ def reader():
             TargetWord = request.form['targetword']
             os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
 """
-    #with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/ReadResults.txt", "r") as f:
-    with open('C:/Users/Allison and David/HandwritingClassifier/handwriting_classifier/static/ReadResults.txt', 'r') as f:
-        content = f.read()
-    #with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/SearchResults.txt", "r") as g:
-    with open('handwriting_classifier/static/SearchResults.txt', 'r') as g:
-        content2 = g.read()
-    """Renders the contact page."""
-    return render_template(
-        'reader.html',
-        content=content,
-        content2=content2,
-        title='Read',
-        year=datetime.now().year,
-        message='These programs take an image and either output the text or find the number of occurances for a specific word.'
-    )
+    global readcount
+    if readcount == 0:
+        return render_template(
+            'readerEX.html',
+            title='Read',
+            year=datetime.now().year,
+            message='These programs take an image and either output the text or find the number of occurances for a specific word.'
+        )
+    else:
+        #with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/ReadResults.txt", "r") as f:
+        with open('C:/Users/Allison and David/HandwritingClassifier/handwriting_classifier/static/ReadResults.txt', 'r') as f:
+            content = f.read()
+        #with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/SearchResults.txt", "r") as g:
+        with open('handwriting_classifier/static/SearchResults.txt', 'r') as g:
+            content2 = g.read()
+        """Renders the contact page."""
+        return render_template(
+            'reader.html',
+            content=content,
+            content2=content2,
+            title='Read',
+            year=datetime.now().year,
+            message='These programs take an image and either output the text or find the number of occurances for a specific word.'
+        )
 
 	
 @app.route('/run', methods=['GET', 'POST'])
