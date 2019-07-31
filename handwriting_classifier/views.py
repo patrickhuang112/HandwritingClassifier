@@ -89,6 +89,16 @@ def predict():
 """
     global count
     networks = ['Select Neural Network:', 'Simple', 'Convolutional', 'Siamese']
+<<<<<<< HEAD
+    return render_template(
+        'predict.html',
+        truefalse=truefalse,
+        networks=networks,
+        title='Compare',
+        year=datetime.now().year,
+        message='This program will combine then compare two handwriting images and output whether or not they were written by the same person. Click for more information'
+    )
+=======
     if count == 0:
         return render_template(
             'predictEX.html',
@@ -108,6 +118,7 @@ def predict():
             year=datetime.now().year,
             message='This program will combine then compare two handwriting images and output whether or not they were written by the same person.'
         )
+>>>>>>> c48baec402820ae976338e1d97da63e4100bd5b1
 
 @app.route('/uploader', methods=['GET', 'POST'])
 def upload_file():
