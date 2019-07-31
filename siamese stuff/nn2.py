@@ -1,3 +1,10 @@
+import sys
+if sys.platform == "darwin":
+    # Install the plaidml backend
+    import plaidml.keras
+    plaidml.keras.install_backend()
+
+
 from keras.layers.normalization import BatchNormalization
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.layers.core import Dropout, Activation, Dense
@@ -5,6 +12,7 @@ from keras.layers import Add, Flatten, Reshape
 from keras.models import Sequential, Model
 from keras import backend as K
 from keras.optimizers import SGD
+from keras.callbacks import ReduceLROnPlateau
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder,OneHotEncoder
