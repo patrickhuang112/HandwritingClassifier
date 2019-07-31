@@ -36,6 +36,14 @@
 				<br />
 				<input type = "file" name = "file2"/>
 				<br>
+				<select name="network" method="POST" action="/compare">
+					<option value="{{networks[0]}}" selected>{{networks[0]}}</option>
+					{% for network in networks[1:] %}
+					<option value="{{network}}">{{network}}</option>
+					{% endfor %}
+				</select>
+				<br>
+				<br>
 				<input type="checkbox" name="predict" value="1" checked> Run Compare<br>
 				<br>
 				<input type = "submit" value= "Combine Images" class="btn btn-default"/>

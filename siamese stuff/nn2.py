@@ -127,7 +127,7 @@ y = 0
 # loop over the input images
 for imagePath in imagePaths[0]:
     amount += 1
-    if amount > 500:
+    if amount > 50000:
         break
 
     n = np.random.randint(2)
@@ -141,6 +141,8 @@ for imagePath in imagePaths[0]:
         else:
             imagePath1 = args["dataset"] + '/false/' + imagePaths[1][y*2]
             imagePath2 = args["dataset"] + '/false/' + imagePaths[1][y*2+1]
+            imagePath3 = args["dataset"] + '/false2/' + imagePaths[1][y*2]
+            imagePath4 = args["dataset"] + '/false2/' + imagePaths[1][y*2+1]
             y += 1
     except IndexError:
         break
@@ -155,7 +157,15 @@ for imagePath in imagePaths[0]:
     image2 = cv2.imread(imagePath2)
     image2 = cv2.resize(image2, (256, 64))
     data[1].append(image2)
-
+    
+    image1 = cv2.imread(imagePath1)
+    image1 = cv2.resize(image1, (256, 64))
+    data[0].append(image1)
+    
+    image2 = cv2.imread(imagePath2)
+    image2 = cv2.resize(image2, (256, 64))
+    data[1].append(image2)
+    
     # extract the class label from the 
     # image path and update the labels list
     label = "true" if n == 1 else "false"
@@ -163,6 +173,7 @@ for imagePath in imagePaths[0]:
         labels.append(label)
         labels.append(label)
     else:
+        labels.append(label)
         labels.append(label)
 
 data = np.array(data)
@@ -210,8 +221,11 @@ model = create_model(256, 64, 3, classes)
 print("Succesfully created model")
 
 EPOCHS = 50
-BATCH_SIZE = 16
+BATCH_SIZE = 32
 LEARNING_RATE = 0.01
+
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
+                              patience=5, min_lr=0.001)
 
 print("Compiling model")
 opt = SGD(lr=LEARNING_RATE)
@@ -219,7 +233,7 @@ model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
 print("Succesfully compiled model")
 
 print("Fitting model")
-H = model.fit(x=[trainx1, trainx2], y=trainY, batch_size=BATCH_SIZE, epochs=EPOCHS, validation_data=([testx1, testx2], testY))
+H = model.fit(x=[trainx1, trainx2], y=trainY, batch_size=BATCH_SIZE, epochs=EPOCHS, callbacks=[reduce_lr], validation_data=([testx1, testx2], testY))
 print("Succesfully fitted model")
 
 # evaluate the network

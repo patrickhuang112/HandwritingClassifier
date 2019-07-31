@@ -79,9 +79,11 @@ def predict():
 """
     with open('handwriting_classifier/static/truefalse.txt', 'r') as g:
         truefalse = g.read()
+    networks = ['Select Neural Network:', 'Simple', 'Convolutional', 'Siamese']
     return render_template(
         'predict.html',
         truefalse=truefalse,
+        networks=networks,
         title='Compare',
         year=datetime.now().year,
         message='This program will combine then compare two handwriting images and output whether or not they were written by the same person. Click for more instructions'
@@ -119,17 +121,36 @@ def upload_file():
         name = 'combinedImage'
         os.system("python imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name)) if win else os.system("python3 imagecombiner.py --image1 {} --image2 {} --output_name {}".format(img1, img2, name))
 
-
-
-        ImagePath = 'handwriting_classifier/static/combinedImage.png'
-        Model = 'output/simple_nn2.model'
-        Width = '32'
-        Height = '32'
-        Flat = '1'
-
         try:
             if request.form['predict'] == '1':
-                os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
+                if request.form['network'] == "Select Neural Network:":
+                    print ("You fail")
+                elif request.form['network'] == "Simple":
+                    print ("Simple")
+                    ImagePath = 'handwriting_classifier/static/combinedImage.png'
+                    Model = 'output/simple_nn2.model'
+                    Width = '32'
+                    Height = '32'
+                    Flat = '1'
+                    os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
+                elif request.form['network'] == "Convolutional":
+                    print ("Convolutional")
+                    ImagePath = 'handwriting_classifier/static/combinedImage.png'
+                    Model = 'output/finalconvolutional.model'
+                    Width = '32'
+                    Height = '32'
+                    Flat = '0'
+                    os.system("python predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) if win else os.system("python3 predict.py --image {} --model {} --width {} --height {} --flatten {}".format(ImagePath, Model, Width, Height, str(Flat))) 
+                else:
+                    print ("Siamese")
+                    Image1 = 'photos/imageOne' + extension1
+                    Image2 = 'photos/imageTwo' + extension2
+                    Model = 'siamese stuff/m1.model'
+                    Width = '256'
+                    Height = '64'
+                    os.system("python predict2.py -i1 {} -i2 {} -m {} -w {} -h {}".format(Image1, Image2, Model, Width, Height)) if win else os.system("python3 predict2.py -i1 {} -i2 {} -m {} -w {} -h {}".format(Image1, Image2, Model, Width, Height)) 
+                    image = cv2.imread("handwriting_classifier/static/combinedImage.png")
+                    cv2.imwrite("handwriting_classifier/static/outputImage.png", image)
         except:
             pass
          
@@ -197,8 +218,7 @@ def reader():
             os.system("python handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) if win else os.system("python3 handwriting_word_search.py --image {} --target {}".format(ImagePathF, TargetWord)) 
 """
     #with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/ReadResults.txt", "r") as f:
-    #with open("C:/Users/galbraithja/HandwritingClassifier/handwriting_classifier/static/ReadResults.txt", "r") as f:
-    with open('handwriting_classifier/static/ReadResults.txt', 'r') as f:
+    with open('C:/Users/Allison and David/HandwritingClassifier/handwriting_classifier/static/ReadResults.txt', 'r') as f:
         content = f.read()
     #with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/SearchResults.txt", "r") as g:
     with open('handwriting_classifier/static/SearchResults.txt', 'r') as g:
@@ -226,7 +246,10 @@ def run():
                 subprocess.call(["python", "HandwritingGUI.py"])        
     return render_template('home.html')           
 
-
+'''@app.route('/dropdown', methods=['GET'])
+def dropdown():
+    networks = ['Select Neural Network:', 'Simple', 'Convolutional', 'Siamese']
+    return render_template('predict.html', networks=networks)'''
 
 
 @app.route('/game')
