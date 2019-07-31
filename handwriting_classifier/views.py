@@ -86,7 +86,7 @@ def predict():
         networks=networks,
         title='Compare',
         year=datetime.now().year,
-        message='This program will combine then compare two handwriting images and output whether or not they were written by the same person. Click for more instructions'
+        message='This program will combine then compare two handwriting images and output whether or not they were written by the same person. Click for more information'
     )
 
 @app.route('/uploader', methods=['GET', 'POST'])
