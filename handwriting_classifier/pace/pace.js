@@ -33,6 +33,8 @@
   };
 
   now = function() {
+
+
     var _ref;
     return (_ref = typeof performance !== "undefined" && performance !== null ? typeof performance.now === "function" ? performance.now() : void 0 : void 0) != null ? _ref : +(new Date);
   };
@@ -931,5 +933,6 @@
       Pace.start();
     }
   }
-
+  
+  
 }).call(this);
