@@ -3,7 +3,9 @@
 
 # For using opencl
 import os
-os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
+import sys
+if sys.platform == "darwin":
+	os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
 
 # set the matplotlib backend so figures can be saved in the background
 import matplotlib
@@ -23,7 +25,6 @@ import argparse
 import random
 import pickle
 import cv2
-import os
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
