@@ -56,7 +56,7 @@ If you'd like you can train the neural networks with your own data or change the
 	pip install plaidml 
 **Note:** If you are on not on macos then plaidml is not necessary  
 
-The neural networks take a dataset, model location, and plot location as the arguments. e.g. ```python train_simple_nn.py -d data -m simple_nn_network.model -p plot.png``` Datasets are not in the github repository. They can be found at [IAM](http://www.fki.inf.unibe.ch/databases/iam-handwriting-database)
+The neural networks take a dataset, model location, and plot location as the arguments. e.g. ```python train_simple_nn.py -d data -m simple_nn_network.model -p plot.png``` Datasets are not in the github repository. They can be found at [IAM](http://www.fki.inf.unibe.ch/databases/iam-handwriting-database) We used the words for training the convolutional and simple neural network, and the lines for the siamese dataset.
 
 # Those involved
 - [allisurp](https://github.com/alliesurp)
