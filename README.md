@@ -28,17 +28,17 @@ Python 3 (recommend python 3.6.#)
 	Darwin/MacOS: /usr/local/bin/tesseract
 
 ### Pip Installs (run website)
-- flask
-- pillow
+	pip install flask
+	pip install pillow
 	
 ### Pip Installs (run compare/combine)
-- numpy
-- tensorflow
-- keras
-- opencv-python
+	pip install numpy
+	pip install tensorflow
+	pip install keras
+	pip install opencv-python
 	
 ### Pip Installs (run read/find)
-- pytesseract
+	pip install pytesseract
 
 # Those involved
 - [allisurp](https://github.com/alliesurp)
