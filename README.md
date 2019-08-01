@@ -41,7 +41,7 @@ Python 3 (recommend python 3.6.#)
 - pytesseract
 
 # Those involved
-[allisurp](https://github.com/alliesurp)\n
-[AWOLASAP](https://github.com/AWOLASAP)\n
-[EmilyBecher](https://github.com/EmilyBecher)\n
-[patrickhuang112](https://github.com/patrickhuang112)\n
+[allisurp](https://github.com/alliesurp)
+[AWOLASAP](https://github.com/AWOLASAP)
+[EmilyBecher](https://github.com/EmilyBecher)
+[patrickhuang112](https://github.com/patrickhuang112)
