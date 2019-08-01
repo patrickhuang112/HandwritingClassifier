@@ -39,4 +39,10 @@ Python 3 (recommend python 3.6.#)
 	
 ### Pip Installs (run read/find)
 - pytesseract
+
+# Those involved
+- @alliesurp
+- @AWOLASAP
+- @EmilyBecher
+- patrickhuang112
 	
