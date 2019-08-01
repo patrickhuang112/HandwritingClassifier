@@ -18,9 +18,9 @@ The team created a website and a graphical user interface (GUI) to allow users t
 The team also implemented the pytesseract library which allows analysis of words within images. Within the website and GUI, a user is able to upload an image with handwritten or typed words and the Graphology APE will analyze the image and return with the words it reads in the image. There is also a word find feature where instead of returning all words found within an image, GAPE will return the number of instances of a specific user-defined word. 
 
 
-#Packages Needed to Run
+# Packages Needed to Run
 
-Python 3 (recommend python 3.6)
+Python 3 (recommend python 3.6.#)
 
 Download pytesseract to path
 	Windows: C:/Program Files/Tesseract-OCR/tesseract
