@@ -1,4 +1,5 @@
-# HandwritingClassifier
+# ![Nice pic of an ape being drawn](/logo.png?raw=true "Graphology A.P.E.") 
+# Graphology A.P.E.
 
 The Graphology A.P.E was a project by Allie Surprise, Emily Becher, Griffin Walraven and Patrick Huang for the Northwest Advanced Programming Workshop from July 15th to August 2nd. The project was focused on creating and training a neural network that could analyze two different handwriting samples and predict whether the two samples were written by the same person. 
 
