@@ -22,21 +22,21 @@ The team also implemented the pytesseract library which allows analysis of words
 
 Python 3 (recommend python 3.6.#)
 
-## Download pytesseract to path
+### Download pytesseract to path
 	Windows: C:/Program Files/Tesseract-OCR/tesseract
 	Linux: /usr/bin/tesseract
 	Darwin/MacOS: /usr/local/bin/tesseract
 
-## Pip Installs (run website)
+### Pip Installs (run website)
 - flask
 - pillow
 	
-## Pip Installs (run compare/combine)
+### Pip Installs (run compare/combine)
 - numpy
 - tensorflow
 - keras
 - opencv-python
 	
-## Pip Installs (run read/find)
+### Pip Installs (run read/find)
 - pytesseract
 	
