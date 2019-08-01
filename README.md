@@ -41,10 +41,22 @@ Python 3 (recommend python 3.6.#)
 	pip install pytesseract
 
 # Running the Website
-Location of files is very important to the program so be careful if you move files around. To run the server make sure you have the correct packages installed then run this command in the root of the repository
-	```
+Location of files is very important to the program so be careful if you move files around. To run the server make sure you have the correct packages installed then run this command in the root of the repository:  
+	
 	python runserver.py
-	```
+	
+# Training the neural networks
+If you'd like you can train the neural networks with your own data or change the hyperparemeters you can, just make sure you install the following packages in addition to the prior ones: 
+	
+	pip install scikit-learn
+	pip install pickle
+	pip install matplotlib
+	pip install imutils
+	pip install plaidml 
+**Note:** If you are on not on macos then plaidml is not necessary  
+
+The neural networks take a dataset, model location, and plot location as the arguments. e.g. ```python train_simple_nn.py -d data -m simple_nn_network.model -p plot.png``` Datasets are not in the github repository. They can be found at [IAM](http://www.fki.inf.unibe.ch/databases/iam-handwriting-database)
+
 # Those involved
 - [allisurp](https://github.com/alliesurp)
 - [AWOLASAP](https://github.com/AWOLASAP)
