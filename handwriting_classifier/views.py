@@ -257,7 +257,14 @@ def reader():
     else:
         #with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/ReadResults.txt", "r") as f:
         with open('handwriting_classifier/static/ReadResults.txt', 'r') as f:
-            content = f.read()
+            
+            f.seek(0) #ensure you're at the start of the file..
+            first_char = f.read(1) #get the first character
+            if not first_char:
+                print ("file is empty") #first character is the empty string..
+                content = "Unable to read text, try again with a clearer image."
+            else:
+                content = first_char + f.read()
         #with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/SearchResults.txt", "r") as g:
         with open('handwriting_classifier/static/SearchResults.txt', 'r') as g:
             content2 = g.read()
