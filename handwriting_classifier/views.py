@@ -256,7 +256,7 @@ def reader():
         )
     else:
         #with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/ReadResults.txt", "r") as f:
-        with open('C:/Users/Allison and David/HandwritingClassifier/handwriting_classifier/static/ReadResults.txt', 'r') as f:
+        with open('handwriting_classifier/static/ReadResults.txt', 'r') as f:
             content = f.read()
         #with open(os.path.expanduser('~')+"/"+"HandwritingClassifier/handwriting_classifier/static/SearchResults.txt", "r") as g:
         with open('handwriting_classifier/static/SearchResults.txt', 'r') as g:
