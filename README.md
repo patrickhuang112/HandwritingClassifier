@@ -40,6 +40,10 @@ Python 3 (recommend python 3.6.#)
 ### Pip Installs (run read/find)
 	pip install pytesseract
 
+# Running the Website
+Location of files is very important to the program so be careful if you move files around. To run the server make sure you have the correct packages installed then run this command in the root of the repository:
+	python runserver.py
+
 # Those involved
 - [allisurp](https://github.com/alliesurp)
 - [AWOLASAP](https://github.com/AWOLASAP)
