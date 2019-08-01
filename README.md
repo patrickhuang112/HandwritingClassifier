@@ -41,8 +41,8 @@ Python 3 (recommend python 3.6.#)
 - pytesseract
 
 # Those involved
-- @alliesurp
-- @AWOLASAP
-- @EmilyBecher
-- patrickhuang112
+@alliesurp
+@AWOLASAP
+@EmilyBecher
+@patrickhuang112
 	
