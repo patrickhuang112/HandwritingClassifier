@@ -49,10 +49,9 @@ Software, put simply, <b><i>DOES NOT EXIST</i></b>. Think about it for a second.
 </p>
 
 <p>
-	The first neural network used in this project is a simple feedfoward deep neural network. Images of handwriting sized 32 pixels wide
-	and 32 pixels high are flattened into a single flat line of pixels 1024 pixels long and 3 pixel high for the initial layer.
-	The data is then passed through two hidden layers before sorting into a final layer. The neurons in each layer are connected to each neuron
-	in every other layer.
+	The first network we used was a sequential deep neural network with four layers. This network accurately predicted
+	whether two samples were written by the same person 96% of the time, but in practice we found it overfitted
+	(memorized instead of learned from) the training data and was quite inaccurate with user-submitted images.
 	Here is the training progress:
        	<br>
 
@@ -71,15 +70,23 @@ Software, put simply, <b><i>DOES NOT EXIST</i></b>. Think about it for a second.
 	layer. Instead, neurons correspond with specific parts/section of images. The key advantages of a convolutional neural network
 	to a simple feedforward neural network are:
 <ul style="list-style-type:disc;">
-	<li>A reductiion in the number of parameters and neurons necessary</li>
+	<li>A reduction in the number of parameters and neurons necessary</li>
 	<li>Consideration of an area instead of single input, allowing for better analysis of text, video, audio etc.</li>
 </ul>
+In practice, the convolutional network was only slightly more accurate than the simple network with user-submitted images.
+Overfitting was a still large problem with this network.
+
 </p>
 
-
-<p>We created a graphical user interface to easily test and demonstrate our neural network. On the homepage, you can
-	launch the GUI application on the computer hosting the website by clicking the "Run here" button. Since it currently only
-	runs on the host computer, some screenshots are provided to showcase the GUI to those unable to run it themselves.
+<p>The final neural network we settled on was a siamese neural network. The siamese network instead used two identical
+	convolutional networks, one for each image, before merging the two convolutional networks into a sequential network.
+	Siamese networks are useful for facial recognition, one-shot learning, and other comparison based tasks. Our network
+	resulted in a 84% test accuracy with 3000 pieces of data over 50 epochs. With the size of the dataset, the network
+	performed very well, much better than our other two overfitting networks.</p>
+<br>
+<p>Initially, we created a graphical user interface to easily test and demonstrate our neural network. However, we have now
+	replaced the GUI with this website that enables the same functionalities on a wider range of devices. Since it now not
+	available to the public, some screenshots are provided to showcase the GUI.
 </p>
 <div id = "aboutgui">
 

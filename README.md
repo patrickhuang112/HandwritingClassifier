@@ -62,7 +62,7 @@ If you'd like you can train the neural networks with your own data or change the
 The neural networks take a dataset, model location, and plot location as the arguments. e.g. ```python train_simple_nn.py -d data -m simple_nn_network.model -p plot.png``` Datasets are not in the github repository. They can be found at [IAM](http://www.fki.inf.unibe.ch/databases/iam-handwriting-database) We used the words for training the convolutional and simple neural network, and the lines for the siamese dataset.
 
 # Those involved
-- [allisurp](https://github.com/alliesurp)
+- [alliesurp](https://github.com/alliesurp)
 - [AWOLASAP](https://github.com/AWOLASAP)
 - [EmilyBecher](https://github.com/EmilyBecher)
 - [patrickhuang112](https://github.com/patrickhuang112)
