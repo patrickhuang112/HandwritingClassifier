@@ -17,5 +17,3 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 import handwriting_classifier.views
 
-
-
